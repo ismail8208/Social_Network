@@ -1,0 +1,42 @@
+
+
+
+<div *ngFor="let post of posts">
+
+  <div class="card postContainer" >
+    <div class="card-body" style="padding: 12px 0 4px 0;">
+      <div class="textbox">
+        <span>
+            <img [src]="user.profileImage" class="userImg">
+        </span>
+        lore
+    </div>
+      <p class="caption-text" style="margin: 0 24px 12px ;"> {{post.content}}</p>
+      <h5 class="card-title" >
+        <img class="mediaPost"  width="698" [src]="post.imageURL|converToRoot:'https://localhost:44447/api'" *ngIf="post.imageURL">
+        <video width="698"  controls controls *ngIf="post.videoURL">
+          <source [src]="post.videoURL|converToRoot:'https://localhost:44447/api'">
+        Your browser does not support the video tag.
+        </video>
+      </h5>
+      <p class="card-text"> </p>
+      <span>{{post.numberOfLikes}}</span>
+      <hr>
+      <span class=""><button class="reacts likehover" (click)="onLikeClicked(post.id)"  >
+          <i class="bi bi-hand-thumbs-up-fill"  [ngClass]="{ 'liked':post.Liked  }" ></i>
+          <span class="reactspan likehover "  [ngClass]="{ 'liked':post.Liked  }">Like</span>
+        </button></span>
+      <span><button class="reacts" (click)="openD()" (click)="send()" >
+          <i class="bi bi-chat-text-fill"></i>
+          <span class="reactspan">Comment</span>
+        </button></span>
+        <app-dialog [post]="post"></app-dialog>
+        <!-- (click)="openDialog() "-->
+      <span><button class="reacts"  >
+          <i class="bi bi-arrow-repeat"></i>
+          <span class="reactspan">Repost</span>
+        </button></span>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,130 @@
+<div class="profileBody">
+	<div class="card-container">
+		<!-- *ngIf="isAuthenticated | async" -->
+		<!-- <span class="edit" *ngIf="isOwner">Edit</span> -->
+		
+			<a class="edit" [routerLink]='["/authentication/profile"]' title="Manage" style="text-decoration:none" *ngIf="isOwner"> Edit </a>
+
+		<img class="round" [src]="user.profileImage" alt="user" />
+		<h3>{{user!.firstName+ " " + user.lastName}}</h3>
+		<h6>Syria</h6>
+		<p> here i will add sumary <br /> front-end developer</p>
+		<div class="follow">
+			<a [routerLink]="['/followers', user.id ]"  (click)="close()"  class="following">
+				<div>
+					{{user.numberOfFollowers}} followers
+				</div>
+			</a>
+
+			<a [routerLink]="['/followings', user.id ]"  (click)="close()"  class="following">
+				<div>
+					{{user.numberOfFollowings}} following
+				</div>
+			</a>
+		</div>
+
+		<div class="buttons">
+			<button class="primary">
+				Message
+			</button>
+			<button class="primary ghost" *ngIf="!isOwner" (click)="follow()">
+				Follow
+			</button>
+			<div class="dropdown">
+				<button class="primary dropdown-btn" aria-haspopup="menu">
+					<span>More</span>
+					<span class="arrow"></span>
+				</button>
+				<ul class="dropdown-content" role="menu">
+					<li (click)="enableSkillsSection()" style="--delay: 1;" *ngIf="isOwner">Add Skills Section</li>
+					<li (click)="enableEducationsSection()" style="--delay: 2;" *ngIf="isOwner">Add Education Section
+					</li>
+					<li (click)="enableExperiencesSection()" style="--delay: 3;" *ngIf="isOwner">Add Experience Section
+					</li>
+					<li (click)="enableAboutSection()" style="--delay: 3;" *ngIf="isOwner" >Add About Section
+					</li>
+					<li style="--delay: 4;">Add Post</li>
+				</ul>
+			</div>
+		</div>
+
+
+
+		<!-- about -->
+			<app-about [content]="user.summary" *ngIf="isAboutEnabled || user.summary.length"></app-about>
+		<!-- about -->
+
+		<!-- educations start-->
+		<div class="group" *ngIf="educations.length || isEducationsEnabled">
+			<h6>Educations</h6>
+			<app-add-education (selectdEducation)="addEducation($event)" (_listFilter)="searchEducation($event)"
+				[filteredEducations]="filteredEducations" *ngIf="isOwner"></app-add-education>
+			<ul *ngFor="let education of (showAllEducations ? educations : educations.slice(0, 2))">
+				<app-education [education]="education" (educationForUpdate)="chosenEducation($event)"
+					(educationForDeleted)="deleteEducation($event)" [isOwner]="isOwner"> </app-education>
+				<hr class="separate">
+			</ul>
+			<span class="show-all" (click)="toggleEducations()">{{textEducationbutton}}</span>
+		</div>
+		<app-update-education [education]="edu" (chosenEducation)="updateEducation($event)"></app-update-education>
+		<!-- educations end-->
+
+		<!-- experience start -->
+		<div class="group" *ngIf="experiences.length || isExperiencesEnabled">
+			<h6>Experiences</h6>
+			<app-add-experience (selectdExperience)="addExperience($event)" (_listFilter)="searchExperience($event)"
+				[filteredExperiences]="filteredExperiences" *ngIf="isOwner"></app-add-experience>
+			<ul *ngFor="let experience of (showAllExperiences ? experiences : experiences.slice(0, 2))">
+				<app-experience [experience]="experience" (experienceForUpdate)="chosenExperience($event)"
+					(experienceForDeleted)="deleteExperience($event)"> </app-experience>
+				<hr class="separate">
+			</ul>
+			<span class="show-all" (click)="toggleExperiences()">{{textExperiencebutton}}</span>
+		</div>
+		<app-update-experience [experience]="exper"
+			(chosenExperience)="updateExperience($event)"></app-update-experience>
+		<!-- experience end -->
+
+		<!-- skills start-->
+		<div class="group" *ngIf="skills.length || isSkillsEnabled">
+			<h6>Skills</h6>
+			<app-add-skill (selectedSKill)="addSkill($event)" (_listFilter)="searchSkills($event)"
+				[filteredSKills]="filteredSKills" *ngIf="isOwner"></app-add-skill>
+			<ul *ngFor="let skill of (showAllSkills ? skills : skills.slice(0, 2))">
+				<app-skill [skill]="skill" (skillForDeleted)="deleteSkill($event)" [isOwner]="isOwner"></app-skill>
+				<hr class="separate">
+			</ul>
+			<span class="show-all" (click)="toggleSkills()">{{textskillbutton}}</span>
+		</div>
+		<!-- skills end -->
+
+		<div>
+		</div>
+
+		<!-- <ng-template #listOptionsModalTemplate>
+			<div class="modal-header">
+				<h4 class="modal-title pull-left">Followers</h4>
+				<span aria-hidden="true" class="visually-hidden">&times;</span>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="reactions" *ngFor="let user of followers">
+						<ul>
+							
+							<img [src]="user.profileImage" alt="user" style="margin-right: 5px;" class="round-like">
+							<li [routerLinkActive]="['link-active']">
+								<a [routerLink]="['/profile', user.userName ]"  (click)="close()">
+								<span style="font-weight: bold;"> {{user.firstName+ " " + user.lastName}} </span>
+								<span style="font-weight: bold; display: block;">
+									<i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
+									{{user.userName}}</span>
+								</a>
+							</li>
+							<hr class="separateLike">
+						   
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</ng-template> -->

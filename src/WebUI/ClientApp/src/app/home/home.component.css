@@ -1,0 +1,21 @@
+hr{
+    width: 700px;
+    margin: auto;
+    color:#000000 ;
+   
+}
+
+
+@media (max-width: 705px) {
+    .homeContainer {
+        display:block;
+        
+    }
+  }
+  
+  @media (min-width: 706px) {
+    .homeContainer {
+      display:flex;
+      justify-content:space-around;
+    }
+  }

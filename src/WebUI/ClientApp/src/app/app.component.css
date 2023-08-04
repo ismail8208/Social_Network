@@ -1,0 +1,15 @@
+
+.profileBody{
+    background-color: #28223F;
+	font-family: Montserrat, sans-serif;
+    color: #B3B8CD;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	min-height: 100vh;
+	margin: 0;
+    padding: 0;
+	width: 100%;
+	height: 100%;
+}

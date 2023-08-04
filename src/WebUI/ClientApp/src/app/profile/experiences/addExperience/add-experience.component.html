@@ -1,0 +1,16 @@
+<span (click)="openD()" class="add-experience"><i class="fa fa-plus fa-lg"></i> </span>
+<div id="openModal" class="modalDialogAEX">
+    <div>
+      <span (click)="closeD()" title="Close" class="closeAEX">X</span>
+      <h2>Add <span style="font-weight: bold;">{{chosenExperience}}</span> experience</h2>
+      <!-- <p>This modal box is created using the powers of CSS3.</p> -->
+      <input type="text"  placeholder="Search" class="searchbar" [(ngModel)]="listFilter">
+      <textarea type="text"  placeholder="Description" class="searchbar" [(ngModel)]="description"></textarea>
+      <div *ngFor="let experience of filteredExperiences" class="existing-experience" (click)="chooseExperience(experience)">
+         {{experience.title}}
+      </div>
+      <button class="save" (click)="saveExperience()"  (click)="closeD()">
+        <span style="text-decoration: none; color: #2D2747;">Save</span>
+      </button>
+    </div>
+</div>

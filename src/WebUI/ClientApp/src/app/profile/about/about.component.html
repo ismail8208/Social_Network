@@ -1,0 +1,10 @@
+<div>
+    <div class="about">
+        <h6>About</h6>
+        <p [innerHTML]="displayedContent"></p>
+        <span *ngIf="displayedContent.length > 270">
+        <span *ngIf="isTruncated" (click)="showFullContent()" class="show-all">Read More</span>
+        <span *ngIf="!isTruncated" (click)="showTruncatedContent()" class="show-all">Read Less</span>
+    </span>
+    </div>
+</div>

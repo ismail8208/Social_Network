@@ -1,0 +1,49 @@
+.education ul {
+	list-style-type: none;
+	padding: 0px;
+}
+
+.education ul li {
+	border: 1px solid #2D2747;
+	border-radius: 2px;
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 7px 7px 0;
+	padding: 7px;
+}
+
+.delete {
+	color: #231E39;
+	background-color: #FEBB0B;
+	border-radius: 3px;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 3px 7px;
+    display: inline;
+}
+
+.delete:hover {
+    color: #03BFCB;
+}
+
+.details {
+	display: inline;
+	position: absolute;
+	right: 16px;
+}
+
+.edit {
+    color: #231E39;
+	background-color: #FEBB0B;
+	border-radius: 3px;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 3px 7px;
+	display: inline;
+	margin-left: 5px;	
+}
+
+.edit:hover {
+    color: #03BFCB;
+}
+

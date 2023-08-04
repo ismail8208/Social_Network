@@ -1,0 +1,72 @@
+.postContainer {
+    width: 700px;
+    height: 170px;
+    text-align: center;
+    margin: 1rem;
+    padding-bottom: 0;
+    
+    
+    padding: 0;
+
+}
+.textbox{
+    margin: 0;
+    padding: 0;
+
+
+}
+.userImg {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    border: 2px solid rgb(173, 157, 157);
+    object-fit: contain;
+    margin: 12px 8px 12px 2px;
+    
+}
+
+.reacts , .reactspan {
+    border: 0;
+    font-size: 1.2rem;
+
+    color: #686868;
+    background-color: transparent;
+    border-radius: 3px;
+    padding: 10px;
+    width: 210px;
+    height: 60px;
+    margin: 0;
+  
+
+}
+
+hr {
+    margin-bottom: 3px;
+}
+.startAPost:hover{
+    animation: 50ms;
+    background-color: rgba(231, 231, 231, 0.658);
+}
+.reacts:hover{
+    animation: 50ms;
+    background-color: rgba(231, 231, 231, 0.658);
+}
+
+.caption-text {
+    text-align: left;
+    font-size: 1.1rem;
+}
+
+.startAPost {
+    text-align: left;
+    padding-left: 20px;
+    color: #686868;
+    font-size:1.2rem ;
+    background-color: white;
+    width: 575px;
+    height: 60px;
+    border-radius: 50px;
+    border: 2px solid rgb(184, 184, 184);
+   
+
+}

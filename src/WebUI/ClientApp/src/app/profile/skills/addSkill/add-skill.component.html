@@ -1,0 +1,15 @@
+<span class="add-skill"><i class="fa fa-plus fa-lg" (click)="openD()"></i> </span>
+<div class="modalDialogAS">
+    <div>
+      <span (click)="closeD()" title="Close" class="closeAS">X</span>
+      <h2>Add <span style="font-weight: bold;">{{chosenSkill}}</span> Skill</h2>
+      <!-- <p>This modal box is created using the powers of CSS3.</p> -->
+      <input type="text" maxlength="12" placeholder="Search" class="searchbar" [(ngModel)]="listFilter">
+      <div *ngFor="let skill of filteredSKills" class="existing-skill" (click)="chooseSkill(skill)">
+         {{skill.title}}
+      </div>
+      <button class="save" (click)="saveSkill()">
+        <span (click)="closeD()" style="text-decoration: none; color: #2D2747;" >Save</span>
+      </button>
+    </div>
+</div>

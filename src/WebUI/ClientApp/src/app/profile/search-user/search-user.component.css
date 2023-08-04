@@ -1,0 +1,19 @@
+.search-box {
+    position: relative;
+  }
+  .searchbar {
+    font-size: 12px;
+    width: 100%;
+    height: 15%;
+    border: none;
+    outline: none;
+    border-radius: 10rem;
+    padding: 10px;
+    transition: all .1s;
+    transition-delay: .1s;
+  }
+  
+  .searchbar:hover {
+    border-radius: 0;
+    width: 20rem;
+  }

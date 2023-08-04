@@ -1,0 +1,133 @@
+.postContainer{
+  width: 700px;
+text-align: center;
+margin: 1rem;
+padding: 0;
+
+
+} 
+
+
+.reacts,.reactspan {
+  border: 0;
+  font-size: 1.2rem;
+  
+  color: #686868;
+  background-color: transparent;
+  border-radius: 3px;
+  padding: 10px;
+  width:210px;
+  height: 60px;
+ 
+}
+hr{
+  margin-bottom: 3px;
+}
+
+.reacts:hover {
+  animation: 50ms;
+  background-color: rgba(231, 231, 231, 0.658);
+}
+.caption-text{
+  text-align:left;
+  font-size: 1.1rem;
+}
+.textbox{
+  margin: 12px 12px 12px 24px;
+  width: 700px;
+  display: flex;
+
+}
+.card-title{
+  margin: 0;
+  display: flex;
+}
+.mediaPost{
+  margin: 0;
+  width: 700;
+  justify-content: center;
+}
+
+
+.userImg {
+justify-content: left;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  border: 2px solid rgb(173, 157, 157);
+  object-fit: contain;
+  margin: 12px 8px 12px 2px;
+  
+}
+
+.liked{
+  color: #068FFF ;
+
+
+}
+.likehover:hover{
+  animation: 50ms;
+  color: #068FFF ;
+  font-size: 1.3rem;
+
+
+}
+
+.custom-dialog-container {
+  background-color: white;
+  border-radius: 4px;
+  padding: 20px;
+}
+.dialog {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5); /* خلفية دايلوج شفافة مع لون أسود بنسبة انعكاس 50٪ */
+}
+
+.dialog-content {
+  
+  background-color: #fff; /* لون خلفية الدايلوج */
+  padding: 20px; /* هوامش داخلية للمحتوى */
+  border-radius: 5px; /* نصف قطر الحواف */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* ظل للدايلوج */
+}
+
+.dialog {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5); /* خلفية دايلوج شفافة مع لون أسود بنسبة انعكاس 50٪ */
+}.showDialog{
+
+  display: none;
+}
+
+.closeP {
+  background: #606061;
+  color: #FFFFFF;
+  line-height: 25px;
+  position: absolute;
+  right: -12px;
+  text-align: center;
+  top: -10px;
+  width: 24px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 12px;
+  border-radius: 12px;
+  box-shadow: 1px 1px 3px #000;
+  box-shadow: 1px 1px 3px #000;
+  }

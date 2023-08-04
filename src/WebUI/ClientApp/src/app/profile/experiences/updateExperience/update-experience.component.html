@@ -1,0 +1,11 @@
+<div id="editExperience" class="modalDialogUEX">
+    <div>
+      <span (click)="closeD()" title="Close" class="closeUEX">X</span>
+      <h2>Edit experience</h2>
+      <input type="text" placeholder="title" class="searchbar" [(ngModel)]="experience!.title">
+      <input type="text" placeholder="Description" class="searchbar" [(ngModel)]="experience!.description">
+      <button class="save" (click)="updateExperience()" (click)="closeD()">
+        <span  style="text-decoration: none; color: #2D2747;">Save</span>
+      </button>
+    </div>
+</div>

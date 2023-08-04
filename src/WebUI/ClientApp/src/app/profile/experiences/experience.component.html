@@ -1,0 +1,17 @@
+<div class="experience">
+    <ul>
+       <li>
+           <i class="fa fa-university" style="margin-right: 5px;"></i>
+           <span style="font-weight: bold;">{{experience!.title}}</span>  
+           <span style="font-weight: bold; display: block;">
+            <i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
+            {{experience!.description}}</span>  
+       </li>
+       <div class="details">
+        <div class="delete" ><i class="fa fa-trash fa-lg" aria-hidden="true" (click)="deleteExperience()"></i></div>
+        <span (click)="openD()"><div class="edit"><i class='fa fa-edit fa-lg' (click)="send()"></i> 
+        </div>
+        </span>
+       </div>
+    </ul>
+</div>
