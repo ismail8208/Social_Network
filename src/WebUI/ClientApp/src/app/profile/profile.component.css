@@ -61,6 +61,19 @@ button.primary {
 	padding: 10px 25px;
     margin: 5px;
 }
+
+button.primary.ghost {
+	background-color: transparent;
+	color: #02899C;
+    margin: 5px;
+}
+
+button.primary:active {
+	background-color: transparent;
+	color: #02899C;
+    margin: 5px;
+}
+
 .follow {
     display: flex;
     align-items: center;
@@ -77,11 +90,7 @@ button.primary {
 	color: #FEBB0B;
 }
 
-button.primary.ghost {
-	background-color: transparent;
-	color: #02899C;
-    margin: 5px;
-}
+
 .group {
 	background-color: #1F1A36;
 	text-align: left;

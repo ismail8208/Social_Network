@@ -5,7 +5,7 @@
 		
 			<a class="edit" [routerLink]='["/authentication/profile"]' title="Manage" style="text-decoration:none" *ngIf="isOwner"> Edit </a>
 
-		<img class="round" [src]="user.profileImage" alt="user" />
+		<img class="round" [src]="user.profileImage" alt="user"/>
 		<h3>{{user!.firstName+ " " + user.lastName}}</h3>
 		<h6>Syria</h6>
 		<p> here i will add sumary <br /> front-end developer</p>
@@ -27,9 +27,13 @@
 			<button class="primary">
 				Message
 			</button>
-			<button class="primary ghost" *ngIf="!isOwner" (click)="follow()">
+			<button class="primary ghost" *ngIf="!isOwner && isFolloing">
+				Followed
+			</button>
+			<button class="primary" *ngIf="!isOwner && !isFolloing && !followAgree" (click)="follow()" >
 				Follow
 			</button>
+			<!-- <span *ngIf="isFolloing"> true </span> -->
 			<div class="dropdown">
 				<button class="primary dropdown-btn" aria-haspopup="menu">
 					<span>More</span>
@@ -51,7 +55,7 @@
 
 
 		<!-- about -->
-			<app-about [content]="user.summary" *ngIf="isAboutEnabled || user.summary.length"></app-about>
+			<app-about [content]="user.summary" *ngIf="isAboutEnabled || (user.summary.length == null ? true : false) "></app-about>
 		<!-- about -->
 
 		<!-- educations start-->

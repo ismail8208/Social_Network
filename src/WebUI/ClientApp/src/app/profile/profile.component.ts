@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, TemplateRef, } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable, combineLatest, combineLatestWith, map, tap, firstValueFrom } from 'rxjs';
+import { Observable, combineLatest, combineLatestWith, map, tap, firstValueFrom, of } from 'rxjs';
 import {
   CreateEducationCommand, CreateExperienceCommand, CreateSkillCommand,
   EducationsClient, ExperiencesClient, SkillsClient,
@@ -23,6 +23,7 @@ import { setUser } from '../stateManagement/user.actions';
 import { selectUser } from '../stateManagement/user.selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { LocalService } from '../sheard/localService';
 
 
 
@@ -37,10 +38,22 @@ export class ProfileComponent implements OnInit {
 
 
   isAuthenticated?: boolean;
-  user: IUserDto | undefined;
+  isFolloing: boolean = false;
+  user: IUserDto = {
+    firstName: '',
+    lastName: '',
+    id: 0,
+    numberOfFollowers: 0,
+    profileImage: '',
+    numberOfFollowings: 0,
+    role: '',
+    summary: '',
+    userName: '',
+  };
   username: string;
   owner: IUserDto;
   isOwner: boolean;
+  followAgree: boolean = false;
 
   skills: ISkillDto[] = [];
   educations: IEducationDto[] = [];
@@ -82,37 +95,71 @@ export class ProfileComponent implements OnInit {
     private usersClient: UsersClient,
     private follows: FollowsClient,
     private modalService: BsModalService,
+    private localService: LocalService
   ) { }
 
   async ngOnInit() {
     this.isAuthenticated = await firstValueFrom(this.authorizeService.isAuthenticated());
-    this.owner = await firstValueFrom(this.store.pipe(select(selectUser)));
-    // , tap(item => this.isOwner = item.userName === this.router.snapshot.paramMap.get('username'))
-    // this.store.pipe(select(selectUser)).subscribe({
-    //   next: (data) => {
-    //     if (data) {
-    //       this.owner = data;
-    //     }
-    //   },
-    // });
 
     this.username = this.router.snapshot.paramMap.get('username');
-    this.isOwner = true;
-    // this.isOwner = this.owner.userName === this.username;
 
-    this.usersClient.get(this.username).subscribe(
-      {
-        next: data => {
-          this.user = data;
-          if (data.profileImage) {
-            this.user.profileImage = `https://localhost:44447/api/Images/${data.profileImage}`;
-          }
-          else {
-            this.user.profileImage = 'https://localhost:44447/api/Images/2b388861-8663-4843-9f65-5481388e927d_Screenshot 2023-05-06 211008.png';
-          }
-        }
-      }
-    )
+    this.isOwner = this.localService.getData('username') === this.username;
+
+    this.user = await firstValueFrom(this.usersClient.get(this.username).pipe(
+      map(data => ({
+        // ...data,
+        profileImage: data.profileImage != null ? data.profileImage = `https://localhost:44447/api/Images/${data.profileImage}` : data.profileImage = 'https://localhost:44447/api/Images/2b388861-8663-4843-9f65-5481388e927d_Screenshot 2023-05-06 211008.png',
+        summary: data.summary != null ? data.summary : '',
+        firstName: data.firstName ?? '',
+        lastName: data.lastName ?? '',
+        id: data.id ?? 0,
+        numberOfFollowers: data.numberOfFollowers ?? 0,
+        numberOfFollowings: data.numberOfFollowings ?? 0,
+        role: data.role ?? '',
+        userName: data.userName ?? ''
+
+      })
+      )
+    ))
+    // this.usersClient.get(this.username).subscribe(
+    //   {
+    //     next: data => {
+    //       this.user = data;
+    //       if (data.profileImage) {
+    //         this.user.profileImage = `https://localhost:44447/api/Images/${data.profileImage}`;
+    //       }
+    //       else {
+    //         this.user.profileImage = 'https://localhost:44447/api/Images/2b388861-8663-4843-9f65-5481388e927d_Screenshot 2023-05-06 211008.png';
+    //       }
+    //     }
+    //   }
+    // )
+
+    //  this.isFolloing = await firstValueFrom(this.follows.getFollowingsWithPagination(this.user.id, 1, 20).pipe(
+    //     map(res => {
+    //       const f = res.items.find(u => u.userName === this.owner.userName);
+    //         if(f)
+    //         {
+    //           return of(true);
+    //         }
+    //         else return of(false);
+    //     }
+    //     )
+    //   )
+    //  )
+    this.checkIfUserFolloing();
+    // this.follows.getFollowingsWithPagination(this.user.id, 1, 20).subscribe(
+    //   {
+    //     next: data => {
+    //       const f = data.items.find(u => u.userName == localStorage.getItem('username'));
+    //       if(f)
+    //       {
+    //         this.isFolloing = true;
+    //       }
+    //       else this.isFolloing = false;
+    //     }
+    //   }
+    // )
 
     this.skillsClinet.getSkillsWithPagination(this.user.id, 1, 40).subscribe({
       next: (skills) => {
@@ -297,14 +344,39 @@ export class ProfileComponent implements OnInit {
   follow() {
     let entity: IFollowCommand =
     {
-      userId: this.owner.id,
+      userId: parseInt(this.localService.getData('id')),
       specificUserId: this.user.id
     }
-    this.follows.follow(entity as FollowCommand).subscribe()
+    this.follows.follow(entity as FollowCommand).subscribe(
+      {
+        next: data => {
+          if (data > 0) {
+            this.followAgree = false;
+          }
+          else {
+            this.followAgree = true;
+          }
+        }
+      }
+    )
   }
 
   close() {
     this.redirectDetailsModalRef.hide();
+  }
+
+  checkIfUserFolloing(): any {
+    this.follows.getFollowingsWithPagination(this.user.id, 1, this.user.numberOfFollowings).subscribe(
+      {
+        next: data => {
+          const f = data.items.find(u => u.userName == localStorage.getItem('username'));
+          if (f) {
+            this.isFolloing = true;
+          }
+          else this.isFolloing = false;
+        }
+      }
+    )
   }
 
 }

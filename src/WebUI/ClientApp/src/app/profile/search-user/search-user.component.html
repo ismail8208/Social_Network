@@ -1,3 +1,26 @@
-<div class="search-box">
-    <input type="text"  placeholder="Search" class="searchbar">
+<div class="search-box" (click)="openD()">
+<!-- <button> <i class='fa fa-search' style="font-size:25px"></i>Serach</button> -->
+<input type="text" placeholder="Search" [(ngModel)]="mylistFilter">
+</div>
+<div class="search-result">
+    <div>
+      <span  title="Close" class="closeAS" (click)="closeD()">X</span>
+      <h4>Result</h4>
+      <div class="reactions" *ngFor="let user of users">
+        <ul (click)="closeD()">
+            <img [src]="user.profileImage" alt="user" style="margin-right: 5px;" class="round-like">
+            <li [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/profile', user.userName ]">
+                <span style="font-weight: bold;"> {{user.firstName+ " " + user.lastName}} </span>
+                <span style="font-weight: bold; display: block;">
+                    <i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
+                    {{user.userName}}</span>
+                </a>
+            </li>
+            <hr class="separateLike">
+           
+        </ul>
+    </div>
+      <!-- <p>This modal box is created using the powers of CSS3.</p> -->
+    </div>
 </div>

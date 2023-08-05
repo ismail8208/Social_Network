@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LocalService } from './sheard/localService';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-  constructor() {}
+  constructor(private localStore: LocalService) {}
   
 }

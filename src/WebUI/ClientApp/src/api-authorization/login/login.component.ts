@@ -6,6 +6,7 @@ import { LoginActions, QueryParameterNames, ApplicationPaths, ReturnUrlType } fr
 import { IUserDto, UsersClient } from 'src/app/web-api-client';
 import { Store } from '@ngrx/store';
 import { setUser } from 'src/app/stateManagement/user.actions';
+import { LocalService } from 'src/app/sheard/localService';
 
 // The main responsibility of this component is to handle the user's login process.
 // This is the starting point for the login process. Any component that needs to authenticate
@@ -26,7 +27,9 @@ export class LoginComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private store: Store,
     private userClient: UsersClient,
-    private router: Router) { }
+    private router: Router,
+    private localService: LocalService
+    ) { }
 
   async ngOnInit() {
     const action = this.activatedRoute.snapshot.url[1];
@@ -68,6 +71,8 @@ export class LoginComponent implements OnInit {
           next: data => {
             this.user = data
             if (data) {
+              this.localService.saveData('username',data.userName)
+              this.localService.saveData('id',data.id + '')
               if (data.profileImage) {
                 this.user.profileImage = `https://localhost:44447/api/Images/${data.profileImage}`;
               } else {
@@ -103,6 +108,8 @@ export class LoginComponent implements OnInit {
           next: data => {
             this.user = data
             if (data) {
+              this.localService.saveData('username',data.userName)
+              this.localService.saveData('id',data.id + '')
               if (data.profileImage) {
                 this.user.profileImage = `https://localhost:44447/api/Images/${data.profileImage}`;
               } else {
