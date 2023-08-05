@@ -4,7 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using WebUI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+/*var connectionString = builder.Configuration.GetConnectionString("WebUIContextConnection") ?? throw new InvalidOperationException("Connection string 'WebUIContextConnection' not found.");
 
+builder.Services.AddDbContext<WebUIContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<WebUIContext>();
+*/
 // Add services to the container.
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
