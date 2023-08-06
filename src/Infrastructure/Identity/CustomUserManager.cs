@@ -1,10 +1,15 @@
-﻿using System.Security.Claims;
+﻿using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using IdentityModel;
 using IdentityModel.Client;
 using MediaLink.Application.Common.Exceptions;
 using MediaLink.Application.Common.Interfaces;
 using MediaLink.Application.Users.Commands.CreateUserCommand;
+using MediaLink.Application.Users.Commands.UpdateUserCommand;
+using MediaLink.Application.Users.Queries.FindUser;
+using MediaLink.Application.Users.Queries.GetUser;
+using MediaLink.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -113,4 +118,36 @@ public class CustomUserManager : UserManager<ApplicationUser>
 
         return base.AddToRoleAsync(user, role);
     }
+
+
+    /*public async Task<bool> UpdateInnerUser(InnerUser user)
+    {
+        var appUser = await FindByNameAsync(user.UserName!);
+
+        if (appUser == null)
+        {
+            throw new NotFoundException(nameof(user));
+        }
+
+        appUser.FirstName = user.FirstName;
+        appUser.LastName = user.LastName;
+        var result = await UpdateAsync(appUser);
+
+        if (result.Succeeded)
+        {
+            UpdateUserCommand updateCommand = new UpdateUserCommand();
+            updateCommand.Summary = user.Summary;
+            updateCommand.FirstName = user.FirstName;
+            updateCommand.LastName = user.LastName;
+            updateCommand.ProfileImage = user.ProfileImage;
+            await _mediator.Send(updateCommand);
+
+        }
+        return result.Succeeded;
+    }*/
+
+    /*    public async Task<UserDto> GetInnerUser(string username)
+        {
+           return await _mediator.Send(new GetUserQuery(username));
+        }*/
 }

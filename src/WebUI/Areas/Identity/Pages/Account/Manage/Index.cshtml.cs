@@ -6,10 +6,17 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using MediaLink.Application.Common.Exceptions;
+using MediaLink.Application.Common.Interfaces;
+using MediaLink.Application.CVService.DTOs;
+using MediaLink.Application.Users.Commands.UpdateUserCommand;
+using MediaLink.Domain.Entities;
 using MediaLink.Infrastructure.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebUI.Areas.Identity.Pages.Account.Manage
 {
@@ -17,13 +24,19 @@ namespace WebUI.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
+        private readonly IApplicationDbContext _context;
+        private readonly ISender _mediator;
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IApplicationDbContext context,
+            ISender mediator
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -31,6 +44,8 @@ namespace WebUI.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public string Username { get; set; }
+        public string ImageUrl { get; private set; }
+
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -59,18 +74,37 @@ namespace WebUI.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Display(Name = "Summary")]
+            public string Summary { get; set; }
+
+            [Display(Name = "Profile Image")]
+            public string ProfileImage { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var innerUser = await _context.InnerUsers.FirstOrDefaultAsync(u => u.UserName == userName && u.IsDeleted == false);
 
             Username = userName;
+            ImageUrl = innerUser.ProfileImage;
+
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = innerUser.FirstName,
+                LastName = innerUser.LastName,
+                Summary = innerUser.Summary,
+                ProfileImage = innerUser.ProfileImage
             };
         }
 
@@ -111,9 +145,52 @@ namespace WebUI.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            try
+            {
+                var innerUser = await _context.InnerUsers.FirstOrDefaultAsync(u => u.UserName == user.UserName && u.IsDeleted == false);
+                innerUser.FirstName = Input.FirstName;
+                innerUser.LastName = Input.LastName;
+                innerUser.Summary = Input.Summary;
+/*                innerUser.ProfileImage = Input.ProfileImage;
+*/                var res = await UpdateInnerUser(innerUser);
+            }
+            catch (Exception e)
+            {
+
+            }
+
+
+
+
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
+        }
+
+        public async Task<bool> UpdateInnerUser(InnerUser user)
+        {
+            var appUser = await _userManager.FindByNameAsync(user.UserName!);
+
+            if (appUser == null)
+            {
+                throw new NotFoundException(nameof(user));
+            }
+
+            appUser.FirstName = user.FirstName;
+            appUser.LastName = user.LastName;
+            var result = await _userManager.UpdateAsync(appUser);
+
+            if (result.Succeeded)
+            {
+                UpdateUserCommand updateCommand = new UpdateUserCommand();
+                updateCommand.Summary = user.Summary;
+                updateCommand.FirstName = user.FirstName;
+                updateCommand.LastName = user.LastName;
+/*                updateCommand.ProfileImage = user.ProfileImage;
+*/                await _mediator.Send(updateCommand);
+
+            }
+            return result.Succeeded;
         }
     }
 }
