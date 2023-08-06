@@ -1,10 +1,16 @@
+a{
+  text-decoration: none;
+  color: #686868;
+}
+
+
 .postContainer{
   width: 700px;
 text-align: center;
 margin: 1rem;
 padding: 0;
 
-
+box-shadow: 0 2px 8px rgba(156, 156, 156, 0.4); /* ظل للدايلوج */
 } 
 
 
@@ -22,6 +28,14 @@ padding: 0;
 }
 hr{
   margin-bottom: 3px;
+  margin-top:  0px; ;
+}
+.mainhr{
+  width: 700px;
+  margin: auto;
+  color:#000000 ;
+  text-align: center;
+ 
 }
 
 .reacts:hover {
@@ -33,7 +47,7 @@ hr{
   font-size: 1.1rem;
 }
 .textbox{
-  margin: 12px 12px 12px 24px;
+  margin: 0px 12px 12px 24px;
   width: 700px;
   display: flex;
 
@@ -54,21 +68,22 @@ justify-content: left;
   width: 60px;
   height: 60px;
   border-radius: 60px;
-  border: 2px solid rgb(173, 157, 157);
   object-fit: contain;
   margin: 12px 8px 12px 2px;
-  
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
+
 
 .liked{
   color: #068FFF ;
 
 
 }
+
 .likehover:hover{
   animation: 50ms;
   color: #068FFF ;
-  font-size: 1.3rem;
+
 
 
 }
@@ -130,4 +145,69 @@ justify-content: left;
   border-radius: 12px;
   box-shadow: 1px 1px 3px #000;
   box-shadow: 1px 1px 3px #000;
+  }
+
+  .text-body{
+    text-align: left;
+    margin-top: 18px;
+
+
+  }
+  .number {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .numberOfLikes{
+    margin: 12px 20px;
+    display: flex;
+    align-items: center;
+    
+
+  }
+  
+  .numberOfComment{
+    margin: 12px 20px;
+    display: flex;
+  align-items: center;
+  justify-content: flex-end;
+ 
+
+  }
+  .numberOfComment2,.numberOfComment:hover{
+    animation: 50ms;
+    cursor: pointer;
+  
+  }
+
+  .numberOfComment2{
+    margin: 12px 20px;
+    text-align: right;
+    align-items: center;
+  }
+
+  
+   
+  
+  .numberOfComment span:first-child {
+    margin-right: 7px;
+  }
+  
+  .commentimg{
+    margin:3px 8px 8px 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+
+  }
+  .commentDetails{
+    margin: 3px 8px 8px 8px;
+    display: flex;
+    align-items: center;
+  
+  }
+  .commentDetails-body{
+    text-align: left;
+    margin-top: 8px;
+
+
   }

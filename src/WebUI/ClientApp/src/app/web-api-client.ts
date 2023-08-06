@@ -4701,6 +4701,7 @@ export class CommentDto implements ICommentDto {
     postId?: number | undefined;
     userId?: number;
     userName?: string | undefined;
+    created?: Date;
 
     constructor(data?: ICommentDto) {
         if (data) {
@@ -4718,6 +4719,7 @@ export class CommentDto implements ICommentDto {
             this.postId = _data["postId"];
             this.userId = _data["userId"];
             this.userName = _data["userName"];
+            this.created = _data["created"] ? new Date(_data["created"].toString()) : <any>undefined;
         }
     }
 
@@ -4735,6 +4737,7 @@ export class CommentDto implements ICommentDto {
         data["postId"] = this.postId;
         data["userId"] = this.userId;
         data["userName"] = this.userName;
+        data["created"] = this.created ? this.created.toISOString() : <any>undefined;
         return data;
     }
 }
@@ -4745,6 +4748,7 @@ export interface ICommentDto {
     postId?: number | undefined;
     userId?: number;
     userName?: string | undefined;
+    created?: Date;
 }
 
 export class PaginatedListOfCommentForJobDto implements IPaginatedListOfCommentForJobDto {

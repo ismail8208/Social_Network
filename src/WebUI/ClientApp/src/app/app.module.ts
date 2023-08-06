@@ -32,7 +32,6 @@ import { UpdateExperienceComponent } from './profile/experiences/updateExperienc
 import { converToRoot } from './sheard/conver-to-root.pip';
 import { PostComponent } from './home/post/post.component';
 import { AddPostCardComponent } from './home/addPostCard/addPostCard.component';
-import { DialogComponent } from './home/post/DialogComponent/dialog.component';
 import { ConvertToUrl } from './sheard/convert-to-url';
 import { FollowersComponent } from './profile/follow/followers.component';
 import { FollowingsComponent } from './profile/follow/followings.component';
@@ -60,7 +59,6 @@ import { SearchUserComponent } from './profile/search-user/search-user.component
     converToRoot,
     PostComponent,
     AddPostCardComponent,
-    DialogComponent,
     ConvertToUrl,
     FollowersComponent,
     FollowingsComponent,

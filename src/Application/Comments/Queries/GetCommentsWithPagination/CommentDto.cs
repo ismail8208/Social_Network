@@ -10,6 +10,7 @@ public class CommentDto : IMapFrom<Comment>
     public int? PostId { get; set; }
     public int UserId { get; set; }
     public string? UserName { get; set; }
+    public DateTime Created { get; set; }
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Comment, CommentDto>()

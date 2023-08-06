@@ -1,23 +1,25 @@
 <div class="card postContainer">
 
     <div class="card-body">
-        <div class="textbox">
+        <div class="textbox" (click)="showNewPostModal(newPostModalTemplate)">
             <span>
-                <img src="" class="userImg">
+                <a href="" [routerLink]="['/profile/{{Comment.userName}}']">  <img [src]="user.profileImage" class="userImg"></a>
             </span>
             <span><button class="startAPost">
                     start a post
                 </button></span>
+    
         </div>
-        <span><button class="reacts">
-                <i class="bi bi-image"></i>
+        
+        <span><button class="reacts" >
+                <i class="bi bi-image" style="color:green"></i>
                 <span class="reactspan">Photo</span>
             </button></span>
         <span><button class="reacts">
-                <i class="bi bi-play-btn-fill"></i>
+                <i class="bi bi-play-btn-fill"  style="color:darkred"></i>
                 <span class="reactspan">Video</span>
             </button></span>
-        <span><button class="reacts">
+        <span *ngIf="user.role=='admin'"><button class="reacts">
                 <i class="bi bi-briefcase-fill"></i>
                 <span class="reactspan">Job</span>
             </button></span>
@@ -25,3 +27,31 @@
     </div>
 
 </div>
+
+<ng-template #newPostModalTemplate>
+    <div class="modal-header">
+        <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="newPostCancelled()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div>
+        <h4 class="modal-title pull-left"></h4>
+        <div class="form-group">
+            <label for="title">content</label>
+            <input type="text" class="form-control" id="content" placeholder="Write your post..."
+                [(ngModel)]="newPost.content" />
+            <label for="title">image</label>
+            <input type="file" class="form-control" id="image" placeholder="Chose photo..."
+                [(ngModel)]="newPost.image" />
+            <label for="title">video</label>
+            <input type="file" class="form-control" id="video" placeholder="Chose video..."
+                [(ngModel)]="newPost.video" />
+        </div>
+    </div>
+    <div class="modal-footer clearfix">
+        <div class="float-end">
+            <button class="btn btn-default" (click)="newPostCancelled()">Cancel</button>
+            <button class="btn btn-primary" (click)="addPost()">Create</button>
+        </div>
+    </div>
+</ng-template>

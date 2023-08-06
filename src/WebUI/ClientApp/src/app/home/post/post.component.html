@@ -1,42 +1,123 @@
+<div class="col2">
+  <app-addPostCard></app-addPostCard>
+  <hr class="mainhr" >
+  <p *ngIf="!posts"><em>Loading...</em></p>
+  <div *ngFor="let post of posts">
+
+    <div class="card postContainer">
+      <div class="card-body" style="padding: 12px 0 4px 0;">
+        <div class="textbox">
+          <span>
+            <a href="" [routerLink]="['/profile/{{post.Comment.userName}}']"> <img [src]="user.profileImage"
+                class="userImg"></a>
+          </span>
+          <a href="" [routerLink]="['/profile', post.userName]">
+            <h6 class="text-body">
+              <span class="big text-muted font-weight">{{post.userName}}</span>
+              <br>
+              <span class="small text-muted font-weight-normal"> {{getFormattedDate(post.created) }}</span>
+            </h6>
+          </a>
+        </div>
+        <div>
+          <p class="caption-text" style="margin: 0 24px 12px ;"> {{post.content}}</p>
+          <h5 class="card-title">
+            <img class="mediaPost" width="698" [src]="post.imageURL|converToRoot:'https://localhost:44447/api'"
+              *ngIf="post.imageURL">
+            <video width="698" controls controls *ngIf="post.videoURL">
+              <source [src]="post.videoURL|converToRoot:'https://localhost:44447/api'">
+              Your browser does not support the video tag.
+            </video>
+          </h5>
+        </div>
+        <div class="number">
+          <span class="numberOfLikes" *ngIf="post.numberOfLikes != 0" style="color:#068fff;">
+            <i class="bi bi-hand-thumbs-up-fill"></i>
+            <span style="margin-left: 7px;">{{post.numberOfLikes}}</span>
+          </span>
+          <span class="numberOfComment" *ngIf="post.numberOfLikes != 0 &&post.numberOfComments !=0 "
+            style="color: #686868" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
+            <span style="margin-right: 7px;">{{post.numberOfComments}}</span>
+            <span>Comments</span>
+          </span>
+
+        </div>
+        <div class="numberOfComment2" *ngIf="post.numberOfLikes == 0 && post.numberOfComments !=0"
+          style="color: #686868" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
+          <span style="margin-right: 7px;">{{post.numberOfComments}}</span>
+          <span>Comments</span>
+        </div>
 
 
-
-<div *ngFor="let post of posts">
-
-  <div class="card postContainer" >
-    <div class="card-body" style="padding: 12px 0 4px 0;">
-      <div class="textbox">
-        <span>
-            <img [src]="user.profileImage" class="userImg">
-        </span>
-        lore
-    </div>
-      <p class="caption-text" style="margin: 0 24px 12px ;"> {{post.content}}</p>
-      <h5 class="card-title" >
-        <img class="mediaPost"  width="698" [src]="post.imageURL|converToRoot:'https://localhost:44447/api'" *ngIf="post.imageURL">
-        <video width="698"  controls controls *ngIf="post.videoURL">
-          <source [src]="post.videoURL|converToRoot:'https://localhost:44447/api'">
-        Your browser does not support the video tag.
-        </video>
-      </h5>
-      <p class="card-text"> </p>
-      <span>{{post.numberOfLikes}}</span>
-      <hr>
-      <span class=""><button class="reacts likehover" (click)="onLikeClicked(post.id)"  >
-          <i class="bi bi-hand-thumbs-up-fill"  [ngClass]="{ 'liked':post.Liked  }" ></i>
-          <span class="reactspan likehover "  [ngClass]="{ 'liked':post.Liked  }">Like</span>
-        </button></span>
-      <span><button class="reacts" (click)="openD()" (click)="send()" >
-          <i class="bi bi-chat-text-fill"></i>
-          <span class="reactspan">Comment</span>
-        </button></span>
-        <app-dialog [post]="post"></app-dialog>
-        <!-- (click)="openDialog() "-->
-      <span><button class="reacts"  >
-          <i class="bi bi-arrow-repeat"></i>
-          <span class="reactspan">Repost</span>
-        </button></span>
+        <hr>
+        <span class=""><button class="reacts likehover" (click)="onLikeClicked(post.id)">
+            <i class="bi bi-hand-thumbs-up-fill" [ngClass]="{ 'liked':post.Liked  }"></i>
+            <span class="reactspan  " [ngClass]="{ 'liked':post.Liked  }">Like</span>
+          </button></span>
+        <span><button class="reacts" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
+            <i class="bi bi-chat-text-fill"></i>
+            <span class="reactspan">Comment</span>
+          </button></span>
+        <span><button class="reacts">
+            <i class="bi bi-arrow-repeat"></i>
+            <span class="reactspan">Repost</span>
+          </button></span>
+      </div>
     </div>
   </div>
 </div>
 
+<ng-template #newCommentModalTemplate>
+  <div class="modal-header">
+    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="newCommentCancelled()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row d-flex justify-content-center" style="height: 300px; overflow: auto;" *ngIf="comments">
+
+      <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+        <div class="card-body p-4">
+          <div *ngFor="let comment of comments ">
+            <div class="card mb-4">
+
+              <div class="card-body">
+
+                <div class="commentDetails">
+                  <span>
+                    <a href="" [routerLink]="['/profile/{{Comment.userName}}']" (click)="newCommentCancelled()"> <img
+                        [src]="user.profileImage" class="userImg commentimg"></a>
+                  </span>
+                  <a href="" [routerLink]="['/profile/{{Comment.userName}}']" (click)="newCommentCancelled()">
+                    <h6 class="commentDetails-body">
+                      <span class="small  font-weight">{{comment.userName}}</span>
+                      <br>
+                      <span class="small text-muted font-weight-normal"> {{getFormattedDate(comment.created) }}</span>
+                    </h6>
+                  </a>
+                </div>
+                <hr>
+                <br>
+                <p>{{comment.content}}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <h4 class="modal-title pull-left"></h4>
+    <div class="form-group">
+      <label for="title">content</label>
+      <input type="text" class="form-control" id="content" placeholder="Write your post..."
+        [(ngModel)]="newCommentEditor.content" />
+    </div>
+  </div>
+  <div class="modal-footer clearfix">
+    <div class="float-end">
+      <button class="btn btn-default" (click)="newCommentCancelled()">Cancel</button>
+      <button class="btn btn-primary" (click)="addComment()">Create</button>
+    </div>
+  </div>
+</ng-template>
