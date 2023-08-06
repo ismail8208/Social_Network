@@ -9,12 +9,20 @@
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
     <div class="col-md-6">
-        <form id="profile-form" method="post">
+        <form id="profile-form" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
 			<div>
 				<img src="~/api/Images/@Model.ImageUrl" alt="User Image" style="border:1px solid #03BFCB;border-radius: 50%;padding: 7px;width: 200px;height: 200px;margin:10px" />
 			</div>
+			<div class="form-floating mb-3">
+				<input asp-for="Input.ProfileImage" class="form-control"  />
+				<label asp-for="Input.ProfileImage" class="form-label"></label>
+				<span asp-validation-for="Input.ProfileImage" class="text-danger"></span>
+
+			</div>
+
+
             <div class="form-floating mb-3">
                 <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
                 <label asp-for="Username" class="form-label"></label>

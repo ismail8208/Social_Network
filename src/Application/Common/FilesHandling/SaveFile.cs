@@ -27,7 +27,7 @@ public static class SaveFile
         {
             await file.CopyToAsync(stream);
         }
-
-        return $"wwwroot/{Url}/{filename}";
+        return filename;
+        //return $"wwwroot/{Url}/{filename}";
     }
 }
