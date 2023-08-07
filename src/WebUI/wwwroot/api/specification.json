@@ -2035,36 +2035,16 @@
         ],
         "operationId": "Projects_Create",
         "requestBody": {
+          "x-name": "command",
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "Title": {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  "Description": {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  "Image": {
-                    "type": "string",
-                    "format": "binary",
-                    "nullable": true
-                  },
-                  "Link": {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  "UserId": {
-                    "type": "integer",
-                    "format": "int32"
-                  }
-                }
+                "$ref": "#/components/schemas/CreateProjectCommand"
               }
             }
-          }
+          },
+          "required": true,
+          "x-position": 1
         },
         "responses": {
           "200": {
@@ -2091,36 +2071,16 @@
         ],
         "operationId": "Projects_Update",
         "requestBody": {
+          "x-name": "command",
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "Id": {
-                    "type": "integer",
-                    "format": "int32"
-                  },
-                  "Description": {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  "Image": {
-                    "type": "string",
-                    "format": "binary",
-                    "nullable": true
-                  },
-                  "Link": {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  "UserId": {
-                    "type": "integer",
-                    "format": "int32"
-                  }
-                }
+                "$ref": "#/components/schemas/UpdateProjectCommand"
               }
             }
-          }
+          },
+          "required": true,
+          "x-position": 1
         },
         "responses": {
           "200": {
@@ -4172,18 +4132,17 @@
             "type": "integer",
             "format": "int32"
           },
-          "experienceId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "content": {
+          "title": {
             "type": "string",
             "nullable": true
           },
-          "imageURL": {
+          "description": {
             "type": "string",
             "nullable": true
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
           },
           "link": {
             "type": "string",
@@ -4196,6 +4155,54 @@
           "userName": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "CreateProjectCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "link": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "UpdateProjectCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "link": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

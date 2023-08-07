@@ -13,8 +13,8 @@ namespace MediaLink.Application.Projects.Commands.UpdateProject;
 public record UpdateProjectCommand : IRequest
 {
     public int Id { get; set; }
+    public string? Title { get; set; }
     public string? Description { get; set; }
-    public IFormFile? Image { get; set; }
     public string? Link { get; set; }
     public int UserId { get; set; }
 }
@@ -39,9 +39,9 @@ public class UpdateProjectCommandHandler : IRequestHandler<UpdateProjectCommand>
         }
 
         entity.Description = request.Description;
-        entity.ImageURL = await SaveFile.Save(FileType.image, request.Image);
         entity.Link = request.Link;
         entity.UserId = request.UserId;
+        entity.Title = request.Title;
 
         await _context.SaveChangesAsync(cancellationToken);
 

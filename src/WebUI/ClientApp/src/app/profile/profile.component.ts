@@ -17,7 +17,13 @@ import {
   IFollowCommand,
   FollowCommand,
   IUnFollowCommand,
-  UnFollowCommand
+  UnFollowCommand,
+  IProjectDto,
+  ProjectsClient,
+  ICreateProjectCommand,
+  CreateProjectCommand,
+  IUpdateProjectCommand,
+  UpdateProjectCommand
 } from '../web-api-client';
 import { AuthorizeService } from 'src/api-authorization/authorize.service';
 import { Store, select } from '@ngrx/store';
@@ -60,26 +66,33 @@ export class ProfileComponent implements OnInit {
   skills: ISkillDto[] = [];
   educations: IEducationDto[] = [];
   experiences: IExperienceDto[] = [];
+  projects: IProjectDto[] = [];
+
 
   filteredSKills: ISkillDto[] = [];
   filteredEducations: IEducationDto[] = [];
   filteredExperiences: IExperienceDto[] = [];
+  filteredProjects: IExperienceDto[] = [];
 
   lenOfSkills: number = 0;
   lenOfEducations: number = 0;
   lenOfExperiences: number = 0;
+  lenOfProjects: number = 0;
 
   showAllSkills: boolean = false;
   showAllEducations: boolean = false;
   showAllExperiences: boolean = false;
+  showAllProjects: boolean = false;
 
   textskillbutton: string = '';
   textEducationbutton: string = '';
   textExperiencebutton: string = '';
+  textProjectsbutton: string = '';
 
   isSkillsEnabled: boolean = false;
   isEducationsEnabled: boolean = false;
   isExperiencesEnabled: boolean = false;
+  isProjectsEnabled: boolean = false;
   isAboutEnabled: boolean = false;
 
   public reactions: string[] = [];
@@ -93,6 +106,7 @@ export class ProfileComponent implements OnInit {
     private educationsClient: EducationsClient,
     private authorizeService: AuthorizeService,
     private experiencesClient: ExperiencesClient,
+    private projectsClient: ProjectsClient,
     private router: ActivatedRoute,
     private usersClient: UsersClient,
     private follows: FollowsClient,
@@ -187,6 +201,15 @@ export class ProfileComponent implements OnInit {
           this.experiences = data.items;
           this.lenOfExperiences = data.totalCount;
           this.textExperiencebutton = `Show all ${this.lenOfExperiences} experiences`;
+        }
+      });
+
+    this.projectsClient.getProjectsWithPagination(this.user.id, 1, 40).subscribe(
+      {
+        next: data => {
+          this.projects = data.items;
+          this.lenOfProjects = data.totalCount;
+          this.textProjectsbutton = `Show all ${this.lenOfProjects} projects`;
         }
       });
 
@@ -288,6 +311,59 @@ export class ProfileComponent implements OnInit {
   }
   //Education Methods End
 
+  //Projects Methods Start
+  enableProjectsSection() {
+    this.isProjectsEnabled = true;
+  }
+
+  toggleProjects() {
+    this.showAllProjects = !this.showAllProjects;
+    this.textProjectsbutton = this.showAllProjects ? 'Hide' : `Show all ${this.lenOfProjects} projects`;
+  }
+
+  addProject(project: IProjectDto) {
+    let entity: ICreateProjectCommand = {
+      title: project.title,
+      description: project.description,
+      link: project.link,
+      userId: this.user.id,
+    }
+    this.projectsClient.create(entity as CreateProjectCommand).subscribe({
+      next: data => {
+        if (data > 0) {
+          this.filteredProjects[data] = entity;
+        }
+      }
+    })
+  }
+
+  pro: IProjectDto = {
+    id: 0,
+    title: 'empty',
+    description: 'empty',
+  };
+
+  chosenProject(project: IProjectDto) {
+    this.pro = project;
+  }
+
+  updateProject(project: IProjectDto) {
+    let entity: IUpdateProjectCommand = {
+      id: project.id,
+      title: project.title,
+      description: project.description,
+      link: project.link,
+      userId: this.user.id,
+    }
+    this.projectsClient.update(entity as UpdateProjectCommand).subscribe();
+  }
+
+  deleteProject(id: number) {
+    this.projectsClient.delete(id).subscribe();
+  }
+  //Projects Methods End
+
+
   //Experiences Methods Start
   enableExperiencesSection() {
     this.isExperiencesEnabled = true;
@@ -343,7 +419,8 @@ export class ProfileComponent implements OnInit {
   deleteExperience(id: number) {
     this.experiencesClient.delete(id).subscribe();
   }
-  //Experiences Methods End
+
+  //Experince Methods End 
 
   //About start
   enableAboutSection() {

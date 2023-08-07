@@ -2804,8 +2804,8 @@ export class PostsClient implements IPostsClient {
 
 export interface IProjectsClient {
     getProjectsWithPagination(userId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfProjectDto>;
-    create(title: string | null | undefined, description: string | null | undefined, image: FileParameter | null | undefined, link: string | null | undefined, userId: number | undefined): Observable<number>;
-    update(id: number | undefined, description: string | null | undefined, image: FileParameter | null | undefined, link: string | null | undefined, userId: number | undefined): Observable<FileResponse>;
+    create(command: CreateProjectCommand): Observable<number>;
+    update(command: UpdateProjectCommand): Observable<FileResponse>;
     delete(id: number): Observable<FileResponse>;
 }
 
@@ -2882,29 +2882,18 @@ export class ProjectsClient implements IProjectsClient {
         return _observableOf(null as any);
     }
 
-    create(title: string | null | undefined, description: string | null | undefined, image: FileParameter | null | undefined, link: string | null | undefined, userId: number | undefined): Observable<number> {
+    create(command: CreateProjectCommand): Observable<number> {
         let url_ = this.baseUrl + "/api/Projects";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (title !== null && title !== undefined)
-            content_.append("Title", title.toString());
-        if (description !== null && description !== undefined)
-            content_.append("Description", description.toString());
-        if (image !== null && image !== undefined)
-            content_.append("Image", image.data, image.fileName ? image.fileName : "Image");
-        if (link !== null && link !== undefined)
-            content_.append("Link", link.toString());
-        if (userId === null || userId === undefined)
-            throw new Error("The parameter 'userId' cannot be null.");
-        else
-            content_.append("UserId", userId.toString());
+        const content_ = JSON.stringify(command);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -2946,31 +2935,18 @@ export class ProjectsClient implements IProjectsClient {
         return _observableOf(null as any);
     }
 
-    update(id: number | undefined, description: string | null | undefined, image: FileParameter | null | undefined, link: string | null | undefined, userId: number | undefined): Observable<FileResponse> {
+    update(command: UpdateProjectCommand): Observable<FileResponse> {
         let url_ = this.baseUrl + "/api/Projects";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (id === null || id === undefined)
-            throw new Error("The parameter 'id' cannot be null.");
-        else
-            content_.append("Id", id.toString());
-        if (description !== null && description !== undefined)
-            content_.append("Description", description.toString());
-        if (image !== null && image !== undefined)
-            content_.append("Image", image.data, image.fileName ? image.fileName : "Image");
-        if (link !== null && link !== undefined)
-            content_.append("Link", link.toString());
-        if (userId === null || userId === undefined)
-            throw new Error("The parameter 'userId' cannot be null.");
-        else
-            content_.append("UserId", userId.toString());
+        const content_ = JSON.stringify(command);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json",
                 "Accept": "application/octet-stream"
             })
         };
@@ -6869,9 +6845,9 @@ export interface IPaginatedListOfProjectDto {
 
 export class ProjectDto implements IProjectDto {
     id?: number;
-    experienceId?: number | undefined;
-    content?: string | undefined;
-    imageURL?: string | undefined;
+    title?: string | undefined;
+    description?: string | undefined;
+    created?: Date;
     link?: string | undefined;
     userId?: number;
     userName?: string | undefined;
@@ -6888,9 +6864,9 @@ export class ProjectDto implements IProjectDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.experienceId = _data["experienceId"];
-            this.content = _data["content"];
-            this.imageURL = _data["imageURL"];
+            this.title = _data["title"];
+            this.description = _data["description"];
+            this.created = _data["created"] ? new Date(_data["created"].toString()) : <any>undefined;
             this.link = _data["link"];
             this.userId = _data["userId"];
             this.userName = _data["userName"];
@@ -6907,9 +6883,9 @@ export class ProjectDto implements IProjectDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["experienceId"] = this.experienceId;
-        data["content"] = this.content;
-        data["imageURL"] = this.imageURL;
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["created"] = this.created ? this.created.toISOString() : <any>undefined;
         data["link"] = this.link;
         data["userId"] = this.userId;
         data["userName"] = this.userName;
@@ -6919,12 +6895,112 @@ export class ProjectDto implements IProjectDto {
 
 export interface IProjectDto {
     id?: number;
-    experienceId?: number | undefined;
-    content?: string | undefined;
-    imageURL?: string | undefined;
+    title?: string | undefined;
+    description?: string | undefined;
+    created?: Date;
     link?: string | undefined;
     userId?: number;
     userName?: string | undefined;
+}
+
+export class CreateProjectCommand implements ICreateProjectCommand {
+    title?: string | undefined;
+    description?: string | undefined;
+    link?: string | undefined;
+    userId?: number;
+
+    constructor(data?: ICreateProjectCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.title = _data["title"];
+            this.description = _data["description"];
+            this.link = _data["link"];
+            this.userId = _data["userId"];
+        }
+    }
+
+    static fromJS(data: any): CreateProjectCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateProjectCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["link"] = this.link;
+        data["userId"] = this.userId;
+        return data;
+    }
+}
+
+export interface ICreateProjectCommand {
+    title?: string | undefined;
+    description?: string | undefined;
+    link?: string | undefined;
+    userId?: number;
+}
+
+export class UpdateProjectCommand implements IUpdateProjectCommand {
+    id?: number;
+    title?: string | undefined;
+    description?: string | undefined;
+    link?: string | undefined;
+    userId?: number;
+
+    constructor(data?: IUpdateProjectCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.title = _data["title"];
+            this.description = _data["description"];
+            this.link = _data["link"];
+            this.userId = _data["userId"];
+        }
+    }
+
+    static fromJS(data: any): UpdateProjectCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateProjectCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["link"] = this.link;
+        data["userId"] = this.userId;
+        return data;
+    }
+}
+
+export interface IUpdateProjectCommand {
+    id?: number;
+    title?: string | undefined;
+    description?: string | undefined;
+    link?: string | undefined;
+    userId?: number;
 }
 
 export class PaginatedListOfShareDto implements IPaginatedListOfShareDto {

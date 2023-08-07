@@ -37,6 +37,9 @@ import { FollowersComponent } from './profile/follow/followers.component';
 import { FollowingsComponent } from './profile/follow/followings.component';
 import { SearchUserComponent } from './profile/search-user/search-user.component';
 import { BriefUserComponent } from './profile/follow/briefUser/brief-user.component';
+import { ProjectComponent } from './profile/projects/project.component';
+import { UpdateProjectComponent } from './profile/projects/update-project/update-project.component';
+import { AddProjectComponent } from './profile/projects/add-project/add-project.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +68,9 @@ import { BriefUserComponent } from './profile/follow/briefUser/brief-user.compon
     FollowingsComponent,
     SearchUserComponent,
     BriefUserComponent,
+    ProjectComponent,
+    UpdateProjectComponent,
+    AddProjectComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

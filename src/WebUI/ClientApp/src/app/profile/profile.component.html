@@ -55,6 +55,9 @@
 					<li (click)="enableExperiencesSection()" style="--delay: 3;" *ngIf="isOwner">
 						Add Experience Section
 					</li>
+					<li (click)="enableProjectsSection()" style="--delay: 3;" *ngIf="isOwner">
+						Add Projects Section
+					</li>
 					<li style="--delay: 4;">Add Post</li>
 				</ul>
 			</div>
@@ -95,6 +98,31 @@
 		<app-update-experience [experience]="exper"
 			(chosenExperience)="updateExperience($event)"></app-update-experience>
 		<!-- experience end -->
+
+		<!-- projects start -->
+		<div class="group" *ngIf="projects.length || isProjectsEnabled">
+			<h6>Projects</h6>
+			<!-- <app-add-experience (selectdExperience)="addExperience($event)" (_listFilter)="searchExperience($event)"
+				[filteredExperiences]="filteredExperiences" *ngIf="isOwner"></app-add-experience> -->
+			<app-add-project (selectdProject)="addProject($event)" [filteredProjects]="filteredProjects"
+				*ngIf="isOwner"></app-add-project>
+			<ul *ngFor="let project of (showAllProjects ? projects : projects.slice(0, 2))">
+				<!-- <app-experience [experience]="experience" (experienceForUpdate)="chosenExperience($event)"
+					(experienceForDeleted)="deleteExperience($event)" [isOwner]="isOwner"> </app-experience> -->
+
+				<app-project [project]="project" (projectForUpdate)="chosenProject($event)"
+					(projectForDeleted)="deleteProject($event)" [isOwner]="isOwner">
+
+				</app-project>
+				<hr class="separate">
+			</ul>
+			<span class="show-all" (click)="toggleProjects()">{{textProjectsbutton}}</span>
+		</div>
+		<!-- <app-update-experience [experience]="exper"
+			(chosenExperience)="updateExperience($event)"></app-update-experience> -->
+		<app-update-project [project]="pro" (chosenProject)="updateProject($event)"></app-update-project>
+		<!-- projects end -->
+
 		<!-- skills start-->
 		<div class="group" *ngIf="skills.length || isSkillsEnabled">
 			<h6>Skills</h6>

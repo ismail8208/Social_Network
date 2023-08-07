@@ -1,0 +1,28 @@
+<div class="project">
+    <ul>
+      <li>
+        <i class="fa fa-tasks" aria-hidden="true" style="margin-right: 5px;"></i>
+        <span style="font-weight: bold;">{{project!.title}}</span>
+  
+        <span style="font-weight: bold; display: block;">
+          <i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
+          {{project!.description}}
+        </span>
+
+        <span style="font-weight: bold; display: block;">
+          <i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
+          {{project!.link}}
+        </span>
+  
+      </li>
+      <div class="details" *ngIf="isOwner">
+        <div class="delete"><i class="fa fa-trash fa-lg" aria-hidden="true" (click)="deleteproject()"></i></div>
+        <span (click)="openD()">
+          <div class="edit">
+            <i class='fa fa-edit fa-lg' (click)="send()"></i>
+          </div>
+        </span>
+      </div>
+    </ul>
+  </div>
+  

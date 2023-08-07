@@ -17,13 +17,13 @@ public class ProjectsController : ApiControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<int>> Create([FromForm] CreateProjectCommand command)
+    public async Task<ActionResult<int>> Create([FromBody] CreateProjectCommand command)
     {
         return await Mediator.Send(command);
     }
 
     [HttpPut]
-    public async Task<ActionResult> Update([FromForm] UpdateProjectCommand command)
+    public async Task<ActionResult> Update([FromBody] UpdateProjectCommand command)
     {
 
         await Mediator.Send(command);

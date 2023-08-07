@@ -14,7 +14,6 @@ public record CreateProjectCommand : IRequest<int>
 {
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public IFormFile? Image { get; set; }
     public string? Link { get; set; }
     public int UserId { get; set; }
 }
@@ -33,7 +32,7 @@ public class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand,
         {
             Title = request.Title,
             Description = request.Description,
-            ImageURL = await SaveFile.Save(FileType.image, request.Image),
+           // ImageURL = await SaveFile.Save(FileType.image, request.Image),
             Link = request.Link,
             UserId = request.UserId
         };
