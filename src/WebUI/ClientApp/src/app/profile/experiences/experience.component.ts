@@ -9,6 +9,7 @@ import { IExperienceDto } from 'src/app/web-api-client';
 export class ExperienceComponent {
 
   @Input() experience?: IExperienceDto;
+  @Input() isOwner: boolean;
 
   @Output() experienceForUpdate: EventEmitter<IExperienceDto> = new EventEmitter<IExperienceDto>();
 

@@ -15,7 +15,7 @@
       </span>
 
     </li>
-    <div class="details">
+    <div class="details" *ngIf="isOwner">
       <div class="delete"><i class="fa fa-trash fa-lg" aria-hidden="true" (click)="deleteExperience()"></i></div>
       <span (click)="openD()">
         <div class="edit">

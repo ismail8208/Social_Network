@@ -3,7 +3,8 @@
 		<!-- *ngIf="isAuthenticated | async" -->
 		<!-- <span class="edit" *ngIf="isOwner">Edit</span> -->
 
-		<a class="edit" [routerLink]='["/authentication/profile"]' title="Manage" style="text-decoration:none" *ngIf="isOwner"> Edit </a>
+		<a class="edit" [routerLink]='["/authentication/profile"]' title="Manage" style="text-decoration:none"
+			*ngIf="isOwner"> Edit </a>
 
 		<img class="round" [src]="user.profileImage" alt="user" />
 		<h3>{{user!.firstName+ " " + user.lastName}}</h3>
@@ -62,16 +63,17 @@
 
 
 		<!-- about -->
-		<app-about [content]="user.summary" *ngIf="isAboutEnabled || (user.summary.length == null ? true : false) "></app-about>
+		<app-about [content]="user.summary"
+			*ngIf="isAboutEnabled || (user.summary.length == null ? true : false) "></app-about>
 		<!-- about -->
 		<!-- educations start-->
 		<div class="group" *ngIf="educations.length || isEducationsEnabled">
 			<h6>Educations</h6>
 			<app-add-education (selectdEducation)="addEducation($event)" (_listFilter)="searchEducation($event)"
-												 [filteredEducations]="filteredEducations" *ngIf="isOwner"></app-add-education>
+				[filteredEducations]="filteredEducations" *ngIf="isOwner"></app-add-education>
 			<ul *ngFor="let education of (showAllEducations ? educations : educations.slice(0, 2))">
 				<app-education [education]="education" (educationForUpdate)="chosenEducation($event)"
-											 (educationForDeleted)="deleteEducation($event)" [isOwner]="isOwner"> </app-education>
+					(educationForDeleted)="deleteEducation($event)" [isOwner]="isOwner"> </app-education>
 				<hr class="separate">
 			</ul>
 			<span class="show-all" (click)="toggleEducations()">{{textEducationbutton}}</span>
@@ -82,22 +84,22 @@
 		<div class="group" *ngIf="experiences.length || isExperiencesEnabled">
 			<h6>Experiences</h6>
 			<app-add-experience (selectdExperience)="addExperience($event)" (_listFilter)="searchExperience($event)"
-													[filteredExperiences]="filteredExperiences" *ngIf="isOwner"></app-add-experience>
+				[filteredExperiences]="filteredExperiences" *ngIf="isOwner"></app-add-experience>
 			<ul *ngFor="let experience of (showAllExperiences ? experiences : experiences.slice(0, 2))">
 				<app-experience [experience]="experience" (experienceForUpdate)="chosenExperience($event)"
-												(experienceForDeleted)="deleteExperience($event)"> </app-experience>
+					(experienceForDeleted)="deleteExperience($event)" [isOwner]="isOwner"> </app-experience>
 				<hr class="separate">
 			</ul>
 			<span class="show-all" (click)="toggleExperiences()">{{textExperiencebutton}}</span>
 		</div>
 		<app-update-experience [experience]="exper"
-													 (chosenExperience)="updateExperience($event)"></app-update-experience>
+			(chosenExperience)="updateExperience($event)"></app-update-experience>
 		<!-- experience end -->
 		<!-- skills start-->
 		<div class="group" *ngIf="skills.length || isSkillsEnabled">
 			<h6>Skills</h6>
 			<app-add-skill (selectedSKill)="addSkill($event)" (_listFilter)="searchSkills($event)"
-										 [filteredSKills]="filteredSKills" *ngIf="isOwner"></app-add-skill>
+				[filteredSKills]="filteredSKills" *ngIf="isOwner"></app-add-skill>
 			<ul *ngFor="let skill of (showAllSkills ? skills : skills.slice(0, 2))">
 				<app-skill [skill]="skill" (skillForDeleted)="deleteSkill($event)" [isOwner]="isOwner"></app-skill>
 				<hr class="separate">
