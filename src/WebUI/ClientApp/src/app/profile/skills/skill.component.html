@@ -1,16 +1,15 @@
 <div class="skill">
-    <ul>
-       <li>
-           <i class="fa fa-cogs" aria-hidden="true" style="margin-right: 5px;"></i>
-           <span style="font-weight: bold;">{{skill!.title}}</span>  
-           <i class="fa fa-users" style="margin-right: 4px; margin-left: 8px;"></i>
-           <span style="margin-right: 4px;">{{listOfEndorsements.length}}</span>
-            Endorsements
-       </li>
-       <div class="delete" *ngIf="isOwner"><i class="fa fa-trash fa-lg" aria-hidden="true" (click)="deleteSkill()"></i></div>
-       <button [class.active]="isEndorsed" (click)="toggleEndorsement()" (click)="Endorsement()" *ngIf="!isOwner">
-        <span [class.unEndorsed]="!isEndorsed" [class.endorsed]="isEndorsed">Endorse</span>
-      </button>
-    </ul>
-   </div>
-   
+  <ul>
+    <li>
+      <i class="fa fa-cogs" aria-hidden="true" style="margin-right: 5px;"></i>
+      <span style="font-weight: bold;">{{skill!.title}}</span>
+      <i class="fa fa-users" style="margin-right: 4px; margin-left: 8px;"></i>
+      <span style="margin-right: 4px;">{{listOfEndorsements.length}}</span>
+      Endorsements
+    </li>
+    <div class="delete" *ngIf="isOwner"><i class="fa fa-trash fa-lg" aria-hidden="true" (click)="deleteSkill()"></i></div>
+    <button [class.active]="isEndorsed" (click)="toggleEndorsement()" (click)="Endorsement()" *ngIf="!isOwner">
+      <span [class.unEndorsed]="!isEndorsed" [class.endorsed]="isEndorsed">Endorse</span>
+    </button>
+  </ul>
+</div>

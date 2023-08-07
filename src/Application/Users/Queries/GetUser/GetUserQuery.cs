@@ -41,8 +41,8 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDto>
             ProfileImage = user.ProfileImage,
             Role = role,
             Summary = user.Summary,
-            NumberOfFollowers = user.Followers!.Count(),
-            NumberOfFollowings = user.Followings!.Count()
+            NumberOfFollowers = user.Followings!.Count(),
+            NumberOfFollowings = user.Followers!.Count()
         };
 
         return entity;

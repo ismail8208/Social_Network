@@ -8,26 +8,28 @@ import { IExperienceDto } from 'src/app/web-api-client';
 })
 export class AddExperienceComponent {
 
-  
+
   @Output() selectdExperience: EventEmitter<IExperienceDto> = new EventEmitter<IExperienceDto>();
 
   @Output() _listFilter: EventEmitter<string> = new EventEmitter<string>(); //output
-  
-  @Input() filteredExperiences : IExperienceDto[] = []; //input
+
+  @Input() filteredExperiences: IExperienceDto[] = []; //input
 
   v: string = '';
   description: string = '';
+  date: number;
 
 
-  public set listFilter(v : string) {
-      this._listFilter.emit(v);
-      this.v = v;
+
+  public set listFilter(v: string) {
+    this._listFilter.emit(v);
+    this.v = v;
   }
-  
-  
-  chosenExperience: string ='';
+
+
+  chosenExperience: string = '';
   chooseExperience(experience: IExperienceDto) {
-      this.chosenExperience = experience.title;
+    this.chosenExperience = experience.title;
   }
 
   openD() {
@@ -35,27 +37,27 @@ export class AddExperienceComponent {
     modal.style.opacity = '1';
     modal.style.pointerEvents = 'auto';
   }
-  
-  closeD(){
+
+  closeD() {
     const modal = document.querySelector('.modalDialogAEX') as HTMLElement;
     modal.style.opacity = '0';
     modal.style.pointerEvents = 'none';
-    this.chosenExperience='';
+    this.chosenExperience = '';
     this.filteredExperiences = [];
-    this.listFilter='';
-    this.description='';
+    this.listFilter = '';
+    this.description = '';
   }
 
-  saveExperience()
-  {
+  saveExperience() {
     let entity: IExperienceDto = {
       title: this.chosenExperience == '' ? this.v : this.chosenExperience,
-      description: this.description
+      description: this.description,
+      experienceDate: this.date
     }
-      this.v !=' ' &&  this.selectdExperience.emit(entity);
-      this.chosenExperience='';
-      this.filteredExperiences = [];
-      this.listFilter='';
-      this.description='';
+    this.v != ' ' && this.selectdExperience.emit(entity);
+    this.chosenExperience = '';
+    this.filteredExperiences = [];
+    this.listFilter = '';
+    this.description = '';
   }
 }

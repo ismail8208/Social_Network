@@ -15,7 +15,9 @@ import {
   FollowsClient,
   IBriefUserDto,
   IFollowCommand,
-  FollowCommand
+  FollowCommand,
+  IUnFollowCommand,
+  UnFollowCommand
 } from '../web-api-client';
 import { AuthorizeService } from 'src/api-authorization/authorize.service';
 import { Store, select } from '@ngrx/store';
@@ -220,7 +222,7 @@ export class ProfileComponent implements OnInit {
       title: skill,
       userId: this.user.id
     }
-    this.skillsClinet.create(entity as CreateSkillCommand).subscribe()
+    this.skillsClinet.create(entity as CreateSkillCommand).subscribe();
   }
 
   deleteSkill(id: number) {
@@ -300,9 +302,16 @@ export class ProfileComponent implements OnInit {
     let entity: ICreateExperienceCommand = {
       title: experience.title,
       description: experience.description,
+      experienceDate: experience.experienceDate,
       userId: this.user.id
     }
-    this.experiencesClient.create(entity as CreateExperienceCommand).subscribe()
+    this.experiencesClient.create(entity as CreateExperienceCommand).subscribe({
+      next: data => {
+        if (data > 0) {
+          this.filteredExperiences[data] = entity;
+        }
+      }
+    })
   }
 
   exper: IExperienceDto = {
@@ -322,6 +331,7 @@ export class ProfileComponent implements OnInit {
       id: experience.id,
       title: experience.title,
       description: experience.description,
+      experienceDate: experience.experienceDate,
       userId: this.user.id
     }
     this.experiencesClient.update(experience.id, entity as UpdateExperienceCommand).subscribe();
@@ -352,9 +362,33 @@ export class ProfileComponent implements OnInit {
         next: data => {
           if (data > 0) {
             this.followAgree = false;
+            this.isFolloing = false;
           }
           else {
             this.followAgree = true;
+            this.isFolloing = true;
+          }
+        }
+      }
+    )
+  }
+  unFollow() {
+    console.log('hello world');
+    let entity: IUnFollowCommand =
+    {
+      userId: parseInt(this.localService.getData('id')),
+      specificUserId: this.user.id
+    }
+    this.follows.unFollow(entity as UnFollowCommand).subscribe(
+      {
+        next: data => {
+          if (data > 0) {
+            this.followAgree = true;
+            this.isFolloing = true;
+          }
+          else {
+            this.followAgree = false;
+            this.isFolloing = false;
           }
         }
       }
@@ -366,7 +400,7 @@ export class ProfileComponent implements OnInit {
   }
 
   checkIfUserFolloing(): any {
-    this.follows.getFollowingsWithPagination(this.user.id, 1, this.user.numberOfFollowings).subscribe(
+    this.follows.getFollowersWithPagination(this.user.id, 1, this.user.numberOfFollowers).subscribe(
       {
         next: data => {
           const f = data.items.find(u => u.userName == localStorage.getItem('username'));

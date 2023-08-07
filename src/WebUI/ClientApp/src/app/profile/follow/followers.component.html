@@ -1,19 +1,5 @@
 <div class="form-group">
-    <div class="reactions" *ngFor="let user of followers">
-        <ul>
-            
-            <img [src]="user.profileImage" alt="user" style="margin-right: 5px;" class="round-like">
-            <li [routerLinkActive]="['link-active']">
-                <a [routerLink]="['/profile', user.userName ]">
-                <span style="font-weight: bold;"> {{user.firstName+ " " + user.lastName}} </span>
-                <span style="font-weight: bold; display: block;">
-                    <i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
-                    {{user.userName}}</span>
-                </a>
-            </li>
-            <hr class="separateLike">
-           
-        </ul>
-    </div>
-
+  <span *ngFor="let user of followers">
+    <app-brief-user [user]="user"></app-brief-user>
+  </span>
 </div>

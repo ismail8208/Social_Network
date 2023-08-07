@@ -1,0 +1,20 @@
+<div class="reactions">
+  <ul>
+    <img [src]="user.profileImage" alt="user" style="margin-right: 5px;" class="round-like">
+    <li [routerLinkActive]="['link-active']">
+      <a [routerLink]="['/profile', user.userName ]">
+        <span style="font-weight: bold;"> {{user.firstName+ " " + user.lastName}} </span>
+        <span style="font-weight: bold; display: block;">
+          <i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
+          {{user.userName}}
+        </span>
+      </a>
+    </li>
+    <li>
+      <button [class.active]="isFollowMe" (click)="toggleBtn()" (click)="toggleState()" *ngIf="itsMe" class="btn">
+        <span [class.Cancel]="!isFollowMe" [class.follow]="isFollowMe"> User </span>
+      </button>
+    </li>
+  </ul>
+  <hr class="separateLike">
+</div>

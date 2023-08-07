@@ -36,6 +36,7 @@ import { ConvertToUrl } from './sheard/convert-to-url';
 import { FollowersComponent } from './profile/follow/followers.component';
 import { FollowingsComponent } from './profile/follow/followings.component';
 import { SearchUserComponent } from './profile/search-user/search-user.component';
+import { BriefUserComponent } from './profile/follow/briefUser/brief-user.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { SearchUserComponent } from './profile/search-user/search-user.component
     FollowersComponent,
     FollowingsComponent,
     SearchUserComponent,
+    BriefUserComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -13,11 +13,10 @@ export class ExperienceComponent {
   @Output() experienceForUpdate: EventEmitter<IExperienceDto> = new EventEmitter<IExperienceDto>();
 
   @Output() experienceForDeleted: EventEmitter<number> = new EventEmitter<number>();
-  
-  deleteExperience()
-  {
-   this.experienceForDeleted.emit(this.experience!.id);
-   console.log(this.experience!.id)
+
+  deleteExperience() {
+    this.experienceForDeleted.emit(this.experience!.id);
+    console.log(this.experience!.id)
   }
 
   openD() {
@@ -26,8 +25,7 @@ export class ExperienceComponent {
     modal.style.pointerEvents = 'auto';
   }
 
-  send()
-  {
+  send() {
     this.experienceForUpdate.emit(this.experience)
   }
 }

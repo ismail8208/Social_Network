@@ -1,54 +1,54 @@
 .skill ul {
-	list-style-type: none;
-	padding: 0px;
+  list-style-type: none;
+  padding: 0px;
 }
 
-.skill ul li {
-	border: 1px solid #2D2747;
-	border-radius: 2px;
-	display: inline-block;
-	font-size: 12px;
-	margin: 0 7px 7px 0;
-	padding: 7px;
-}
+  .skill ul li {
+    border: 1px solid #2D2747;
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 12px;
+    margin: 0 7px 7px 0;
+    padding: 7px;
+  }
 
 button {
-    display: block;
-	background-color: #03BFCB;
-	border: 1px solid #03BFCB;
-	border-radius: 2px;
-	color: #231E39;
-	font-family: Montserrat, sans-serif;
-	font-size: 12px;
-	padding: 6px;
-    margin: 0 7px 7px 0;
-}
-button.active {
-	background-color: #231E39;
-	color: #03BFCB;
-
+  display: block;
+  background-color: #03BFCB;
+  border: 1px solid #03BFCB;
+  border-radius: 2px;
+  color: #231E39;
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  padding: 6px;
+  margin: 0 7px 7px 0;
 }
 
-button.active .unEndorsed {
-	display: none;
-}
-  
-button.active .endorsed::after {
-	content: 'd';
-}
+  button.active {
+    background-color: #231E39;
+    color: #03BFCB;
+  }
+
+    button.active .unEndorsed {
+      display: none;
+    }
+
+    button.active .endorsed::after {
+      content: 'd';
+    }
 
 .delete {
-	color: #231E39;
-	background-color: #FEBB0B;
-	border-radius: 3px;
-	font-size: 20px;
-	font-weight: bold;
-	padding: 3px 7px;
-    display: inline;
-	position: absolute;
-	right: 16px;
+  color: #231E39;
+  background-color: #FEBB0B;
+  border-radius: 3px;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 3px 7px;
+  display: inline;
+  position: absolute;
+  right: 16px;
 }
 
-.delete:hover {
+  .delete:hover {
     color: #03BFCB;
-}
+  }

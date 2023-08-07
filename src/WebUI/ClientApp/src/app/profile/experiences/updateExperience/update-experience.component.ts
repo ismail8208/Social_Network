@@ -11,14 +11,13 @@ export class UpdateExperienceComponent {
   @Input() experience?: IExperienceDto;
   @Output() chosenExperience: EventEmitter<IExperienceDto> = new EventEmitter<IExperienceDto>();
 
-  closeD(){
+  closeD() {
     const modal = document.querySelector('.modalDialogUEX') as HTMLElement;
     modal.style.opacity = '0';
     modal.style.pointerEvents = 'none';
   }
 
-  updateExperience()
-  {
+  updateExperience() {
     this.chosenExperience.emit(this.experience);
   }
 }

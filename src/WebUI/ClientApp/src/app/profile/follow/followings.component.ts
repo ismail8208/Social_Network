@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
+import { LocalService } from 'src/app/sheard/localService';
 import { FollowsClient, IBriefUserDto } from 'src/app/web-api-client';
 
 @Component({
@@ -12,7 +13,8 @@ export class FollowingsComponent implements OnInit {
 
   followings: IBriefUserDto[] = [];
   id: number;
-  constructor(private router: ActivatedRoute, private follows: FollowsClient) { }
+  isFollowMe: boolean;
+  constructor(private router: ActivatedRoute, private follows: FollowsClient, private localService: LocalService) { }
 
   ngOnInit() {
     this.id = parseInt(this.router.snapshot.paramMap.get('id'));
@@ -24,9 +26,22 @@ export class FollowingsComponent implements OnInit {
       })))
     ).subscribe({
       next: data => {
-        this.followings = data
+        this.followings = data;
+        const f = data.find(u => u.userName == this.localService.getData('username'));
+        if (f) {
+          this.isFollowMe = false;
+        }
+        else this.isFollowMe = true;
       }
     })
+  }
+
+  CancelFollower() {
+
+  }
+
+  toggleBtn() {
+
   }
 
 }

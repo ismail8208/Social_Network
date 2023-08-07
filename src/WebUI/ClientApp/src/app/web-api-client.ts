@@ -5423,7 +5423,7 @@ export class ExperienceDto implements IExperienceDto {
     id?: number;
     title?: string | undefined;
     description?: string | undefined;
-    experienceDate?: Date | undefined;
+    experienceDate?: number | undefined;
     userId?: number;
     projectId?: number | undefined;
     projectName?: string | undefined;
@@ -5443,7 +5443,7 @@ export class ExperienceDto implements IExperienceDto {
             this.id = _data["id"];
             this.title = _data["title"];
             this.description = _data["description"];
-            this.experienceDate = _data["experienceDate"] ? new Date(_data["experienceDate"].toString()) : <any>undefined;
+            this.experienceDate = _data["experienceDate"];
             this.userId = _data["userId"];
             this.projectId = _data["projectId"];
             this.projectName = _data["projectName"];
@@ -5463,7 +5463,7 @@ export class ExperienceDto implements IExperienceDto {
         data["id"] = this.id;
         data["title"] = this.title;
         data["description"] = this.description;
-        data["experienceDate"] = this.experienceDate ? this.experienceDate.toISOString() : <any>undefined;
+        data["experienceDate"] = this.experienceDate;
         data["userId"] = this.userId;
         data["projectId"] = this.projectId;
         data["projectName"] = this.projectName;
@@ -5476,7 +5476,7 @@ export interface IExperienceDto {
     id?: number;
     title?: string | undefined;
     description?: string | undefined;
-    experienceDate?: Date | undefined;
+    experienceDate?: number | undefined;
     userId?: number;
     projectId?: number | undefined;
     projectName?: string | undefined;
@@ -6112,6 +6112,7 @@ export interface IPaginatedListOfBriefUserDto {
 }
 
 export class BriefUserDto implements IBriefUserDto {
+    id?: number;
     firstName?: string | undefined;
     lastName?: string | undefined;
     userName?: string | undefined;
@@ -6128,6 +6129,7 @@ export class BriefUserDto implements IBriefUserDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
             this.userName = _data["userName"];
@@ -6144,6 +6146,7 @@ export class BriefUserDto implements IBriefUserDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
         data["userName"] = this.userName;
@@ -6153,6 +6156,7 @@ export class BriefUserDto implements IBriefUserDto {
 }
 
 export interface IBriefUserDto {
+    id?: number;
     firstName?: string | undefined;
     lastName?: string | undefined;
     userName?: string | undefined;

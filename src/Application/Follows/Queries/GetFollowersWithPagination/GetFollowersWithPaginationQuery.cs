@@ -30,8 +30,8 @@ public class GetFollowersWithPaginationQueryHandler : IRequestHandler<GetFollowe
     public async Task<PaginatedList<BriefUserDto>> Handle(GetFollowersWithPaginationQuery request, CancellationToken cancellationToken)
     {
         return await _context.Follows
-            .Where(f => f.FollowingID == request.UserId)
-            .Select(f => f.Follower)
+            .Where(f => f.FollowerID == request.UserId)
+            .Select(f => f.Followee)
             .ProjectTo<BriefUserDto>(_mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageNumber, request.PageSize);
 
