@@ -96,8 +96,8 @@ export class ProfileComponent implements OnInit {
   isAboutEnabled: boolean = false;
 
   public reactions: string[] = [];
-  public bsModalRef: BsModalRef;
-  redirectDetailsModalRef: BsModalRef;
+  modalRef?: BsModalRef;
+
 
 
   constructor(
@@ -217,10 +217,12 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  showListOptionsModal(template: TemplateRef<any>) {
-    this.redirectDetailsModalRef = this.modalService.show(template);
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
-
+  closeModal() {
+    this.modalRef.hide();
+  }
   // ngOnDestroy(): void {
   //     // this.subSKill.unsubscribe();
   //     // this.subUser.unsubscribe();
@@ -472,9 +474,6 @@ export class ProfileComponent implements OnInit {
     )
   }
 
-  close() {
-    this.redirectDetailsModalRef.hide();
-  }
 
   checkIfUserFolloing(): any {
     this.follows.getFollowersWithPagination(this.user.id, 1, this.user.numberOfFollowers).subscribe(

@@ -7,7 +7,6 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { TodoComponent } from './todo/todo.component';
 import { TokenComponent } from './token/token.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AddSkillComponent } from './profile/skills/addSkill/add-skill.component';
 import { FollowersComponent } from './profile/follow/followers.component';
 import { FollowingsComponent } from './profile/follow/followings.component';
 

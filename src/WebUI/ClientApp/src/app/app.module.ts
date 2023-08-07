@@ -40,6 +40,7 @@ import { BriefUserComponent } from './profile/follow/briefUser/brief-user.compon
 import { ProjectComponent } from './profile/projects/project.component';
 import { UpdateProjectComponent } from './profile/projects/update-project/update-project.component';
 import { AddProjectComponent } from './profile/projects/add-project/add-project.component';
+import { WritePostComponent } from './profile/posts/write-post/write-post.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { AddProjectComponent } from './profile/projects/add-project/add-project.
     BriefUserComponent,
     ProjectComponent,
     UpdateProjectComponent,
-    AddProjectComponent
+    AddProjectComponent,
+    WritePostComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

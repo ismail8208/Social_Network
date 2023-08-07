@@ -256,3 +256,8 @@ button.primary {
   width: 60px;
   height: 60px;
 }
+
+.modal-body
+{
+  padding: 0;
+}

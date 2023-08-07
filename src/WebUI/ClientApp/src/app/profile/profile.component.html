@@ -11,13 +11,13 @@
 		<h6>Syria</h6>
 		<p> here i will add sumary <br /> front-end developer</p>
 		<div class="follow">
-			<a [routerLink]="['/followers', user.id ]" (click)="close()" class="following">
+			<a [routerLink]="['/followers', user.id ]" class="following">
 				<div>
 					{{user.numberOfFollowers}} followers
 				</div>
 			</a>
 
-			<a [routerLink]="['/followings', user.id ]" (click)="close()" class="following">
+			<a [routerLink]="['/followings', user.id ]" class="following">
 				<div>
 					{{user.numberOfFollowings}} following
 				</div>
@@ -58,7 +58,7 @@
 					<li (click)="enableProjectsSection()" style="--delay: 3;" *ngIf="isOwner">
 						Add Projects Section
 					</li>
-					<li style="--delay: 4;">Add Post</li>
+					<li style="--delay: 4;" (click)="openModal(template)">Add Post</li> 
 				</ul>
 			</div>
 		</div>
@@ -139,6 +139,11 @@
 		<div>
 		</div>
 
+		<ng-template #template>
+			<div class="modal-body">
+			  <app-write-post [user]="user" (postSucceeded)="closeModal()"></app-write-post>
+			</div>
+		</ng-template>
 		<!-- <ng-template #listOptionsModalTemplate>
 			<div class="modal-header">
 				<h4 class="modal-title pull-left">Followers</h4>
