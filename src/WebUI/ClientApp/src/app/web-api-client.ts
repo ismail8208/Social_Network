@@ -5686,6 +5686,7 @@ export interface ICV {
 export class UserCV implements IUserCV {
     firstName?: string | undefined;
     lastName?: string | undefined;
+    summary?: string | undefined;
     email?: string | undefined;
     address?: string | undefined;
     dateOfBirth?: Date | undefined;
@@ -5704,6 +5705,7 @@ export class UserCV implements IUserCV {
         if (_data) {
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
+            this.summary = _data["summary"];
             this.email = _data["email"];
             this.address = _data["address"];
             this.dateOfBirth = _data["dateOfBirth"] ? new Date(_data["dateOfBirth"].toString()) : <any>undefined;
@@ -5722,6 +5724,7 @@ export class UserCV implements IUserCV {
         data = typeof data === 'object' ? data : {};
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
+        data["summary"] = this.summary;
         data["email"] = this.email;
         data["address"] = this.address;
         data["dateOfBirth"] = this.dateOfBirth ? this.dateOfBirth.toISOString() : <any>undefined;
@@ -5733,6 +5736,7 @@ export class UserCV implements IUserCV {
 export interface IUserCV {
     firstName?: string | undefined;
     lastName?: string | undefined;
+    summary?: string | undefined;
     email?: string | undefined;
     address?: string | undefined;
     dateOfBirth?: Date | undefined;
@@ -5778,7 +5782,7 @@ export interface ISkillCV {
 export class ExperienceCV implements IExperienceCV {
     title?: string | undefined;
     description?: string | undefined;
-    experienceDate?: Date | undefined;
+    experienceDate?: number | undefined;
 
     constructor(data?: IExperienceCV) {
         if (data) {
@@ -5793,7 +5797,7 @@ export class ExperienceCV implements IExperienceCV {
         if (_data) {
             this.title = _data["title"];
             this.description = _data["description"];
-            this.experienceDate = _data["experienceDate"] ? new Date(_data["experienceDate"].toString()) : <any>undefined;
+            this.experienceDate = _data["experienceDate"];
         }
     }
 
@@ -5808,7 +5812,7 @@ export class ExperienceCV implements IExperienceCV {
         data = typeof data === 'object' ? data : {};
         data["title"] = this.title;
         data["description"] = this.description;
-        data["experienceDate"] = this.experienceDate ? this.experienceDate.toISOString() : <any>undefined;
+        data["experienceDate"] = this.experienceDate;
         return data;
     }
 }
@@ -5816,13 +5820,12 @@ export class ExperienceCV implements IExperienceCV {
 export interface IExperienceCV {
     title?: string | undefined;
     description?: string | undefined;
-    experienceDate?: Date | undefined;
+    experienceDate?: number | undefined;
 }
 
 export class ProjectCV implements IProjectCV {
     title?: string | undefined;
     description?: string | undefined;
-    link?: string | undefined;
 
     constructor(data?: IProjectCV) {
         if (data) {
@@ -5837,7 +5840,6 @@ export class ProjectCV implements IProjectCV {
         if (_data) {
             this.title = _data["title"];
             this.description = _data["description"];
-            this.link = _data["link"];
         }
     }
 
@@ -5852,7 +5854,6 @@ export class ProjectCV implements IProjectCV {
         data = typeof data === 'object' ? data : {};
         data["title"] = this.title;
         data["description"] = this.description;
-        data["link"] = this.link;
         return data;
     }
 }
@@ -5860,12 +5861,11 @@ export class ProjectCV implements IProjectCV {
 export interface IProjectCV {
     title?: string | undefined;
     description?: string | undefined;
-    link?: string | undefined;
 }
 
 export class EducationCV implements IEducationCV {
-    level?: string | undefined;
     title?: string | undefined;
+    level?: string | undefined;
 
     constructor(data?: IEducationCV) {
         if (data) {
@@ -5878,8 +5878,8 @@ export class EducationCV implements IEducationCV {
 
     init(_data?: any) {
         if (_data) {
-            this.level = _data["level"];
             this.title = _data["title"];
+            this.level = _data["level"];
         }
     }
 
@@ -5892,15 +5892,15 @@ export class EducationCV implements IEducationCV {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["level"] = this.level;
         data["title"] = this.title;
+        data["level"] = this.level;
         return data;
     }
 }
 
 export interface IEducationCV {
-    level?: string | undefined;
     title?: string | undefined;
+    level?: string | undefined;
 }
 
 export class FollowCommand implements IFollowCommand {

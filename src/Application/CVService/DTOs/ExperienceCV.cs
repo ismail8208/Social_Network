@@ -6,5 +6,5 @@ public class ExperienceCV : IMapFrom<Experience>
 {
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public DateTime? ExperienceDate { get; set; }
+    public int? ExperienceDate { get; set; }
 }

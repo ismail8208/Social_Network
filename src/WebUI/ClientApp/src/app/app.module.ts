@@ -41,6 +41,7 @@ import { ProjectComponent } from './profile/projects/project.component';
 import { UpdateProjectComponent } from './profile/projects/update-project/update-project.component';
 import { AddProjectComponent } from './profile/projects/add-project/add-project.component';
 import { WritePostComponent } from './profile/posts/write-post/write-post.component';
+import { ExportCvComponent } from './profile/export-cv/export-cv.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { WritePostComponent } from './profile/posts/write-post/write-post.compon
     ProjectComponent,
     UpdateProjectComponent,
     AddProjectComponent,
-    WritePostComponent
+    WritePostComponent,
+    ExportCvComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

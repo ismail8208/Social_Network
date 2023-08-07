@@ -3620,6 +3620,10 @@
             "type": "string",
             "nullable": true
           },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          },
           "email": {
             "type": "string",
             "nullable": true
@@ -3662,8 +3666,8 @@
             "nullable": true
           },
           "experienceDate": {
-            "type": "string",
-            "format": "date-time",
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           }
         }
@@ -3679,10 +3683,6 @@
           "description": {
             "type": "string",
             "nullable": true
-          },
-          "link": {
-            "type": "string",
-            "nullable": true
           }
         }
       },
@@ -3690,11 +3690,11 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "level": {
+          "title": {
             "type": "string",
             "nullable": true
           },
-          "title": {
+          "level": {
             "type": "string",
             "nullable": true
           }

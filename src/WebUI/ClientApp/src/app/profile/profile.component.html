@@ -48,6 +48,7 @@
 					<span class="arrow"></span>
 				</button>
 				<ul class="dropdown-content" role="menu">
+
 					<li (click)="enableSkillsSection()" style="--delay: 1;" *ngIf="isOwner">Add Skills Section</li>
 					<li (click)="enableEducationsSection()" style="--delay: 2;" *ngIf="isOwner">
 						Add Education Section
@@ -58,7 +59,10 @@
 					<li (click)="enableProjectsSection()" style="--delay: 3;" *ngIf="isOwner">
 						Add Projects Section
 					</li>
-					<li style="--delay: 4;" (click)="openModal(template)">Add Post</li> 
+					<li style="--delay: 4;" (click)="openModal(template)" *ngIf="isOwner">Add Post</li> 
+					<li >
+						<a class="nav-link" [routerLink]="['/cv', user.id]">Export CV</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -67,7 +71,7 @@
 
 		<!-- about -->
 		<app-about [content]="user.summary"
-			*ngIf="isAboutEnabled || (user.summary.length == null ? true : false) "></app-about>
+			*ngIf="user.summary.length > 0 ? true : false"></app-about>
 		<!-- about -->
 		<!-- educations start-->
 		<div class="group" *ngIf="educations.length || isEducationsEnabled">

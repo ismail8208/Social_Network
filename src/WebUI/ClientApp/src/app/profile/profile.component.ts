@@ -137,6 +137,7 @@ export class ProfileComponent implements OnInit {
       })
       )
     ))
+    console.log(this.user.summary)
     // this.usersClient.get(this.username).subscribe(
     //   {
     //     next: data => {
