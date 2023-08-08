@@ -12,17 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ExportCvComponent implements OnInit {
 
   cv: CV;
-  user: IUserDto = {
-    firstName: '',
-    lastName: '',
-    id: 0,
-    numberOfFollowers: 0,
-    profileImage: '',
-    numberOfFollowings: 0,
-    role: '',
-    summary: '',
-    userName: '',
-  };
+  user: UserCV;
   userId: number;
   educations: EducationCV[] = [];
   skills: SkillCV[] = [];
@@ -51,10 +41,12 @@ export class ExportCvComponent implements OnInit {
     )
   }
 
+  
+
   public openPDF(): void {
     let DATA: any = document.getElementById('htmlData');
     html2canvas(DATA, { backgroundColor: 'white' }).then((canvas) => {
-      let fileWidth = 250;
+      let fileWidth = 150;
       let fileHeight = (canvas.height * fileWidth) / canvas.width;
       const FILEURI = canvas.toDataURL('image/png');
       let PDF = new jsPDF('p', 'mm', 'a4', false);

@@ -12,7 +12,7 @@ import { CreateEndorsementCommand, EndorsementsClient, ICreateEndorsementCommand
 })
 export class SkillComponent implements OnInit {
 
-  listOfEndorsements: IEndorsmentDto[] = [];
+  listOfEndorsements: IEndorsmentDto[];
   tempEndorsement: IEndorsmentDto = {
     id: 0,
     skillId: 0,

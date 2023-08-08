@@ -3,7 +3,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-counter-component',
-  templateUrl: './counter.component.html'
+  templateUrl: './counter.component.html',
+  styleUrls: ['counter.component.css']
 })
 export class CounterComponent {
 

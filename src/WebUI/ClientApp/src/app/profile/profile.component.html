@@ -24,54 +24,68 @@
 			</a>
 		</div>
 
-		<div class="buttons">
-
-			<button class="primary">
-				Massege
-			</button>
-
-			<button class="primary ghost" *ngIf="!isOwner && isFolloing" (click)="unFollow()">
-				Followed
-			</button>
-
-
-
-			<button class="primary" *ngIf="!isOwner && !isFolloing && !followAgree" (click)="follow()">
-				Follow
-			</button>
-
-
-			<!-- <span *ngIf="isFolloing"> true </span> -->
-			<div class="dropdown">
-				<button class="primary dropdown-btn" aria-haspopup="menu">
-					<span>More</span>
-					<span class="arrow"></span>
+		<span *userHasRole="'member'">
+			<div class="buttons">
+				<button class="primary">
+					Massege
 				</button>
-				<ul class="dropdown-content" role="menu">
 
-					<li (click)="enableSkillsSection()" style="--delay: 1;" *ngIf="isOwner">Add Skills Section</li>
-					<li (click)="enableEducationsSection()" style="--delay: 2;" *ngIf="isOwner">
-						Add Education Section
-					</li>
-					<li (click)="enableExperiencesSection()" style="--delay: 3;" *ngIf="isOwner">
-						Add Experience Section
-					</li>
-					<li (click)="enableProjectsSection()" style="--delay: 3;" *ngIf="isOwner">
-						Add Projects Section
-					</li>
-					<li style="--delay: 4;" (click)="openModal(template)" *ngIf="isOwner">Add Post</li> 
-					<li >
-						<a class="nav-link" [routerLink]="['/cv', user.id]">Export CV</a>
-					</li>
-				</ul>
+				<button class="primary ghost" *ngIf="!isOwner && isFolloing" (click)="unFollow()">
+					Followed
+				</button>
+
+
+
+				<button class="primary" *ngIf="!isOwner && !isFolloing && !followAgree" (click)="follow()">
+					Follow
+				</button>
+
+
+
+				<!-- <span *ngIf="isFolloing"> true </span> -->
+				<div class="dropdown">
+					<button class="primary dropdown-btn" aria-haspopup="menu">
+						<span>More</span>
+						<span class="arrow"></span>
+					</button>
+					<ul class="dropdown-content" role="menu">
+
+						<li (click)="enableSkillsSection()" style="--delay: 1;" *ngIf="isOwner">Add Skills Section</li>
+						<li (click)="enableEducationsSection()" style="--delay: 2;" *ngIf="isOwner">
+							Add Education Section
+						</li>
+						<li (click)="enableExperiencesSection()" style="--delay: 3;" *ngIf="isOwner">
+							Add Experience Section
+						</li>
+						<li (click)="enableProjectsSection()" style="--delay: 3;" *ngIf="isOwner">
+							Add Projects Section
+						</li>
+						<li>
+							<a class="nav-link" [routerLink]="['/cv', user.id]">Export CV</a>
+						</li>
+
+						<li style="--delay: 4;" (click)="openModal(template)" *ngIf="isOwner">Add Post</li>
+
+					</ul>
+				</div>
 			</div>
-		</div>
+		</span>
+
+		<span *ngIf="isOwner">
+			<div class="buttons" *userHasRole="'company'">
+				<button class="primary" (click)="openModal(template)">
+					Add Post
+				</button>
+				<button class="primary" (click)="openModal(template)">
+					Add Job
+				</button>
+			</div>
+		</span>
 
 
 
 		<!-- about -->
-		<app-about [content]="user.summary"
-			*ngIf="user.summary.length > 0 ? true : false"></app-about>
+		<app-about [content]="user.summary" *ngIf="user.summary.length > 0 ? true : false"></app-about>
 		<!-- about -->
 		<!-- educations start-->
 		<div class="group" *ngIf="educations.length || isEducationsEnabled">
@@ -145,7 +159,7 @@
 
 		<ng-template #template>
 			<div class="modal-body">
-			  <app-write-post [user]="user" (postSucceeded)="closeModal()"></app-write-post>
+				<app-write-post [user]="user" (postSucceeded)="closeModal()"></app-write-post>
 			</div>
 		</ng-template>
 		<!-- <ng-template #listOptionsModalTemplate>

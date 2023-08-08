@@ -1,55 +1,161 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  height: 100%;  
+}
+
 body {
-    background: #1B1B25;
-    color: #fff;
-    font-family: 'Josefin Sans', sans-serif;
+  min-height: 100%;  
+  background: #eee;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #222;
+  font-size: 14px;
+  line-height: 26px;
+  padding-bottom: 50px;
+}
+
+.container {
+  max-width: 700px;   
+  background: #fff;
+  margin: 0px auto 0px; 
+  box-shadow: 1px 1px 2px #DAD7D7;
+  border-radius: 3px;  
+  padding: 40px;
+  margin-top: 50px;
+}
+
+.header {
+  margin-bottom: 30px;
+  
+  .full-name {
+    font-size: 40px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
   }
+  
+  .first-name {
+    font-weight: 700;
+  }
+  
+  .last-name {
+    font-weight: 300;
+  }
+  
+  .contact-info {
+    margin-bottom: 20px;
+  }
+  
+  .email ,
+  .phone {
+    color: #999;
+    font-weight: 300;
+  } 
   
   .separator {
-    width: 30%;
+    height: 10px;
+    display: inline-block;
+    border-left: 2px solid #999;
+    margin: 0px 10px;
   }
   
-  .title {
-    margin-top: 100px;
+  .position {
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 10px;
+    text-decoration: underline;
+  }
+}
+
+
+.details {
+  line-height: 20px;
+  
+  .section {
+    margin-bottom: 40px;  
+  }
+  
+  .section:last-of-type {
+    margin-bottom: 0px;  
+  }
+  
+  .section__title {
+    letter-spacing: 2px;
+    color: #54AFE4;
+    font-weight: bold;
     margin-bottom: 10px;
-    
-    a {
-      color: #DB4D57;
-      
-      &:hover {
-        text-decoration: none;
-        font-weight: bold;
-      }
-    }
-    
-    hr {
-      width: 75%;
-    }
+    text-transform: uppercase;
   }
   
-  .summary {
-    padding: 20px;
-    
-    p {
-      font-size: 1.6rem;
-      letter-spacing: .2rem;
-    }
+  .section__list-item {
+    margin-bottom: 40px;
   }
   
+  .section__list-item:last-of-type {
+    margin-bottom: 0;
+  }
   
-  .work-experience {
-    padding: 20px;
+  .left ,
+  .right {
+    vertical-align: top;
+    display: inline-block;
+  }
+  
+  .left {
+    width: 60%;    
+  }
+  
+  .right {
+    text-align: right;
+    width: 39%;    
+  }
+  
+  .name {
+    font-weight: bold;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #000;
+    font-style: italic;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+    color: #000;
+  }
     
-    .experience-title {
-      margin-top: 50px;
+  .skills__item {
+    margin-bottom: 10px;  
+  }
+  
+  .skills__item .right {
+    input {
+      display: none;
     }
     
-    .experience-summary {
-      margin-top: 30px;
-      margin-bottom: 50px;
+    label {
+      display: inline-block;  
+      width: 20px;
+      height: 20px;
+      background: #C3DEF3;
+      border-radius: 20px;
+      margin-right: 3px;
     }
     
-    p {
-      font-size: 1.6rem;
-      letter-spacing: .2rem;
+    input:checked + label {
+      background: #79A9CE;
     }
   }
+}
+
+
+
+
+
+
+
+
