@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store, select } from '@ngrx/store';
+import { Observable, map } from 'rxjs';
 import { LocalService } from 'src/app/sheard/localService';
 import { selectUser } from 'src/app/stateManagement/user.selectors';
 import { CreateEndorsementCommand, EndorsementsClient, ICreateEndorsementCommand, IEndorsmentDto, ISkillDto } from 'src/app/web-api-client';
@@ -13,6 +14,7 @@ import { CreateEndorsementCommand, EndorsementsClient, ICreateEndorsementCommand
 export class SkillComponent implements OnInit {
 
   listOfEndorsements: IEndorsmentDto[];
+  lenOfList : Observable<number>;
   tempEndorsement: IEndorsmentDto = {
     id: 0,
     skillId: 0,
@@ -34,7 +36,7 @@ export class SkillComponent implements OnInit {
 
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(){
 
     // this.store.pipe(select(selectUser)).subscribe({
     //   next: (data) => {
@@ -44,6 +46,7 @@ export class SkillComponent implements OnInit {
     //   },
     // });    
     this.userId = parseInt(this.localService.getData('id'));
+    this.lenOfList = this.endorsementsClient.getEndorsmentsWithPagination(this.skill.id, 1, 40).pipe(map(data => data.totalCount))
     this.endorsementsClient.getEndorsmentsWithPagination(this.skill.id, 1, 40).subscribe(
       {
         next: data => {

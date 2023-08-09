@@ -13,7 +13,6 @@ html {
     font-size: 16px;
   }
 }
-
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
@@ -34,6 +33,22 @@ a {
 
 a:hover {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+  position: relative;
+  background-color: #FEBB0B;
+  color: white;
+  padding: 10px;
+  transition: top 0.3s ease-in-out;
+}
+
+/* Sticky behavior */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 }
 // 231E39
 .search-box {

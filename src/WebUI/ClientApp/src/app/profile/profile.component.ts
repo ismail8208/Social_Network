@@ -47,6 +47,7 @@ export class ProfileComponent implements OnInit {
 
   isAuthenticated?: boolean;
   isFolloing: boolean = false;
+  isLoaded: boolean = false;
   user: IUserDto = {
     firstName: '',
     lastName: '',
@@ -137,7 +138,8 @@ export class ProfileComponent implements OnInit {
       })
       )
     ))
-    console.log(this.user.summary)
+    this.isLoaded = true;
+    console.log(this.user.id);
     // this.usersClient.get(this.username).subscribe(
     //   {
     //     next: data => {

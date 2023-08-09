@@ -43,6 +43,9 @@ import { AddProjectComponent } from './profile/projects/add-project/add-project.
 import { WritePostComponent } from './profile/posts/write-post/write-post.component';
 import { ExportCvComponent } from './profile/export-cv/export-cv.component';
 import { HasRoleDirective } from './has-role.directive';
+import { WriteJobComponent } from './profile/jobs/write-job/write-job.component';
+import { JobCardComponent } from './profile/jobs/job-card/job-card.component';
+import { JobsListComponent } from './profile/jobs/jobs-list/jobs-list.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +79,10 @@ import { HasRoleDirective } from './has-role.directive';
     AddProjectComponent,
     WritePostComponent,
     ExportCvComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    WriteJobComponent,
+    JobCardComponent,
+    JobsListComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

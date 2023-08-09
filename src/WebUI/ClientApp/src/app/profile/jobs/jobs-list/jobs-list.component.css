@@ -1,0 +1,25 @@
+h2 {
+    margin: 5px 0;
+    text-transform: uppercase;
+}
+
+.group-jobs {
+    margin: auto;
+    width: 70%;
+    padding: 10px;
+    text-align: left;
+
+}
+
+.group-jobs ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.group-jobs ul li {
+    display: inline-block;
+    font-size: 12px;
+    margin: 0 7px 7px 0;
+    padding: 7px;
+}

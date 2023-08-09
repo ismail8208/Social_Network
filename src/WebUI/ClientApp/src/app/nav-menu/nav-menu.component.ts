@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Observable, map} from 'rxjs';
 import { AuthorizeService } from 'src/api-authorization/authorize.service';
 
@@ -18,7 +18,16 @@ export class NavMenuComponent implements OnInit {
     this.isAuthenticated = this.authorizeService.isAuthenticated();
     this.userName = this.authorizeService.getUser().pipe(map(u => u && u.name));
   }
+
+
+  isSticky: boolean = false;
+
+  @HostListener('window:scroll', ['$event'])
+  handleScroll() {
+    this.isSticky = window.pageYOffset >= 80; // Change 100 to the desired scroll position
+  }
   
+
   isExpanded = false;
 
   collapse() {

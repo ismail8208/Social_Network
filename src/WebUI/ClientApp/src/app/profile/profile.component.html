@@ -17,7 +17,7 @@
 				</div>
 			</a>
 
-			<a [routerLink]="['/followings', user.id ]" class="following">
+			<a [routerLink]="['/followings', user.id ]" class="following" >
 				<div>
 					{{user.numberOfFollowings}} following
 				</div>
@@ -76,14 +76,14 @@
 				<button class="primary" (click)="openModal(template)">
 					Add Post
 				</button>
-				<button class="primary" (click)="openModal(template)">
+				<button class="primary" (click)="openModal(jobtemplate)">
 					Add Job
 				</button>
 			</div>
 		</span>
 
 
-
+		<span *ngIf="isLoaded">
 		<!-- about -->
 		<app-about [content]="user.summary" *ngIf="user.summary.length > 0 ? true : false"></app-about>
 		<!-- about -->
@@ -154,12 +154,24 @@
 		</div>
 		<!-- skills end -->
 
+		<!-- jobs start -->
+		
+			<app-jobs-list [userId]="user.id" ></app-jobs-list>
+			<!-- jobs end -->
+		</span>
+
 		<div>
 		</div>
 
 		<ng-template #template>
 			<div class="modal-body">
 				<app-write-post [user]="user" (postSucceeded)="closeModal()"></app-write-post>
+			</div>
+		</ng-template>
+
+		<ng-template #jobtemplate>
+			<div class="modal-body">
+				<app-write-job [user]="user" (jobSucceeded)="closeModal()"></app-write-job>
 			</div>
 		</ng-template>
 		<!-- <ng-template #listOptionsModalTemplate>
@@ -189,3 +201,7 @@
 				</div>
 			</div>
 		</ng-template> -->
+
+		<!-- jobs -->
+	</div>
+</div>

@@ -1,6 +1,6 @@
 <header class="customNav">
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom"
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom" [ngClass]="{ 'sticky': isSticky }"
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">MediaLink.WebUI</a>

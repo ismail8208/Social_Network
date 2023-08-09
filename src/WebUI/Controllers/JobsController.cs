@@ -7,13 +7,21 @@ using MediaLink.Application.Jobs.Commands.CreateJob;
 using MediaLink.Application.Jobs.Commands.DeleteJob;
 using MediaLink.Application.Jobs.Commands.UpdateJob;
 using Microsoft.AspNetCore.Authorization;
+using MediaLink.Application.Posts.Queries.GetPostsWithPagination;
+using MediaLink.Application.Posts.Queries;
 
 namespace MediaLink.WebUI.Controllers;
 [Authorize]
 public class JobsController : ApiControllerBase
 {
+    [HttpGet]
+    public async Task<ActionResult<PaginatedList<JobDto>>> GetJobsWithPagination([FromQuery] GetJobsWithPaginationQuery query)
+    {
+        return await Mediator.Send(query);
+    }
+
     [HttpGet("{job}/Search")]
-    public async Task<ActionResult<PaginatedList<JobDto>>> GetJobsWithPagination(string job)
+    public async Task<ActionResult<PaginatedList<JobDto>>> Search(string job)
     {
         var query = new SearchJobsWithPaginationQuery();
         query.Query = job;
