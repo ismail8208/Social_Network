@@ -124,10 +124,10 @@
                   <div class="dropdown">
                     <button class="dropbtn dropdownbt"> <i class="bi bi-three-dots-vertical"></i></button>
                     <div class="dropdown-content">
-                      <a *ngIf="comment.isOwner">Edite</a>
+                      <!-- <a *ngIf="comment.isOwner">Edite</a> -->
                       <a (click)="showDeleteCommentModal(deleteCommentModalTemplate,comment.id)" *ngIf="comment.isOwner||comment.postOwner " >Delete</a>
 
-                      <!-- <a id="copy" (click)="copyTextToClipboard(post.imageURL)" *ngIf="post.imageURL">Copy Link</a> -->
+                      <a id="copy" (click)="copyTextToClipboard(comment.content)">Copy Link</a> 
                     </div>
                   </div>
                 </div>

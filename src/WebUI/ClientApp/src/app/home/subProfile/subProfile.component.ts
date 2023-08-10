@@ -24,7 +24,9 @@ export class SubProfileComponent implements OnInit {
     role: '',
     summary: '',
     userName: '',
+    numberOfPosts: 0,
     address: '',
+    
   };
   
   
@@ -49,8 +51,8 @@ export class SubProfileComponent implements OnInit {
         numberOfFollowings: data.numberOfFollowings ?? 0,
         role: data.role ?? '',
         userName: data.userName ?? '',
-        address:''
-
+        address:'',
+        numberOfPosts: data.numberOfPosts
 
       })
       )

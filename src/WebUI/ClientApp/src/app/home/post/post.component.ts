@@ -109,7 +109,8 @@ export class PostComponent implements OnInit , OnDestroy{
         numberOfFollowers: data.numberOfFollowers ?? 0,
         numberOfFollowings: data.numberOfFollowings ?? 0,
         role: data.role ?? '',
-        userName: data.userName ?? ''
+        userName: data.userName ?? '',
+       
 
       })
       )
@@ -471,16 +472,16 @@ async getdata():Promise<void>{
 
 } 
 
-  // copyTextToClipboard(textToCopy:string): void {
+  copyTextToClipboard(textToCopy:string): void {
 
-  //   const tempInput = document.createElement('input');
-  //   tempInput.value = textToCopy;
-  //   document.body.appendChild(tempInput);
-  //   tempInput.select();
-  //   document.execCommand('copy');
-  //   document.body.removeChild(tempInput);
-  //   document.getElementById("copy").textContent="copied";
-  // }
+    const tempInput = document.createElement('input');
+    tempInput.value = textToCopy;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    document.getElementById("copy").textContent="copied";
+  }
 }
 
 export class Postsw extends PostDto {
