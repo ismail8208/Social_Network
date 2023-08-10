@@ -9,7 +9,7 @@
 		<img class="round" [src]="user.profileImage" alt="user" />
 		<h3>{{user!.firstName+ " " + user.lastName}}</h3>
 		<h6>Syria</h6>
-		<p> here i will add sumary <br /> front-end developer</p>
+		<p>{{user.specialization}}</p>
 		<div class="follow">
 			<a [routerLink]="['/followers', user.id ]" class="following">
 				<div>
@@ -50,21 +50,21 @@
 					</button>
 					<ul class="dropdown-content" role="menu">
 
-						<li (click)="enableSkillsSection()" style="--delay: 1;" *ngIf="isOwner">Add Skills Section</li>
-						<li (click)="enableEducationsSection()" style="--delay: 2;" *ngIf="isOwner">
+						<li (click)="enableSkillsSection()"  *ngIf="isOwner">Add Skills Section</li>
+						<li (click)="enableEducationsSection()"  *ngIf="isOwner"  style="--delay: 1;">
 							Add Education Section
 						</li>
-						<li (click)="enableExperiencesSection()" style="--delay: 3;" *ngIf="isOwner">
+						<li (click)="enableExperiencesSection()"  *ngIf="isOwner"  style="--delay: 1;">
 							Add Experience Section
 						</li>
-						<li (click)="enableProjectsSection()" style="--delay: 4;" *ngIf="isOwner">
+						<li (click)="enableProjectsSection()" *ngIf="isOwner">
 							Add Projects Section
 						</li>
 						<li>
-							<a class="nav-link" [routerLink]="['/cv', user.id]"  style="--delay: 5;">Export CV</a>
+							<a class="nav-link" [routerLink]="['/cv', user.id]"  >Export CV</a>
 						</li>
 
-						<li style="--delay: 6;" (click)="openModal(template)" *ngIf="isOwner">Add Post</li>
+						<li (click)="openModal(template)" *ngIf="isOwner">Add Post</li>
 
 					</ul>
 				</div>

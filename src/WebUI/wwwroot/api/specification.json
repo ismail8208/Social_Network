@@ -5561,6 +5561,10 @@
           "numberOfPosts": {
             "type": "integer",
             "format": "int32"
+          },
+          "specialization": {
+            "type": "string",
+            "nullable": true
           }
         }
       },

@@ -44,6 +44,7 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDto>
             NumberOfFollowers = user.Followings!.Count(),
             NumberOfFollowings = user.Followers!.Count(),
             NumberOfPosts = user.Posts!.Count(),
+            specialization = user.specialization,
         };
 
         return entity;
