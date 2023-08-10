@@ -42,7 +42,7 @@ public class LatestNewsQueryHandler : IRequestHandler<LatestNewsQuery, Paginated
         }
 
         return await _context.Posts
-            .Where(p => followedUserIds.Contains(p.UserId) && p.IsDeleted == false)
+            .Where(p => followedUserIds.Contains(p.UserId) && p.IsDeleted == false || p.UserId == request.UserId)
             .Include(u => u.User)
             .Include(p => p.Likes)
             .OrderByDescending(p => p.Created)
