@@ -72,3 +72,7 @@ hr {
    
 
 }
+.modal-body
+{
+    padding: 0;
+}

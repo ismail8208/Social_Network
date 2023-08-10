@@ -27,8 +27,14 @@
     </div>
 
 </div>
-
 <ng-template #newPostModalTemplate>
+    <div class="modal-body">
+        <app-write-post [user]="user" (postSucceeded)="newPostCancelled()"></app-write-post>
+    </div>
+</ng-template>
+<!-- <ng-template #newPostModalTemplate>
+
+
     <div class="modal-header">
         <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="newPostCancelled()">
             <span aria-hidden="true" class="visually-hidden">&times;</span>
@@ -54,4 +60,4 @@
             <button class="btn btn-primary" (click)="addPost()">Create</button>
         </div>
     </div>
-</ng-template>
+</ng-template> -->

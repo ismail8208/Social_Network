@@ -123,7 +123,7 @@ export class PostComponent implements OnInit , OnDestroy{
     //   },
     // });
 
-       this.posts$= this.client.getPostsWithPagination(this.user.id, currentPage, pageSize).subscribe(
+       this.posts$= this.client.latestNews(this.user.id, currentPage, pageSize).subscribe(
       result => {
         this.posts = result.items.map(post =>
 
@@ -191,7 +191,7 @@ export class PostComponent implements OnInit , OnDestroy{
       const pageSize = 10;
       let currentPage = Math.ceil(this.posts.length / pageSize) + 1;
 
-      this.posts1$=this.client.getPostsWithPagination(this.user.id, currentPage, pageSize).subscribe(result => {
+      this.posts1$=this.client.latestNews(this.user.id, currentPage, pageSize).subscribe(result => {
         this.posts = this.posts.concat(result.items.map(post => post as Postsw));
 
         this.posts.forEach(post => {
@@ -410,7 +410,7 @@ export class PostComponent implements OnInit , OnDestroy{
   }
 
   editePost(): void {
-    this.client.update(this.postIdForedite.id,this.postIdForedite.content,undefined, undefined).subscribe(error => console.error(error))
+    this.client.update(this.postIdForedite.id,this.postIdForedite.content).subscribe(error => console.error(error))
 
     this.editePostCancelled();
   }

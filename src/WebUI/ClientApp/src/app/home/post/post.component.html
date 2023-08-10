@@ -2,7 +2,6 @@
   <app-addPostCard></app-addPostCard>
   <hr class="mainhr">
   <p *ngIf="!posts"><em>Loading...</em></p>
-  <button (click)="getdata()"></button>
   <div *ngFor="let post of posts">
 
     <div class="card postContainer">
