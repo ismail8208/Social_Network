@@ -59,6 +59,7 @@ export class PostComponent implements OnInit , OnDestroy{
     role: '',
     summary: '',
     userName: '',
+    specialization:'',
   };
   users: IUserDto[];
 
@@ -84,8 +85,8 @@ export class PostComponent implements OnInit , OnDestroy{
 
   
   ngOnDestroy(): void {
-    this.posts$.unsubscribe(); 
-    this.posts1$.unsubscribe(); 
+    // this.posts$.unsubscribe(); 
+    // this.posts1$.unsubscribe(); 
       
    
 
@@ -110,6 +111,7 @@ export class PostComponent implements OnInit , OnDestroy{
         numberOfFollowings: data.numberOfFollowings ?? 0,
         role: data.role ?? '',
         userName: data.userName ?? '',
+        specialization: data.specialization ?? '',
        
 
       })
@@ -137,7 +139,7 @@ export class PostComponent implements OnInit , OnDestroy{
             post.firstName = user.firstName;
             post.lastName = user.lastName;
             post.profileImage = user.profileImage;
-            post.summary = user.summary;
+            post.specialization = user.specialization;
             post.isOwner=this.localService.getData('username') === post.userName;
 
           });
@@ -200,7 +202,7 @@ export class PostComponent implements OnInit , OnDestroy{
             post.firstName = user.firstName;
             post.lastName = user.lastName;
             post.profileImage = user.profileImage;
-            post.summary = user.summary;
+            post.specialization = user.specialization;
           });
           this.fetchCommentForPosts(post);
           this.fetchLikesForPosts(post);
@@ -308,7 +310,7 @@ export class PostComponent implements OnInit , OnDestroy{
             comment.firstName = user.firstName;
             comment.lastName = user.lastName;
             comment.profileImage = user.profileImage;
-            comment.summary = user.summary;
+            comment.specialization = user.specialization;
             comment.isOwner=this.localService.getData('username') === comment.userName;
             comment.postOwner=this.user.userName === comment.userName;
           });
@@ -329,7 +331,7 @@ export class PostComponent implements OnInit , OnDestroy{
                 comment.firstName = user.firstName;
                 comment.lastName = user.lastName;
                 comment.profileImage = user.profileImage;
-                comment.summary = user.summary;
+                comment.specialization = user.specialization;
                 comment.isOwner=this.localService.getData('username') === comment.userName;
                 comment.postOwner=this.user.userName === comment.userName;
               });
@@ -489,7 +491,7 @@ export class Postsw extends PostDto {
   firstName?: string | undefined;
   lastName?: string | undefined;
   profileImage?: string | undefined;
-  summary?: string | undefined;
+  specialization?: string | undefined;
   isOwner: boolean;
 }
 
@@ -497,7 +499,7 @@ export class CommentForView extends CommentDto{
   firstName?: string | undefined;
   lastName?: string | undefined;
   profileImage?: string | undefined;
-  summary?: string | undefined;
+  specialization?: string | undefined;
   postOwner: boolean;
   isOwner: boolean;
 }

@@ -11,13 +11,13 @@
         <div class="textbox">
           <span style="display: flex;">
             <span>
-              <a href="" [routerLink]="['/profile/{{post.userName}}']"> <img [src]="post.profileImage|converToRoot"
+              <a href="" [routerLink]="['/profile', post.userName]"> <img [src]="post.profileImage|converToRoot"
                   class="userImg"></a>
             </span>
             <a href="" [routerLink]="['/profile', post.userName]">
               <h6 class="text-body">
-                <span class="big text-muted">{{post.firstName}} {{post.lastName}} || <span *ngIf="post.summary"
-                    style="font-size: 0.8rem;">{{post.summary}}</span></span>
+                <span class="big text-muted">{{post.firstName}} {{post.lastName}} || <span *ngIf="post.specialization"
+                    style="font-size: 0.8rem;">{{post.specialization}}</span></span>
                 <br>
                 <span class="big text-muted font-weight-normal" style="font-size: 0.8rem;">{{post.userName}}</span>
                 <br>
@@ -111,7 +111,7 @@
                     <a href="" [routerLink]="['/profile', comment.userName]" (click)="newCommentCancelled()">
                       <h6 class="commentDetails-body">
                         <span class="big text-muted">{{comment.firstName}} {{comment.lastName}} || <span
-                            *ngIf="comment.summary" style="font-size: 0.8rem;">{{comment.summary}}</span></span>
+                            *ngIf="comment.specialization" style="font-size: 0.8rem;">{{comment.specialization}}</span></span>
                         <br>
                         <span class="big text-muted font-weight-normal"
                           style="font-size: 0.8rem;">{{comment.userName}}</span>
