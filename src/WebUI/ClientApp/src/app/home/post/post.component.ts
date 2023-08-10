@@ -1,35 +1,53 @@
-import { Component, OnInit, TemplateRef,  } from '@angular/core';
-import { 
+import { Component, OnDestroy, OnInit, TemplateRef, } from '@angular/core';
+import {
   PostDto,
   PostsClient,
-  LikesClient, 
-  CreateLikeCommand, 
-  IUserDto, 
-  CommentsClient, 
-  CreateCommentCommand, 
-  ICommentDto, 
-  UsersClient
- } from '../../web-api-client';
-import { firstValueFrom, map, mergeMap, of } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { selectUser } from 'src/app/stateManagement/user.selectors';
+  LikesClient,
+  CreateLikeCommand,
+  IUserDto,
+  CommentsClient,
+  CreateCommentCommand,
+  UsersClient,
+  CommentDto,
+
+} from '../../web-api-client';
+import { Subscription, firstValueFrom, map, mergeMap, of } from 'rxjs';
 import * as moment from 'moment';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LocalService } from 'src/app/sheard/localService';
-;
+
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit {
-
+export class PostComponent implements OnInit , OnDestroy{
+ 
+  // Add a variable to track if a request is in progress
+  private isFetchingPosts = false;
+  
 
   newCommentEditor: any = {};
   newCommentModalRef: BsModalRef;
 
-  comments: ICommentDto[];
+
+  deletePostModalRef: BsModalRef;
+  postIdForDelete: number;
+  deleteCommentModalRef: BsModalRef
+  commentIdForDelete: number;
+
+  editePostModalRef: BsModalRef;
+  postIdForedite: PostDto;
+
+
+  comments: CommentForView[];
+  commentsX: CommentForView[];
+
+
   thispost: number = 1;
+
+
   public posts: Postsw[] = [];
   user: IUserDto = {
     firstName: '',
@@ -48,15 +66,30 @@ export class PostComponent implements OnInit {
     userId: 2,
     postId: 5,
   }
+
+
+  posts$ : Subscription;
+  posts1$ : Subscription;
+
+  
   constructor(
     private client: PostsClient,
     private likeClient: LikesClient,
     private commentClient: CommentsClient,
-    private store: Store,
     private modalService: BsModalService,
-    private usersClient:UsersClient,
+    private usersClient: UsersClient,
     private localService: LocalService
   ) { }
+
+
+  
+  ngOnDestroy(): void {
+    this.posts$.unsubscribe(); 
+    this.posts1$.unsubscribe(); 
+      
+   
+
+  }
 
 
   async ngOnInit() {
@@ -64,7 +97,7 @@ export class PostComponent implements OnInit {
     let currentPage = 1;
 
     //this.user = await firstValueFrom(this.usersClient.get(this.localService.getData('username')))
-    
+
     this.user = await firstValueFrom(this.usersClient.get(this.localService.getData('username')).pipe(
       map(data => ({
         // ...data,
@@ -90,14 +123,26 @@ export class PostComponent implements OnInit {
     //   },
     // });
 
-    this.client.getPostsWithPagination(this.user.id, currentPage, pageSize).subscribe(
+       this.posts$= this.client.getPostsWithPagination(this.user.id, currentPage, pageSize).subscribe(
       result => {
         this.posts = result.items.map(post =>
-          post as Postsw);
-          this.posts.forEach(post => {
-          this.fetchCommentForPosts(post);
-        this.fetchLikesForPosts(post);
+
+          post as Postsw
+
+
+        );
+        this.posts.forEach(post => {
+          this.usersClient.get(post.userName).subscribe(user => {
+            post.firstName = user.firstName;
+            post.lastName = user.lastName;
+            post.profileImage = user.profileImage;
+            post.summary = user.summary;
+            post.isOwner=this.localService.getData('username') === post.userName;
+
           });
+          this.fetchCommentForPosts(post);
+          this.fetchLikesForPosts(post);
+        });
         // Listen to scroll events to trigger pagination
         window.addEventListener('scroll', this.onScroll.bind(this));
       }, error => console.error(error));
@@ -105,61 +150,66 @@ export class PostComponent implements OnInit {
   }
 
 
-  fetchLikesForPosts(post:Postsw): void {
+  fetchLikesForPosts(post: Postsw): void {
     const pageSize = 20; // Number of likes per page
     let currentPage = 1; // Initial page number
     let counter;
-   
-      this.likeClient.getLikesWithPagination(post.id, currentPage, pageSize).subscribe(likesResult => {
 
-        counter = likesResult.items.length;
-        while (likesResult.totalPages > currentPage) {
-          currentPage++
-          this.likeClient.getLikesWithPagination(post.id, currentPage, pageSize).subscribe(likesResult => {
+    this.likeClient.getLikesWithPagination(post.id, currentPage, pageSize).subscribe(likesResult => {
 
-            counter += likesResult.items.length;
-          })
-        }
-        post.numberOfLikes = counter;
+      counter = likesResult.items.length;
+      while (likesResult.totalPages > currentPage) {
+        currentPage++
+        this.likeClient.getLikesWithPagination(post.id, currentPage, pageSize).subscribe(likesResult => {
 
-
-        this.searchLikes(this.user.id, post.id, 1, 10).subscribe(Like => {
-          if (Like)
-            post.Liked = true;
-          else post.Liked = false;
+          counter += likesResult.items.length;
         })
-      }, error => console.error(error));
-    
+      }
+      post.numberOfLikes = counter;
+
+
+      this.searchLikes(this.user.id, post.id, 1, 10).subscribe(Like => {
+        if (Like)
+          post.Liked = true;
+        else post.Liked = false;
+      })
+    }, error => console.error(error));
+
   }
 
+
   onScroll(): void {
-    // Calculate the scroll position
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    // Calculate the height of the page and the height of the viewport
+
     const pageHeight = document.documentElement.scrollHeight || document.body.scrollHeight || 0;
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || 0;
-    // Calculate the remaining scrollable distance
     const remainingScrollDistance = pageHeight - scrollPosition - viewportHeight;
-    // Define the threshold for triggering pagination (e.g., when 80% of the page is scrolled)
     const paginationThreshold = 0.8;
-    // Check if the remaining scrollable distance meets the pagination threshold
-    if (remainingScrollDistance / pageHeight <= (1 - paginationThreshold)) {
-      // Increment the current page number
-      const pageSize = 10; // Number of posts per page
+    if (!this.isFetchingPosts && remainingScrollDistance / pageHeight <= (1 - paginationThreshold)) {
+      this.isFetchingPosts = true;
+
+      const pageSize = 10;
       let currentPage = Math.ceil(this.posts.length / pageSize) + 1;
-      // Fetch the next page of posts
-      this.client.getPostsWithPagination(this.user.id, currentPage, pageSize).subscribe(result => {
-        // Append the new posts to the existing posts array
-        this.posts = this.posts.concat(
-          result.items.map(post => post as Postsw)
-        );
-        // Fetch likes for the new posts
+
+      this.posts1$=this.client.getPostsWithPagination(this.user.id, currentPage, pageSize).subscribe(result => {
+        this.posts = this.posts.concat(result.items.map(post => post as Postsw));
+
         this.posts.forEach(post => {
-          
+          this.usersClient.get(post.userName).subscribe(user => {
+            post.firstName = user.firstName;
+            post.lastName = user.lastName;
+            post.profileImage = user.profileImage;
+            post.summary = user.summary;
+          });
           this.fetchCommentForPosts(post);
           this.fetchLikesForPosts(post);
-            });
-      }, error => console.error(error));
+        });
+
+        this.isFetchingPosts = false;
+      }, error => {
+        this.isFetchingPosts = false;
+        console.error(error);
+      });
     }
   }
 
@@ -170,7 +220,7 @@ export class PostComponent implements OnInit {
 
           this.likeClient.delete(like.id).subscribe({
             next: () => {
-              this.fetchLikesForPosts(this.posts.find(post => post.id==postId));
+              this.fetchLikesForPosts(this.posts.find(post => post.id == postId));
             },
             error: () => {
               console.error("Failed to remove like");
@@ -182,7 +232,7 @@ export class PostComponent implements OnInit {
           this.like.userId = this.user.id;
           this.likeClient.create(this.like as CreateLikeCommand).subscribe({
             next: () => {
-              this.fetchLikesForPosts(this.posts.find(post => post.id==postId));
+              this.fetchLikesForPosts(this.posts.find(post => post.id == postId));
             },
             error: () => {
               console.error("Failed to add like");
@@ -220,10 +270,13 @@ export class PostComponent implements OnInit {
   getFormattedDate(created: Date): string {
     const currentDate = moment();
     const postDate = moment(created);
+    const diffSecond = currentDate.diff(postDate, 'second');
     const diffMinutes = currentDate.diff(postDate, 'minutes');
-    const diffHours = Math.floor(diffMinutes / 60);
+        const diffHours = Math.floor(diffMinutes / 60);
 
-    if (diffMinutes < 60) {
+     if (diffSecond < 60) {
+      return `${diffSecond} second ago`;
+    } else if (diffMinutes < 60) {
       return `${diffMinutes} minutes ago`;
     } else if (diffHours < 24) {
       return `${diffHours} hours ago`;
@@ -239,25 +292,57 @@ export class PostComponent implements OnInit {
   fetchCommentForPosts(post: Postsw): void {
     let currentPage = 1;
     let counter;
-    this.commentClient.getCommentsWithPagination(post.id, currentPage, 20).subscribe(
+    this.commentClient.getCommentsWithPagination(post.id, currentPage,100).subscribe(
+
+      data => {
       
-       data => {
-          counter = data.items.length;
-          this.comments = data.items;
-          while (data.totalPages > currentPage) {
-            currentPage++
-            this.commentClient.getCommentsWithPagination(post.id, currentPage, 20).subscribe(data => {
-              counter += data.items.length;
+        counter = data.items.length;
+        this.comments = data.items.map(comment =>
 
-              this.comments.push(data.items as ICommentDto)
-            })
-          }
-          post.numberOfComments = counter;
+          comment as CommentForView
+        );
+        
+        this.comments.forEach(comment => {
+          this.usersClient.get(comment.userName).subscribe(user => {
+            comment.firstName = user.firstName;
+            comment.lastName = user.lastName;
+            comment.profileImage = user.profileImage;
+            comment.summary = user.summary;
+            comment.isOwner=this.localService.getData('username') === comment.userName;
+            comment.postOwner=this.user.userName === comment.userName;
+          });
+        });
+     
+        while (data.totalPages > currentPage) {
+          currentPage++;
+          this.commentClient.getCommentsWithPagination(post.id, currentPage, 20).subscribe(data => {
+            counter += data.items.length;
+            this.commentsX = data.items.map(comment =>
 
+              comment as CommentForView
+            );
+            
+            this.commentsX.forEach(comment => {
+              this.usersClient.get(comment.userName).subscribe(user => {
+                console.log(data.totalPages +"in while" );
+                comment.firstName = user.firstName;
+                comment.lastName = user.lastName;
+                comment.profileImage = user.profileImage;
+                comment.summary = user.summary;
+                comment.isOwner=this.localService.getData('username') === comment.userName;
+                comment.postOwner=this.user.userName === comment.userName;
+              });
+            });
+
+            this.comments.push(...this.commentsX)
+          })
         }
-      
+        post.numberOfComments = counter;
+
+      }
+
     );
-    
+
 
   }
 
@@ -265,7 +350,7 @@ export class PostComponent implements OnInit {
     this.thispost = postId;
     this.newCommentModalRef = this.modalService.show(template);
 
-    this.fetchCommentForPosts(this.posts.find(post => post.id==postId));
+    this.fetchCommentForPosts(this.posts.find(post => post.id == postId));
     setTimeout(() => document.getElementById('content').focus(), 250);
   }
 
@@ -275,6 +360,7 @@ export class PostComponent implements OnInit {
     this.newCommentEditor = {};
   }
 
+
   addComment(): void {
     if (this.newCommentEditor.content != "") {
       const comment = {
@@ -283,17 +369,134 @@ export class PostComponent implements OnInit {
         postId: this.thispost
 
       } as CreateCommentCommand;
-      
-      this.commentClient.create(comment).subscribe(  error => console.error(error))
-      this.newCommentEditor.content='';
-      this.fetchCommentForPosts(this.posts.find(post => post.id==this.thispost));
+
+      this.commentClient.create(comment).subscribe(error => console.error(error))
+      this.newCommentEditor.content = '';
+      this.fetchCommentForPosts(this.posts.find(post => post.id == this.thispost));
     }
-  
+
 
   }
 
+
+
+  showDeletePostModal(template: TemplateRef<any>, postId: number): void {
+    this.deletePostModalRef = this.modalService.show(template);
+    this.postIdForDelete = postId;
+  }
+
+  deletePostCancelled(): void {
+    this.deletePostModalRef.hide();
+  }
+
+  deletePost(): void {
+    this.client.delete(this.postIdForDelete).subscribe(error => console.error(error))
+
+    this.deletePostCancelled();
+  }
+
+  
+
+
+
+
+  showEditePostModal(template: TemplateRef<any>, post: PostDto): void {
+    this.editePostModalRef = this.modalService.show(template);
+    this.postIdForedite = post;
+  }
+
+  editePostCancelled(): void {
+    this.editePostModalRef.hide();
+  }
+
+  editePost(): void {
+    this.client.update(this.postIdForedite.id,this.postIdForedite.content,undefined, undefined).subscribe(error => console.error(error))
+
+    this.editePostCancelled();
+  }
+
+
+
+  
+  showDeleteCommentModal(template: TemplateRef<any>, commentId: number): void {
+    this.deleteCommentModalRef = this.modalService.show(template);
+    this.commentIdForDelete = commentId;
+  }
+
+  deleteCommentCancelled(): void {
+    this.deleteCommentModalRef.hide();
+  }
+
+  deleteComment(): void {
+    this.commentClient.delete(this.commentIdForDelete).subscribe(error => console.error(error));
+
+    this.deleteCommentCancelled();
+  }
+
+
+
+
+
+  downloadImage(imageUrl: string): void {
+    const link = document.createElement('a');
+    link.href = "https://localhost:44447/api/Images/" + imageUrl;
+    link.download = "https://localhost:44447/api/Images/" + imageUrl; // The default downloaded file name
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+  
+async getdata():Promise<void>{
+  const url = 'https://exifreader.p.rapidapi.com/Exif';
+  const data = new FormData();
+  data.append('file', 'https://localhost:44447/api/Images/d55415ea-240f-4821-89b0-0b872c2932ec_Screenshot%202023-03-09%20151612.png');
+  
+  const options = {
+    method: 'POST',
+    headers: {
+      'X-RapidAPI-Key': 'b544877247msha0b55199fd9e4bbp126c78jsn43114c847a28',
+      'X-RapidAPI-Host': 'exifreader.p.rapidapi.com'
+    },
+    body: data
+  };
+  
+  try {
+    const response = await fetch(url, options);
+    const result = await response.text();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+
+} 
+
+  // copyTextToClipboard(textToCopy:string): void {
+
+  //   const tempInput = document.createElement('input');
+  //   tempInput.value = textToCopy;
+  //   document.body.appendChild(tempInput);
+  //   tempInput.select();
+  //   document.execCommand('copy');
+  //   document.body.removeChild(tempInput);
+  //   document.getElementById("copy").textContent="copied";
+  // }
 }
 
 export class Postsw extends PostDto {
   public Liked: boolean;
+  firstName?: string | undefined;
+  lastName?: string | undefined;
+  profileImage?: string | undefined;
+  summary?: string | undefined;
+  isOwner: boolean;
+}
+
+export class CommentForView extends CommentDto{
+  firstName?: string | undefined;
+  lastName?: string | undefined;
+  profileImage?: string | undefined;
+  summary?: string | undefined;
+  postOwner: boolean;
+  isOwner: boolean;
 }

@@ -43,6 +43,7 @@ import { AddProjectComponent } from './profile/projects/add-project/add-project.
 import { WritePostComponent } from './profile/posts/write-post/write-post.component';
 import { ExportCvComponent } from './profile/export-cv/export-cv.component';
 import { HasRoleDirective } from './has-role.directive';
+import { SubProfileComponent } from './home/subProfile/subProfile.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { HasRoleDirective } from './has-role.directive';
     AddProjectComponent,
     WritePostComponent,
     ExportCvComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    SubProfileComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -9,8 +9,10 @@ import { Pipe, PipeTransform } from "@angular/core";
 
 export class converToRoot implements PipeTransform {
 
-    transform(value: any, root: string) {
-        return value.replace("wwwroot",root);
+    transform(value: any) {
+        
+        return "https://localhost:44447/api/Images/"+value
+        //return value.replace("wwwroot",root);
     }
 
 }

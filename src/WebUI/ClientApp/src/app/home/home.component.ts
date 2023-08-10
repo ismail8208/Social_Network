@@ -3,9 +3,7 @@ import { Observable } from 'rxjs';
 import { AuthorizeService } from 'src/api-authorization/authorize.service';
 import { IUserDto } from '../web-api-client';
 import { Store, select } from '@ngrx/store';
-import { setUser } from '../stateManagement/user.actions';
 import { TokenService } from '../sheard/tokenService';
-import { selectUser } from '../stateManagement/user.selectors';
 
 @Component({
   selector: 'app-home',

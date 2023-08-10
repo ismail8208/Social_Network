@@ -6,16 +6,23 @@ hr{
 }
 
 
-@media (max-width: 705px) {
-    .homeContainer {
-        display:block;
-        
+
+@media (max-width: 1299px) {
+    .col1{
+      display: none;
+    }
+    .col3{
+      display: none;
     }
   }
   
-  @media (min-width: 706px) {
+  @media (min-width: 1300px) {
     .homeContainer {
       display:flex;
       justify-content:space-around;
     }
+    .col1{
+      position:sticky;
+    }
   }
+  
