@@ -9212,6 +9212,7 @@ export class UserDto implements IUserDto {
     numberOfFollowers?: number;
     numberOfFollowings?: number;
     numberOfPosts?: number;
+    specialization?: string | undefined;
 
     constructor(data?: IUserDto) {
         if (data) {
@@ -9234,6 +9235,7 @@ export class UserDto implements IUserDto {
             this.numberOfFollowers = _data["numberOfFollowers"];
             this.numberOfFollowings = _data["numberOfFollowings"];
             this.numberOfPosts = _data["numberOfPosts"];
+            this.specialization = _data["specialization"];
         }
     }
 
@@ -9256,6 +9258,7 @@ export class UserDto implements IUserDto {
         data["numberOfFollowers"] = this.numberOfFollowers;
         data["numberOfFollowings"] = this.numberOfFollowings;
         data["numberOfPosts"] = this.numberOfPosts;
+        data["specialization"] = this.specialization;
         return data;
     }
 }
@@ -9271,6 +9274,7 @@ export interface IUserDto {
     numberOfFollowers?: number;
     numberOfFollowings?: number;
     numberOfPosts?: number;
+    specialization?: string | undefined;
 }
 
 export class WeatherForecast implements IWeatherForecast {

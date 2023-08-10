@@ -133,7 +133,8 @@ export class ProfileComponent implements OnInit {
         numberOfFollowers: data.numberOfFollowers ?? 0,
         numberOfFollowings: data.numberOfFollowings ?? 0,
         role: data.role ?? '',
-        userName: data.userName ?? ''
+        userName: data.userName ?? '',
+        specialization: data.specialization ??''
 
       })
       )

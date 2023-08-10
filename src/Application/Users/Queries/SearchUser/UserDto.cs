@@ -14,5 +14,6 @@ public class UserDto : IMapFrom<InnerUser>
     public int NumberOfFollowers { get; set; }
     public int NumberOfFollowings { get; set; }
     public int NumberOfPosts { get; set; }
+    public string? specialization { get; set; }
 
 }
