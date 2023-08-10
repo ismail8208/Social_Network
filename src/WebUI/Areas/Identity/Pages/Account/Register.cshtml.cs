@@ -148,7 +148,9 @@ namespace WebUI.Areas.Identity.Pages.Account
                     {
                         if (Input.IsCompanyUser)
                         {
-                            await _userManager.AddToRolesAsync(user, new[] { "company", "member" });
+                            await _userManager.AddToRolesAsync(user, new[] { "company" });
+                            //await _userManager.AddToRolesAsync(user, new[] { "company", "member" });
+
                         }
                         else
                         {

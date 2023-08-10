@@ -13,8 +13,7 @@ public record UpdatePostCommand : IRequest
 {
     public int Id { get; set; }
     public string? Content { get; set; }
-    public IFormFile? Image { get; set; }
-    public IFormFile? Video { get; set; }
+
 }
 
 
@@ -35,9 +34,9 @@ public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand>
             throw new NotFoundException(nameof(Post), request.Id);
         }
 
-        entity.Content= request.Content;
-        entity.ImageURL= await SaveFile.Save(FileType.image, request.Image);
-        entity.VideoURL= await SaveFile.Save(FileType.video, request.Video);
+        entity.Content = request.Content;
+
+
 
         await _context.SaveChangesAsync(cancellationToken);
 

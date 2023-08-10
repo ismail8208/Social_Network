@@ -139,47 +139,7 @@ export class ProfileComponent implements OnInit {
       )
     ))
     this.isLoaded = true;
-    console.log(this.user.id);
-    // this.usersClient.get(this.username).subscribe(
-    //   {
-    //     next: data => {
-    //       this.user = data;
-    //       if (data.profileImage) {
-    //         this.user.profileImage = `https://localhost:44447/api/Images/${data.profileImage}`;
-    //       }
-    //       else {
-    //         this.user.profileImage = 'https://localhost:44447/api/Images/2b388861-8663-4843-9f65-5481388e927d_Screenshot 2023-05-06 211008.png';
-    //       }
-    //     }
-    //   }
-    // )
-
-    //  this.isFolloing = await firstValueFrom(this.follows.getFollowingsWithPagination(this.user.id, 1, 20).pipe(
-    //     map(res => {
-    //       const f = res.items.find(u => u.userName === this.owner.userName);
-    //         if(f)
-    //         {
-    //           return of(true);
-    //         }
-    //         else return of(false);
-    //     }
-    //     )
-    //   )
-    //  )
     this.checkIfUserFolloing();
-    // this.follows.getFollowingsWithPagination(this.user.id, 1, 20).subscribe(
-    //   {
-    //     next: data => {
-    //       const f = data.items.find(u => u.userName == localStorage.getItem('username'));
-    //       if(f)
-    //       {
-    //         this.isFolloing = true;
-    //       }
-    //       else this.isFolloing = false;
-    //     }
-    //   }
-    // )
-
     this.skillsClinet.getSkillsWithPagination(this.user.id, 1, 40).subscribe({
       next: (skills) => {
         this.skills = skills.items;
@@ -497,25 +457,3 @@ export class ProfileComponent implements OnInit {
   }
 
 }
-
-
-   // setTimeout(() => {
-
-    // this.endorsementsClient.getEndorsmentsWithPagination(1016, 1, 40).pipe(
-
-    //   combineLatestWith(
-    //     this.skillsClinet.getSkillsWithPagination(this.user.id, 1, 40).pipe(
-    //     tap(data => {
-    //       this.lenOfSkills = data.totalCount;
-    //       this.textskillbutton =  `Show all ${this.lenOfSkills} skills`
-    //     }))),
-
-    //   map(([CLendorsements, CLskills]) =>  CLskills.items.map(skill => ({
-    //     ...skill,
-    //     listOfEndorsements: CLendorsements.items.filter(e => skill.id == e.skillId)
-    //   } as ISkill)))).subscribe({
-    //     next: data =>  {
-    //       this.skills = data;
-    //     }
-    //   });
-    // }, 500);

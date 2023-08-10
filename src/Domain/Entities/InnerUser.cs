@@ -12,6 +12,7 @@ public class InnerUser : BaseEntity
     public DateTime DateOfBirth { get; set; }
     public string? Gender { get; set; }
     public string? ProfileImage { get; set; }
+    public string? specialization { get; set; }
     // Navigation properties
     public List<Skill>? Skills { get; set; }
     public List<Project>? Projects { get; set; }
@@ -24,6 +25,7 @@ public class InnerUser : BaseEntity
     public List<Share>? SharedPosts { get; set; }
     public List<Like>? Likes { get; set; }
     public List<Comment>? Comments { get; set; }
+    public List<CV>? CVs { get; set; }
     public bool IsDeleted { get; set; } = false;
 
 }

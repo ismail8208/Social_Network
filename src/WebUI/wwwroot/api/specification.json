@@ -1856,7 +1856,6 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
                 "properties": {
                   "Id": {
                     "type": "integer",
@@ -1864,16 +1863,6 @@
                   },
                   "Content": {
                     "type": "string",
-                    "nullable": true
-                  },
-                  "Image": {
-                    "type": "string",
-                    "format": "binary",
-                    "nullable": true
-                  },
-                  "Video": {
-                    "type": "string",
-                    "format": "binary",
                     "nullable": true
                   }
                 }
@@ -4565,6 +4554,10 @@
                 "type": "string",
                 "nullable": true
               },
+              "specialization": {
+                "type": "string",
+                "nullable": true
+              },
               "skills": {
                 "type": "array",
                 "nullable": true,
@@ -4640,6 +4633,13 @@
                 "nullable": true,
                 "items": {
                   "$ref": "#/components/schemas/Comment"
+                }
+              },
+              "cVs": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/CV2"
                 }
               },
               "isDeleted": {
@@ -5198,6 +5198,36 @@
           }
         ]
       },
+      "CV2": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cvId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/InnerUser"
+              }
+            ]
+          },
+          "position": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "company": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "CreateSkillCommand": {
         "type": "object",
         "additionalProperties": false,
@@ -5525,6 +5555,10 @@
             "format": "int32"
           },
           "numberOfFollowings": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numberOfPosts": {
             "type": "integer",
             "format": "int32"
           }
