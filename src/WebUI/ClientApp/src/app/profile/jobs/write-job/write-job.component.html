@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="card">
+            <div class="row px-3">
+                <!-- <img class="profile-pic mr-3" src="https://i.imgur.com/6tPhTUn.jpg"> -->
+                <img  class="profile-pic mr-3" [src]="user.profileImage" alt="user" />
+                <div class="flex-column">
+                    <h3 class="mb-0 font-weight-normal">{{user.firstName+ " "+ user.lastName}}</h3>
+                    <select name="privacy" class="privacy">
+                        <option>Public post</option>
+                        <option>Private post</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row px-3 form-group">
+                <input class="text-muted bg-light mt-4 mb-3" placeholder="Title"[(ngModel)]="title"/>
+            </div>
+            <div class="row px-3 form-group">
+                <textarea class="text-muted bg-light mt-4 mb-3" placeholder="Hi {{user.firstName}}, what's on your mind today?"[(ngModel)]="description" minlength="10"></textarea>
+            </div>
+            <div class="options-container">
+                <span  class="left-options">
+                    <p class="fa fa-user options mb-0 mr-4"></p>
+                    <p class="fa fa-map-marker options mb-0 mr-4"></p>
+                    <p class="fa fa-image options mb-0 mr-4"></p>
+                </span>
+                <!-- <img class="options" src="https://img.icons8.com/material/24/000000/more--v2.png" width="30px" height="28px"> -->
+                <div class="btn btn-success ml-auto" (click)="CreatePost()">{{btnText}}</div>
+            </div>
+        </div>
+    </div>
+</div>

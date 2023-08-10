@@ -12,6 +12,8 @@ public record CreateExperienceCommand : IRequest <int>
     public string? Title { get; set; }
     public string? Description { get; set; }
     public int ExperienceDate { get; set; }
+    public string? CompanyName { get; set; }
+    public DateTime StartedTime { get; set; }
     public int UserId { get; set; }
 }
 
@@ -31,8 +33,9 @@ public class CreateExperienceCommandHandler : IRequestHandler<CreateExperienceCo
             Title = request.Title,
             Description = request.Description,
             ExperienceDate = request.ExperienceDate,
+            CompanyName = request.CompanyName,
+            StartedTime = request.StartedTime,
             UserId = request.UserId
-            
         };
 
         entity.AddDomainEvent(new ExperienceCreatedEvent(entity));

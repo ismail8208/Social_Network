@@ -14,6 +14,8 @@ public class ExperienceDto : IMapFrom<Experience>
     public int? ProjectId { get; set; }
     public string? ProjectName { get; set; }
     public string? UserName { get; set; }
+    public string? CompanyName { get; set; }
+    public DateTime StartedTime { get; set; }
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Experience, ExperienceDto>()

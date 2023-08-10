@@ -25,7 +25,7 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDto>
     }
     public async Task<UserDto> Handle(GetUserQuery request, CancellationToken cancellationToken)
     {
-        var user = await _context.InnerUsers.Include(f => f.Followers).Include(f => f.Followings).FirstOrDefaultAsync(u => u.UserName == request.username && u.IsDeleted == false);
+        var user = await _context.InnerUsers.Include(f => f.Followers).Include(f => f.Followings).Include(p =>p.Posts).FirstOrDefaultAsync(u => u.UserName == request.username && u.IsDeleted == false);
         if (user == null)
         {
             throw new NotFoundException(nameof(InnerUser), request.username);
@@ -42,7 +42,8 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDto>
             Role = role,
             Summary = user.Summary,
             NumberOfFollowers = user.Followings!.Count(),
-            NumberOfFollowings = user.Followers!.Count()
+            NumberOfFollowings = user.Followers!.Count(),
+            NumberOfPosts = user.Posts!.Count(),
         };
 
         return entity;

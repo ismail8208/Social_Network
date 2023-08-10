@@ -17,7 +17,7 @@
 				</div>
 			</a>
 
-			<a [routerLink]="['/followings', user.id ]" class="following">
+			<a [routerLink]="['/followings', user.id ]" class="following" >
 				<div>
 					{{user.numberOfFollowings}} following
 				</div>
@@ -27,7 +27,7 @@
 		<span *userHasRole="'member'">
 			<div class="buttons">
 				<button class="primary">
-					Massege
+					Massegeddee
 				</button>
 
 				<button class="primary ghost" *ngIf="!isOwner && isFolloing" (click)="unFollow()">
@@ -57,14 +57,14 @@
 						<li (click)="enableExperiencesSection()" style="--delay: 3;" *ngIf="isOwner">
 							Add Experience Section
 						</li>
-						<li (click)="enableProjectsSection()" style="--delay: 3;" *ngIf="isOwner">
+						<li (click)="enableProjectsSection()" style="--delay: 4;" *ngIf="isOwner">
 							Add Projects Section
 						</li>
 						<li>
-							<a class="nav-link" [routerLink]="['/cv', user.id]">Export CV</a>
+							<a class="nav-link" [routerLink]="['/cv', user.id]"  style="--delay: 5;">Export CV</a>
 						</li>
 
-						<li style="--delay: 4;" (click)="openModal(template)" *ngIf="isOwner">Add Post</li>
+						<li style="--delay: 6;" (click)="openModal(template)" *ngIf="isOwner">Add Post</li>
 
 					</ul>
 				</div>
@@ -76,14 +76,14 @@
 				<button class="primary" (click)="openModal(template)">
 					Add Post
 				</button>
-				<button class="primary" (click)="openModal(template)">
+				<button class="primary" (click)="openModal(jobtemplate)">
 					Add Job
 				</button>
 			</div>
 		</span>
 
 
-
+		<span *ngIf="isLoaded">
 		<!-- about -->
 		<app-about [content]="user.summary" *ngIf="user.summary.length > 0 ? true : false"></app-about>
 		<!-- about -->
@@ -154,6 +154,12 @@
 		</div>
 		<!-- skills end -->
 
+		<!-- jobs start -->
+		
+			<app-jobs-list [userId]="user.id" ></app-jobs-list>
+			<!-- jobs end -->
+		</span>
+
 		<div>
 		</div>
 
@@ -162,30 +168,11 @@
 				<app-write-post [user]="user" (postSucceeded)="closeModal()"></app-write-post>
 			</div>
 		</ng-template>
-		<!-- <ng-template #listOptionsModalTemplate>
-			<div class="modal-header">
-				<h4 class="modal-title pull-left">Followers</h4>
-				<span aria-hidden="true" class="visually-hidden">&times;</span>
-			</div>
+
+		<ng-template #jobtemplate>
 			<div class="modal-body">
-				<div class="form-group">
-					<div class="reactions" *ngFor="let user of followers">
-						<ul>
-
-							<img [src]="user.profileImage" alt="user" style="margin-right: 5px;" class="round-like">
-							<li [routerLinkActive]="['link-active']">
-								<a [routerLink]="['/profile', user.userName ]"  (click)="close()">
-								<span style="font-weight: bold;"> {{user.firstName+ " " + user.lastName}} </span>
-								<span style="font-weight: bold; display: block;">
-									<i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
-									{{user.userName}}</span>
-								</a>
-							</li>
-							<hr class="separateLike">
-
-						</ul>
-					</div>
-
-				</div>
+				<app-write-job [user]="user" (jobSucceeded)="closeModal()"></app-write-job>
 			</div>
-		</ng-template> -->
+		</ng-template>
+	</div>
+</div>

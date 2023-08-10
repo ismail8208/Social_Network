@@ -1833,11 +1833,12 @@ export class FollowsClient implements IFollowsClient {
 }
 
 export interface IJobsClient {
-    getJobsWithPagination(job: string | null): Observable<PaginatedListOfJobDto>;
+    getJobsWithPagination(userId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfJobDto>;
+    create(command: CreateJobCommand): Observable<number>;
+    search(job: string | null): Observable<PaginatedListOfJobDto>;
     get(id: number): Observable<JobDto>;
     delete(id: number): Observable<FileResponse>;
     update(id: number, command: UpdateJobCommand): Observable<FileResponse>;
-    create(command: CreateJobCommand): Observable<number>;
 }
 
 @Injectable({
@@ -1853,11 +1854,20 @@ export class JobsClient implements IJobsClient {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    getJobsWithPagination(job: string | null): Observable<PaginatedListOfJobDto> {
-        let url_ = this.baseUrl + "/api/Jobs/{job}/Search";
-        if (job === undefined || job === null)
-            throw new Error("The parameter 'job' must be defined.");
-        url_ = url_.replace("{job}", encodeURIComponent("" + job));
+    getJobsWithPagination(userId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfJobDto> {
+        let url_ = this.baseUrl + "/api/Jobs?";
+        if (userId === null)
+            throw new Error("The parameter 'userId' cannot be null.");
+        else if (userId !== undefined)
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&";
+        if (pageNumber === null)
+            throw new Error("The parameter 'pageNumber' cannot be null.");
+        else if (pageNumber !== undefined)
+            url_ += "PageNumber=" + encodeURIComponent("" + pageNumber) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1883,6 +1893,110 @@ export class JobsClient implements IJobsClient {
     }
 
     protected processGetJobsWithPagination(response: HttpResponseBase): Observable<PaginatedListOfJobDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PaginatedListOfJobDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    create(command: CreateJobCommand): Observable<number> {
+        let url_ = this.baseUrl + "/api/Jobs";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<number>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<number>;
+        }));
+    }
+
+    protected processCreate(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    search(job: string | null): Observable<PaginatedListOfJobDto> {
+        let url_ = this.baseUrl + "/api/Jobs/{job}/Search";
+        if (job === undefined || job === null)
+            throw new Error("The parameter 'job' must be defined.");
+        url_ = url_.replace("{job}", encodeURIComponent("" + job));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSearch(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSearch(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PaginatedListOfJobDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PaginatedListOfJobDto>;
+        }));
+    }
+
+    protected processSearch(response: HttpResponseBase): Observable<PaginatedListOfJobDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2061,59 +2175,6 @@ export class JobsClient implements IJobsClient {
                 fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
             }
             return _observableOf({ fileName: fileName, data: responseBlob as any, status: status, headers: _headers });
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    create(command: CreateJobCommand): Observable<number> {
-        let url_ = this.baseUrl + "/api/Jobs";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(command);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreate(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCreate(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<number>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<number>;
-        }));
-    }
-
-    protected processCreate(response: HttpResponseBase): Observable<number> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
-            return _observableOf(result200);
-            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2429,7 +2490,7 @@ export class LikesClient implements ILikesClient {
 export interface IPostsClient {
     getPostsWithPagination(userId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfPostDto>;
     create(content: string | null | undefined, image: FileParameter | null | undefined, video: FileParameter | null | undefined, userId: number | undefined): Observable<number>;
-    update(id: number | undefined, content: string | null | undefined, image: FileParameter | null | undefined, video: FileParameter | null | undefined): Observable<FileResponse>;
+    update(id: number | undefined, content: string | null | undefined): Observable<FileResponse>;
     latestNews(userId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfPostDto>;
     get(id: number): Observable<PostDto>;
     delete(id: number): Observable<FileResponse>;
@@ -2570,7 +2631,7 @@ export class PostsClient implements IPostsClient {
         return _observableOf(null as any);
     }
 
-    update(id: number | undefined, content: string | null | undefined, image: FileParameter | null | undefined, video: FileParameter | null | undefined): Observable<FileResponse> {
+    update(id: number | undefined, content: string | null | undefined): Observable<FileResponse> {
         let url_ = this.baseUrl + "/api/Posts";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2581,10 +2642,6 @@ export class PostsClient implements IPostsClient {
             content_.append("Id", id.toString());
         if (content !== null && content !== undefined)
             content_.append("Content", content.toString());
-        if (image !== null && image !== undefined)
-            content_.append("Image", image.data, image.fileName ? image.fileName : "Image");
-        if (video !== null && video !== undefined)
-            content_.append("Video", video.data, video.fileName ? video.fileName : "Video");
 
         let options_ : any = {
             body: content_,
@@ -5404,6 +5461,8 @@ export class ExperienceDto implements IExperienceDto {
     projectId?: number | undefined;
     projectName?: string | undefined;
     userName?: string | undefined;
+    companyName?: string | undefined;
+    startedTime?: Date;
 
     constructor(data?: IExperienceDto) {
         if (data) {
@@ -5424,6 +5483,8 @@ export class ExperienceDto implements IExperienceDto {
             this.projectId = _data["projectId"];
             this.projectName = _data["projectName"];
             this.userName = _data["userName"];
+            this.companyName = _data["companyName"];
+            this.startedTime = _data["startedTime"] ? new Date(_data["startedTime"].toString()) : <any>undefined;
         }
     }
 
@@ -5444,6 +5505,8 @@ export class ExperienceDto implements IExperienceDto {
         data["projectId"] = this.projectId;
         data["projectName"] = this.projectName;
         data["userName"] = this.userName;
+        data["companyName"] = this.companyName;
+        data["startedTime"] = this.startedTime ? this.startedTime.toISOString() : <any>undefined;
         return data;
     }
 }
@@ -5457,12 +5520,16 @@ export interface IExperienceDto {
     projectId?: number | undefined;
     projectName?: string | undefined;
     userName?: string | undefined;
+    companyName?: string | undefined;
+    startedTime?: Date;
 }
 
 export class CreateExperienceCommand implements ICreateExperienceCommand {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
 
     constructor(data?: ICreateExperienceCommand) {
@@ -5479,6 +5546,8 @@ export class CreateExperienceCommand implements ICreateExperienceCommand {
             this.title = _data["title"];
             this.description = _data["description"];
             this.experienceDate = _data["experienceDate"];
+            this.companyName = _data["companyName"];
+            this.startedTime = _data["startedTime"] ? new Date(_data["startedTime"].toString()) : <any>undefined;
             this.userId = _data["userId"];
         }
     }
@@ -5495,6 +5564,8 @@ export class CreateExperienceCommand implements ICreateExperienceCommand {
         data["title"] = this.title;
         data["description"] = this.description;
         data["experienceDate"] = this.experienceDate;
+        data["companyName"] = this.companyName;
+        data["startedTime"] = this.startedTime ? this.startedTime.toISOString() : <any>undefined;
         data["userId"] = this.userId;
         return data;
     }
@@ -5504,6 +5575,8 @@ export interface ICreateExperienceCommand {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
 }
 
@@ -5512,6 +5585,8 @@ export class UpdateExperienceCommand implements IUpdateExperienceCommand {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
 
     constructor(data?: IUpdateExperienceCommand) {
@@ -5529,6 +5604,8 @@ export class UpdateExperienceCommand implements IUpdateExperienceCommand {
             this.title = _data["title"];
             this.description = _data["description"];
             this.experienceDate = _data["experienceDate"];
+            this.companyName = _data["companyName"];
+            this.startedTime = _data["startedTime"] ? new Date(_data["startedTime"].toString()) : <any>undefined;
             this.userId = _data["userId"];
         }
     }
@@ -5546,6 +5623,8 @@ export class UpdateExperienceCommand implements IUpdateExperienceCommand {
         data["title"] = this.title;
         data["description"] = this.description;
         data["experienceDate"] = this.experienceDate;
+        data["companyName"] = this.companyName;
+        data["startedTime"] = this.startedTime ? this.startedTime.toISOString() : <any>undefined;
         data["userId"] = this.userId;
         return data;
     }
@@ -5556,6 +5635,8 @@ export interface IUpdateExperienceCommand {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
 }
 
@@ -7533,6 +7614,7 @@ export class InnerUser extends BaseEntity implements IInnerUser {
     dateOfBirth?: Date;
     gender?: string | undefined;
     profileImage?: string | undefined;
+    specialization?: string | undefined;
     skills?: Skill[] | undefined;
     projects?: Project[] | undefined;
     experiences?: Experience[] | undefined;
@@ -7544,6 +7626,7 @@ export class InnerUser extends BaseEntity implements IInnerUser {
     sharedPosts?: Share[] | undefined;
     likes?: Like[] | undefined;
     comments?: Comment[] | undefined;
+    cVs?: CV2[] | undefined;
     isDeleted?: boolean;
 
     constructor(data?: IInnerUser) {
@@ -7563,6 +7646,7 @@ export class InnerUser extends BaseEntity implements IInnerUser {
             this.dateOfBirth = _data["dateOfBirth"] ? new Date(_data["dateOfBirth"].toString()) : <any>undefined;
             this.gender = _data["gender"];
             this.profileImage = _data["profileImage"];
+            this.specialization = _data["specialization"];
             if (Array.isArray(_data["skills"])) {
                 this.skills = [] as any;
                 for (let item of _data["skills"])
@@ -7618,6 +7702,11 @@ export class InnerUser extends BaseEntity implements IInnerUser {
                 for (let item of _data["comments"])
                     this.comments!.push(Comment.fromJS(item));
             }
+            if (Array.isArray(_data["cVs"])) {
+                this.cVs = [] as any;
+                for (let item of _data["cVs"])
+                    this.cVs!.push(CV2.fromJS(item));
+            }
             this.isDeleted = _data["isDeleted"];
         }
     }
@@ -7641,6 +7730,7 @@ export class InnerUser extends BaseEntity implements IInnerUser {
         data["dateOfBirth"] = this.dateOfBirth ? this.dateOfBirth.toISOString() : <any>undefined;
         data["gender"] = this.gender;
         data["profileImage"] = this.profileImage;
+        data["specialization"] = this.specialization;
         if (Array.isArray(this.skills)) {
             data["skills"] = [];
             for (let item of this.skills)
@@ -7696,6 +7786,11 @@ export class InnerUser extends BaseEntity implements IInnerUser {
             for (let item of this.comments)
                 data["comments"].push(item.toJSON());
         }
+        if (Array.isArray(this.cVs)) {
+            data["cVs"] = [];
+            for (let item of this.cVs)
+                data["cVs"].push(item.toJSON());
+        }
         data["isDeleted"] = this.isDeleted;
         super.toJSON(data);
         return data;
@@ -7713,6 +7808,7 @@ export interface IInnerUser extends IBaseEntity {
     dateOfBirth?: Date;
     gender?: string | undefined;
     profileImage?: string | undefined;
+    specialization?: string | undefined;
     skills?: Skill[] | undefined;
     projects?: Project[] | undefined;
     experiences?: Experience[] | undefined;
@@ -7724,6 +7820,7 @@ export interface IInnerUser extends IBaseEntity {
     sharedPosts?: Share[] | undefined;
     likes?: Like[] | undefined;
     comments?: Comment[] | undefined;
+    cVs?: CV2[] | undefined;
     isDeleted?: boolean;
 }
 
@@ -7871,6 +7968,8 @@ export class Experience extends BaseAuditableEntity implements IExperience {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
     user?: InnerUser | undefined;
 
@@ -7886,6 +7985,8 @@ export class Experience extends BaseAuditableEntity implements IExperience {
             this.title = _data["title"];
             this.description = _data["description"];
             this.experienceDate = _data["experienceDate"];
+            this.companyName = _data["companyName"];
+            this.startedTime = _data["startedTime"] ? new Date(_data["startedTime"].toString()) : <any>undefined;
             this.userId = _data["userId"];
             this.user = _data["user"] ? InnerUser.fromJS(_data["user"]) : <any>undefined;
         }
@@ -7905,6 +8006,8 @@ export class Experience extends BaseAuditableEntity implements IExperience {
         data["title"] = this.title;
         data["description"] = this.description;
         data["experienceDate"] = this.experienceDate;
+        data["companyName"] = this.companyName;
+        data["startedTime"] = this.startedTime ? this.startedTime.toISOString() : <any>undefined;
         data["userId"] = this.userId;
         data["user"] = this.user ? this.user.toJSON() : <any>undefined;
         super.toJSON(data);
@@ -7918,6 +8021,8 @@ export interface IExperience extends IBaseAuditableEntity {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
     user?: InnerUser | undefined;
 }
@@ -8120,6 +8225,8 @@ export interface ILike extends IBaseAuditableEntity {
 export class Job extends BaseAuditableEntity implements IJob {
     title?: string | undefined;
     description?: string | undefined;
+    workEnvironment?: string | undefined;
+    workSchedule?: string | undefined;
     userId?: number;
     user?: InnerUser | undefined;
     comments?: Comment[] | undefined;
@@ -8136,6 +8243,8 @@ export class Job extends BaseAuditableEntity implements IJob {
         if (_data) {
             this.title = _data["title"];
             this.description = _data["description"];
+            this.workEnvironment = _data["workEnvironment"];
+            this.workSchedule = _data["workSchedule"];
             this.userId = _data["userId"];
             this.user = _data["user"] ? InnerUser.fromJS(_data["user"]) : <any>undefined;
             if (Array.isArray(_data["comments"])) {
@@ -8168,6 +8277,8 @@ export class Job extends BaseAuditableEntity implements IJob {
         data = typeof data === 'object' ? data : {};
         data["title"] = this.title;
         data["description"] = this.description;
+        data["workEnvironment"] = this.workEnvironment;
+        data["workSchedule"] = this.workSchedule;
         data["userId"] = this.userId;
         data["user"] = this.user ? this.user.toJSON() : <any>undefined;
         if (Array.isArray(this.comments)) {
@@ -8194,6 +8305,8 @@ export class Job extends BaseAuditableEntity implements IJob {
 export interface IJob extends IBaseAuditableEntity {
     title?: string | undefined;
     description?: string | undefined;
+    workEnvironment?: string | undefined;
+    workSchedule?: string | undefined;
     userId?: number;
     user?: InnerUser | undefined;
     comments?: Comment[] | undefined;
@@ -8351,6 +8464,58 @@ export interface IFollow extends IBaseEntity {
     followingID?: number;
     follower?: InnerUser | undefined;
     followee?: InnerUser | undefined;
+}
+
+export class CV2 implements ICV2 {
+    cvId?: number;
+    userId?: number;
+    user?: InnerUser | undefined;
+    position?: number;
+    company?: number;
+
+    constructor(data?: ICV2) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.cvId = _data["cvId"];
+            this.userId = _data["userId"];
+            this.user = _data["user"] ? InnerUser.fromJS(_data["user"]) : <any>undefined;
+            this.position = _data["position"];
+            this.company = _data["company"];
+        }
+    }
+
+    static fromJS(data: any): CV2 {
+        data = typeof data === 'object' ? data : {};
+        let result = new CV2();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["cvId"] = this.cvId;
+        data["userId"] = this.userId;
+        data["user"] = this.user ? this.user.toJSON() : <any>undefined;
+        data["position"] = this.position;
+        data["company"] = this.company;
+        return data;
+    }
+}
+
+export interface ICV2 {
+    cvId?: number;
+    userId?: number;
+    user?: InnerUser | undefined;
+    position?: number;
+    company?: number;
 }
 
 export class CreateSkillCommand implements ICreateSkillCommand {
@@ -9046,6 +9211,7 @@ export class UserDto implements IUserDto {
     summary?: string | undefined;
     numberOfFollowers?: number;
     numberOfFollowings?: number;
+    numberOfPosts?: number;
 
     constructor(data?: IUserDto) {
         if (data) {
@@ -9067,6 +9233,7 @@ export class UserDto implements IUserDto {
             this.summary = _data["summary"];
             this.numberOfFollowers = _data["numberOfFollowers"];
             this.numberOfFollowings = _data["numberOfFollowings"];
+            this.numberOfPosts = _data["numberOfPosts"];
         }
     }
 
@@ -9088,6 +9255,7 @@ export class UserDto implements IUserDto {
         data["summary"] = this.summary;
         data["numberOfFollowers"] = this.numberOfFollowers;
         data["numberOfFollowings"] = this.numberOfFollowings;
+        data["numberOfPosts"] = this.numberOfPosts;
         return data;
     }
 }
@@ -9102,6 +9270,7 @@ export interface IUserDto {
     summary?: string | undefined;
     numberOfFollowers?: number;
     numberOfFollowings?: number;
+    numberOfPosts?: number;
 }
 
 export class WeatherForecast implements IWeatherForecast {

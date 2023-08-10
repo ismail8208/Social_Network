@@ -18,6 +18,8 @@ export class AddExperienceComponent {
   v: string = '';
   description: string = '';
   date: number;
+  comapnyName: string;
+  startedTime: Date;
 
 
 
@@ -46,13 +48,16 @@ export class AddExperienceComponent {
     this.filteredExperiences = [];
     this.listFilter = '';
     this.description = '';
+    this.comapnyName = '';
   }
 
   saveExperience() {
     let entity: IExperienceDto = {
       title: this.chosenExperience == '' ? this.v : this.chosenExperience,
       description: this.description,
-      experienceDate: this.date
+      experienceDate: this.date,
+      companyName: this.comapnyName,
+      startedTime: this.startedTime
     }
     this.v != ' ' && this.selectdExperience.emit(entity);
     this.chosenExperience = '';

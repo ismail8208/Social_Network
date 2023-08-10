@@ -4,6 +4,7 @@ using MediaLink.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediaLink.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230810183809_addSomeProp")]
+    partial class addSomeProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,30 +192,6 @@ namespace MediaLink.Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Addresses");
-                });
-
-            modelBuilder.Entity("MediaLink.Domain.Entities.CV", b =>
-                {
-                    b.Property<int>("CvId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CvId"));
-
-                    b.Property<int>("Company")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Position")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CvId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CVs");
                 });
 
             modelBuilder.Entity("MediaLink.Domain.Entities.Comment", b =>
@@ -436,9 +415,6 @@ namespace MediaLink.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("specialization")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -1021,17 +997,6 @@ namespace MediaLink.Infrastructure.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MediaLink.Domain.Entities.CV", b =>
-                {
-                    b.HasOne("MediaLink.Domain.Entities.InnerUser", "User")
-                        .WithMany("CVs")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MediaLink.Domain.Entities.Comment", b =>
                 {
                     b.HasOne("MediaLink.Domain.Entities.Job", "Job")
@@ -1310,8 +1275,6 @@ namespace MediaLink.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("MediaLink.Domain.Entities.InnerUser", b =>
                 {
                     b.Navigation("Address");
-
-                    b.Navigation("CVs");
 
                     b.Navigation("Comments");
 

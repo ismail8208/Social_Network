@@ -1275,12 +1275,102 @@
         ]
       }
     },
-    "/api/Jobs/{job}/Search": {
+    "/api/Jobs": {
       "get": {
         "tags": [
           "Jobs"
         ],
         "operationId": "Jobs_GetJobsWithPagination",
+        "parameters": [
+          {
+            "name": "UserId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedListOfJobDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Jobs"
+        ],
+        "operationId": "Jobs_Create",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateJobCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Jobs/{job}/Search": {
+      "get": {
+        "tags": [
+          "Jobs"
+        ],
+        "operationId": "Jobs_Search",
         "parameters": [
           {
             "name": "job",
@@ -1421,44 +1511,6 @@
                 "schema": {
                   "type": "string",
                   "format": "binary"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/Jobs": {
-      "post": {
-        "tags": [
-          "Jobs"
-        ],
-        "operationId": "Jobs_Create",
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateJobCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
                 }
               }
             }
@@ -1804,7 +1856,6 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
                 "properties": {
                   "Id": {
                     "type": "integer",
@@ -1812,16 +1863,6 @@
                   },
                   "Content": {
                     "type": "string",
-                    "nullable": true
-                  },
-                  "Image": {
-                    "type": "string",
-                    "format": "binary",
-                    "nullable": true
-                  },
-                  "Video": {
-                    "type": "string",
-                    "format": "binary",
                     "nullable": true
                   }
                 }
@@ -3501,6 +3542,14 @@
           "userName": {
             "type": "string",
             "nullable": true
+          },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "startedTime": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -3519,6 +3568,14 @@
           "experienceDate": {
             "type": "integer",
             "format": "int32"
+          },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "startedTime": {
+            "type": "string",
+            "format": "date-time"
           },
           "userId": {
             "type": "integer",
@@ -3545,6 +3602,14 @@
           "experienceDate": {
             "type": "integer",
             "format": "int32"
+          },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "startedTime": {
+            "type": "string",
+            "format": "date-time"
           },
           "userId": {
             "type": "integer",
@@ -4489,6 +4554,10 @@
                 "type": "string",
                 "nullable": true
               },
+              "specialization": {
+                "type": "string",
+                "nullable": true
+              },
               "skills": {
                 "type": "array",
                 "nullable": true,
@@ -4564,6 +4633,13 @@
                 "nullable": true,
                 "items": {
                   "$ref": "#/components/schemas/Comment"
+                }
+              },
+              "cVs": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/CV2"
                 }
               },
               "isDeleted": {
@@ -4717,6 +4793,14 @@
               "experienceDate": {
                 "type": "integer",
                 "format": "int32"
+              },
+              "companyName": {
+                "type": "string",
+                "nullable": true
+              },
+              "startedTime": {
+                "type": "string",
+                "format": "date-time"
               },
               "userId": {
                 "type": "integer",
@@ -4933,6 +5017,14 @@
                 "type": "string",
                 "nullable": true
               },
+              "workEnvironment": {
+                "type": "string",
+                "nullable": true
+              },
+              "workSchedule": {
+                "type": "string",
+                "nullable": true
+              },
               "userId": {
                 "type": "integer",
                 "format": "int32"
@@ -5105,6 +5197,36 @@
             }
           }
         ]
+      },
+      "CV2": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cvId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/InnerUser"
+              }
+            ]
+          },
+          "position": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "company": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
       },
       "CreateSkillCommand": {
         "type": "object",
@@ -5433,6 +5555,10 @@
             "format": "int32"
           },
           "numberOfFollowings": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numberOfPosts": {
             "type": "integer",
             "format": "int32"
           }

@@ -43,6 +43,9 @@ import { AddProjectComponent } from './profile/projects/add-project/add-project.
 import { WritePostComponent } from './profile/posts/write-post/write-post.component';
 import { ExportCvComponent } from './profile/export-cv/export-cv.component';
 import { HasRoleDirective } from './has-role.directive';
+import { WriteJobComponent } from './profile/jobs/write-job/write-job.component';
+import { JobCardComponent } from './profile/jobs/job-card/job-card.component';
+import { JobsListComponent } from './profile/jobs/jobs-list/jobs-list.component';
 import { SubProfileComponent } from './home/subProfile/subProfile.component';
 
 @NgModule({
@@ -77,6 +80,10 @@ import { SubProfileComponent } from './home/subProfile/subProfile.component';
     AddProjectComponent,
     WritePostComponent,
     ExportCvComponent,
+    HasRoleDirective,
+    WriteJobComponent,
+    JobCardComponent,
+    JobsListComponent,
     HasRoleDirective,
     SubProfileComponent
   ],

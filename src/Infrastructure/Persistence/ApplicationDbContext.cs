@@ -42,6 +42,7 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     public DbSet<Job> Jobs => Set<Job>();
     public DbSet<InnerUser> InnerUsers => Set<InnerUser>();
 
+    public DbSet<CV> CVs => Set<CV>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

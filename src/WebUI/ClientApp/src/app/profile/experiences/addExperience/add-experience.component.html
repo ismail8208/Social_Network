@@ -6,6 +6,8 @@
     <!-- <p>This modal box is created using the powers of CSS3.</p> -->
     <input type="text" placeholder="Search" class="searchbar" [(ngModel)]="listFilter">
     <input type="number" placeholder="Date of experience" class="searchbar" [(ngModel)]="date">
+    <input type="text" placeholder="Company name" class="searchbar" [(ngModel)]="comapnyName">
+    <input type="date" placeholder="Started Time" class="searchbar" [(ngModel)]="startedTime">
     <textarea type="text" placeholder="Description" class="searchbar-area" [(ngModel)]="description"></textarea>
     <div *ngFor="let experience of filteredExperiences" class="existing-experience" (click)="chooseExperience(experience)">
       {{experience.title}}
