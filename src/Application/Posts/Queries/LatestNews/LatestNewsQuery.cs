@@ -30,8 +30,8 @@ public class LatestNewsQueryHandler : IRequestHandler<LatestNewsQuery, Paginated
     public async Task<PaginatedList<PostDto>> Handle(LatestNewsQuery request, CancellationToken cancellationToken)
     {
         var followedUserIds = await _context.Follows
-            .Where(f => f.FollowerID == request.UserId)
-            .Select(f => f.FollowingID)
+            .Where(f => f.FollowingID == request.UserId)
+            .Select(f => f.FollowerID)
             .ToListAsync();
 
         return await _context.Posts
