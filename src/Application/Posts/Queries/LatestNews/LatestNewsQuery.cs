@@ -34,13 +34,6 @@ public class LatestNewsQueryHandler : IRequestHandler<LatestNewsQuery, Paginated
             .Select(f => f.FollowingID)
             .ToListAsync();
 
-        if (!followedUserIds.Any())
-        {
-            return await _context.Posts
-            .ProjectTo<PostDto>(_mapper.ConfigurationProvider)
-            .PaginatedListAsync(0,0);
-        }
-
         return await _context.Posts
             .Where(p => followedUserIds.Contains(p.UserId) && p.IsDeleted == false || p.UserId == request.UserId)
             .Include(u => u.User)

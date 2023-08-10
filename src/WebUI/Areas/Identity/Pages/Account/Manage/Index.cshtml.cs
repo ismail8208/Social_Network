@@ -88,6 +88,9 @@ namespace WebUI.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Summary")]
             public string Summary { get; set; }
 
+            [Display(Name = "specialization")]
+            public string specialization { get; set; }
+
             [Display(Name = "Profile Image")]
             public IFormFile ProfileImage { get; set; }
         }
@@ -108,6 +111,7 @@ namespace WebUI.Areas.Identity.Pages.Account.Manage
                 FirstName = innerUser.FirstName,
                 LastName = innerUser.LastName,
                 Summary = innerUser.Summary,
+                specialization = innerUser.specialization
             };
         }
 
@@ -153,6 +157,7 @@ namespace WebUI.Areas.Identity.Pages.Account.Manage
                 innerUser.FirstName = Input.FirstName;
                 innerUser.LastName = Input.LastName;
                 innerUser.Summary = Input.Summary;
+                innerUser.specialization = Input.specialization;
                 if (Input.ProfileImage != null)
                 {
                     innerUser.ProfileImage = await SaveFile.Save(FileType.image, Input.ProfileImage);
@@ -191,6 +196,7 @@ namespace WebUI.Areas.Identity.Pages.Account.Manage
                 updateCommand.FirstName = user.FirstName;
                 updateCommand.LastName = user.LastName;
                 updateCommand.ProfileImage = user.ProfileImage;
+                updateCommand.specialization = user.specialization;
                 await _mediator.Send(updateCommand);
 
             }

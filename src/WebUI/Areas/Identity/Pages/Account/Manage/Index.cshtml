@@ -34,8 +34,6 @@
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
 
-			<p>hello world</p>
-
 			<div class="form-floating mb-3">
 				<input asp-for="Input.FirstName" class="form-control" placeholder="Please enter your first name." />
 				<label asp-for="Input.FirstName" class="form-label"></label>
@@ -45,6 +43,12 @@
 			<div class="form-floating mb-3">
 				<input asp-for="Input.LastName" class="form-control" placeholder="Please enter your last name." />
 				<label asp-for="Input.LastName" class="form-label"></label>
+				<span asp-validation-for="Input.LastName" class="text-danger"></span>
+			</div>
+
+			<div class="form-floating mb-3">
+				<input asp-for="Input.specialization" class="form-control" placeholder="Please enter your specialization." />
+				<label asp-for="Input.specialization" class="form-label"></label>
 				<span asp-validation-for="Input.LastName" class="text-danger"></span>
 			</div>
 
