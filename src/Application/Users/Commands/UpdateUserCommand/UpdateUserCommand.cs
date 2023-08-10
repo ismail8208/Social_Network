@@ -17,6 +17,7 @@ public record UpdateUserCommand : IRequest<InnerUser>
     public string? Summary { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
+    public string? specialization { get; set; }
     public string? ProfileImage { get; set; }
 }
 
@@ -42,6 +43,8 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Inner
         user.LastName = request.LastName;
         user.ProfileImage = request.ProfileImage;
         user.Summary= request.Summary;
+        user.specialization = request.specialization;
+
 
         await _context.SaveChangesAsync(cancellationToken);
 
