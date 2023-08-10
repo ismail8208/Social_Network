@@ -5465,6 +5465,8 @@ export class ExperienceDto implements IExperienceDto {
     projectId?: number | undefined;
     projectName?: string | undefined;
     userName?: string | undefined;
+    companyName?: string | undefined;
+    startedTime?: Date;
 
     constructor(data?: IExperienceDto) {
         if (data) {
@@ -5485,6 +5487,8 @@ export class ExperienceDto implements IExperienceDto {
             this.projectId = _data["projectId"];
             this.projectName = _data["projectName"];
             this.userName = _data["userName"];
+            this.companyName = _data["companyName"];
+            this.startedTime = _data["startedTime"] ? new Date(_data["startedTime"].toString()) : <any>undefined;
         }
     }
 
@@ -5505,6 +5509,8 @@ export class ExperienceDto implements IExperienceDto {
         data["projectId"] = this.projectId;
         data["projectName"] = this.projectName;
         data["userName"] = this.userName;
+        data["companyName"] = this.companyName;
+        data["startedTime"] = this.startedTime ? this.startedTime.toISOString() : <any>undefined;
         return data;
     }
 }
@@ -5518,12 +5524,16 @@ export interface IExperienceDto {
     projectId?: number | undefined;
     projectName?: string | undefined;
     userName?: string | undefined;
+    companyName?: string | undefined;
+    startedTime?: Date;
 }
 
 export class CreateExperienceCommand implements ICreateExperienceCommand {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
 
     constructor(data?: ICreateExperienceCommand) {
@@ -5540,6 +5550,8 @@ export class CreateExperienceCommand implements ICreateExperienceCommand {
             this.title = _data["title"];
             this.description = _data["description"];
             this.experienceDate = _data["experienceDate"];
+            this.companyName = _data["companyName"];
+            this.startedTime = _data["startedTime"] ? new Date(_data["startedTime"].toString()) : <any>undefined;
             this.userId = _data["userId"];
         }
     }
@@ -5556,6 +5568,8 @@ export class CreateExperienceCommand implements ICreateExperienceCommand {
         data["title"] = this.title;
         data["description"] = this.description;
         data["experienceDate"] = this.experienceDate;
+        data["companyName"] = this.companyName;
+        data["startedTime"] = this.startedTime ? this.startedTime.toISOString() : <any>undefined;
         data["userId"] = this.userId;
         return data;
     }
@@ -5565,6 +5579,8 @@ export interface ICreateExperienceCommand {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
 }
 
@@ -5573,6 +5589,8 @@ export class UpdateExperienceCommand implements IUpdateExperienceCommand {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
 
     constructor(data?: IUpdateExperienceCommand) {
@@ -5590,6 +5608,8 @@ export class UpdateExperienceCommand implements IUpdateExperienceCommand {
             this.title = _data["title"];
             this.description = _data["description"];
             this.experienceDate = _data["experienceDate"];
+            this.companyName = _data["companyName"];
+            this.startedTime = _data["startedTime"] ? new Date(_data["startedTime"].toString()) : <any>undefined;
             this.userId = _data["userId"];
         }
     }
@@ -5607,6 +5627,8 @@ export class UpdateExperienceCommand implements IUpdateExperienceCommand {
         data["title"] = this.title;
         data["description"] = this.description;
         data["experienceDate"] = this.experienceDate;
+        data["companyName"] = this.companyName;
+        data["startedTime"] = this.startedTime ? this.startedTime.toISOString() : <any>undefined;
         data["userId"] = this.userId;
         return data;
     }
@@ -5617,6 +5639,8 @@ export interface IUpdateExperienceCommand {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
 }
 
@@ -7932,6 +7956,8 @@ export class Experience extends BaseAuditableEntity implements IExperience {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
     user?: InnerUser | undefined;
 
@@ -7947,6 +7973,8 @@ export class Experience extends BaseAuditableEntity implements IExperience {
             this.title = _data["title"];
             this.description = _data["description"];
             this.experienceDate = _data["experienceDate"];
+            this.companyName = _data["companyName"];
+            this.startedTime = _data["startedTime"] ? new Date(_data["startedTime"].toString()) : <any>undefined;
             this.userId = _data["userId"];
             this.user = _data["user"] ? InnerUser.fromJS(_data["user"]) : <any>undefined;
         }
@@ -7966,6 +7994,8 @@ export class Experience extends BaseAuditableEntity implements IExperience {
         data["title"] = this.title;
         data["description"] = this.description;
         data["experienceDate"] = this.experienceDate;
+        data["companyName"] = this.companyName;
+        data["startedTime"] = this.startedTime ? this.startedTime.toISOString() : <any>undefined;
         data["userId"] = this.userId;
         data["user"] = this.user ? this.user.toJSON() : <any>undefined;
         super.toJSON(data);
@@ -7979,6 +8009,8 @@ export interface IExperience extends IBaseAuditableEntity {
     title?: string | undefined;
     description?: string | undefined;
     experienceDate?: number;
+    companyName?: string | undefined;
+    startedTime?: Date;
     userId?: number;
     user?: InnerUser | undefined;
 }
@@ -8181,6 +8213,8 @@ export interface ILike extends IBaseAuditableEntity {
 export class Job extends BaseAuditableEntity implements IJob {
     title?: string | undefined;
     description?: string | undefined;
+    workEnvironment?: string | undefined;
+    workSchedule?: string | undefined;
     userId?: number;
     user?: InnerUser | undefined;
     comments?: Comment[] | undefined;
@@ -8197,6 +8231,8 @@ export class Job extends BaseAuditableEntity implements IJob {
         if (_data) {
             this.title = _data["title"];
             this.description = _data["description"];
+            this.workEnvironment = _data["workEnvironment"];
+            this.workSchedule = _data["workSchedule"];
             this.userId = _data["userId"];
             this.user = _data["user"] ? InnerUser.fromJS(_data["user"]) : <any>undefined;
             if (Array.isArray(_data["comments"])) {
@@ -8229,6 +8265,8 @@ export class Job extends BaseAuditableEntity implements IJob {
         data = typeof data === 'object' ? data : {};
         data["title"] = this.title;
         data["description"] = this.description;
+        data["workEnvironment"] = this.workEnvironment;
+        data["workSchedule"] = this.workSchedule;
         data["userId"] = this.userId;
         data["user"] = this.user ? this.user.toJSON() : <any>undefined;
         if (Array.isArray(this.comments)) {
@@ -8255,6 +8293,8 @@ export class Job extends BaseAuditableEntity implements IJob {
 export interface IJob extends IBaseAuditableEntity {
     title?: string | undefined;
     description?: string | undefined;
+    workEnvironment?: string | undefined;
+    workSchedule?: string | undefined;
     userId?: number;
     user?: InnerUser | undefined;
     comments?: Comment[] | undefined;

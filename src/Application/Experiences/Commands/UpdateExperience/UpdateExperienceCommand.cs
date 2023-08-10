@@ -19,6 +19,8 @@ public record UpdateExperienceCommand : IRequest
     public string? Title { get; set; }
     public string? Description { get; set; }
     public int ExperienceDate { get; set; }
+    public string? CompanyName { get; set; }
+    public DateTime StartedTime { get; set; }
     public int UserId { get; set; }
 }
 
@@ -45,6 +47,8 @@ public class UpdateExperienceCommandHandler : IRequestHandler<UpdateExperienceCo
         entity.Description = request.Description;
         entity.ExperienceDate = request.ExperienceDate;
         entity.UserId = request.UserId;
+        entity.CompanyName = request.CompanyName;
+        entity.StartedTime = request.StartedTime;
 
 
         await _context.SaveChangesAsync(cancellationToken);

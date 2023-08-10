@@ -384,6 +384,8 @@ export class ProfileComponent implements OnInit {
       title: experience.title,
       description: experience.description,
       experienceDate: experience.experienceDate,
+      companyName: experience.companyName,
+      startedTime: experience.startedTime,
       userId: this.user.id
     }
     this.experiencesClient.create(entity as CreateExperienceCommand).subscribe({
@@ -413,6 +415,8 @@ export class ProfileComponent implements OnInit {
       title: experience.title,
       description: experience.description,
       experienceDate: experience.experienceDate,
+      companyName: experience.companyName,
+      startedTime: experience.startedTime,
       userId: this.user.id
     }
     this.experiencesClient.update(experience.id, entity as UpdateExperienceCommand).subscribe();
