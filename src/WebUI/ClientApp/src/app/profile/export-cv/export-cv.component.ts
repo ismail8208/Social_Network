@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Component, OnInit } from '@angular/core';
-import { CV, EducationCV, ExperienceCV, ExportCVClient, IUserDto, ProjectCV, SkillCV, UserCV } from 'src/app/web-api-client';
+import { CV, EducationCV, ExperienceCV, ExportCVClient, IUserCV, IUserDto, ProjectCV, SkillCV, UserCV } from 'src/app/web-api-client';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,7 +12,15 @@ import { ActivatedRoute } from '@angular/router';
 export class ExportCvComponent implements OnInit {
 
   cv: CV;
-  user: UserCV;
+  user: IUserCV = {
+    firstName: '',
+    email: '',
+    profileImage:'',
+    lastName:'',
+    summary:'',
+    dateOfBirth: undefined,
+    address: '',
+  };
   userId: number;
   educations: EducationCV[] = [];
   skills: SkillCV[] = [];
