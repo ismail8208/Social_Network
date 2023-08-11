@@ -16,11 +16,16 @@
 }
 
 .profile-pic {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: contain;
-    background-color: #E0E0E0;
+    
+        justify-content: left;
+          width: 80px;
+          height: 80px;
+          border-radius: 80px;
+          object-fit: contain;
+          margin: 12px 8px 12px 2px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        
+        
 }
 
 textarea {
@@ -40,19 +45,6 @@ textarea:focus {
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
     border: 1px solid #231E39 !important;
-    outline-width: 0 !important;
-}
-
-select {
-    border: none;
-    font-size: 15px;
-    background-color: #fff !important;
-}
-
-select:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
     outline-width: 0 !important;
 }
 
@@ -114,6 +106,9 @@ select:focus {
     width: auto;
     height: auto;
     margin: 0;
-  
+}
 
+
+.btn-success{
+    background-color:#222831 ;
 }

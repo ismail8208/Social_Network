@@ -23,7 +23,8 @@ import {
   ICreateProjectCommand,
   CreateProjectCommand,
   IUpdateProjectCommand,
-  UpdateProjectCommand
+  UpdateProjectCommand,
+  AddressesClient
 } from '../web-api-client';
 import { AuthorizeService } from 'src/api-authorization/authorize.service';
 import { Store, select } from '@ngrx/store';
@@ -49,7 +50,7 @@ export class ProfileComponent implements OnInit {
   isAuthenticated?: boolean;
   isFolloing: boolean = false;
   isLoaded: boolean = false;
-  user: IUserDto = {
+  user: IUserForSummary = {
     firstName: '',
     lastName: '',
     id: 0,
@@ -59,7 +60,9 @@ export class ProfileComponent implements OnInit {
     role: '',
     summary: '',
     userName: '',
+    address: '',
     numberOfPosts: 0,
+
   };
   username: string;
   owner: IUserDto;
@@ -116,6 +119,8 @@ export class ProfileComponent implements OnInit {
     private modalService: BsModalService,
     private localService: LocalService,
     private notification: NotificationServiceService
+
+    private addressesClient: AddressesClient,
   ) { }
 
   async ngOnInit() {
@@ -138,11 +143,19 @@ export class ProfileComponent implements OnInit {
         numberOfFollowings: data.numberOfFollowings ?? 0,
         role: data.role ?? '',
         userName: data.userName ?? '',
+        address: '',
         specialization: data.specialization ??'',
         numberOfPosts: data.numberOfPosts ?? 0
       })
       )
-    ))
+    ));
+    this.addressesClient.get(parseInt(this.localService.getData('id'))).subscribe(Address =>
+        
+      this.user.address = Address.fullAddress
+    
+
+
+  )
     this.isLoaded = true;
     this.checkIfUserFolloing();
     this.skillsClinet.getSkillsWithPagination(this.user.id, 1, 40).subscribe({
@@ -460,5 +473,9 @@ export class ProfileComponent implements OnInit {
       }
     )
   }
+
+}
+interface IUserForSummary extends IUserDto{
+  address:string,
 
 }

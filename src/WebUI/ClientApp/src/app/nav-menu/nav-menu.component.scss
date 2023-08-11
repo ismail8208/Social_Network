@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -5,7 +7,9 @@ a.navbar-brand {
 }
 
 html {
-  font-size: 14px;
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  color: #EEEEEE;
 }
 
 @media (min-width: 768px) {
@@ -18,29 +22,31 @@ html {
 }
 
 .customNav {
-  background-color: #FEBB0B;
+  background-color: #393E46;
   box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.75);
   margin: 0;
   padding: 0;
+  color:#EEEEEE;
 }
 
 a {
-  color: #231E39;
+  color:#EEEEEE;
   text-decoration: none;
-  font-weight: bold;
   font-family: Montserrat, sans-serif;
 }
 
 a:hover {
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  color:#00ADB5;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .navbar {
   position: relative;
-  background-color: #FEBB0B;
-  color: white;
+  background-color: #393E46;
+  color:#EEEEEE;
   padding: 10px;
   transition: top 0.3s ease-in-out;
+
 }
 
 /* Sticky behavior */
@@ -67,6 +73,12 @@ a:hover {
 }
 
 .searchbar:hover {
+  color: #00ADB5;
   border-radius: 0;
   width: 20rem;
+}
+
+a:focus{
+  color: #EEEEEE;
+  
 }

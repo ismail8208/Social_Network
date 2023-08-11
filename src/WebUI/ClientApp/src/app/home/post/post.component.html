@@ -16,7 +16,7 @@
             </span>
             <a href="" [routerLink]="['/profile', post.userName]">
               <h6 class="text-body">
-                <span class="big text-muted">{{post.firstName}} {{post.lastName}} || <span *ngIf="post.specialization"
+                <span class="big">{{post.firstName}} {{post.lastName}} || <span *ngIf="post.specialization"
                     style="font-size: 0.8rem;">{{post.specialization}}</span></span>
                 <br>
                 <span class="big text-muted font-weight-normal" style="font-size: 0.8rem;">{{post.userName}}</span>
@@ -51,19 +51,19 @@
           </h5>
         </div>
         <div class="number">
-          <span class="numberOfLikes" *ngIf="post.numberOfLikes != 0" style="color:#068fff;">
+          <span class="numberOfLikes" *ngIf="post.numberOfLikes != 0" style="color:#00ADB5;">
             <i class="bi bi-hand-thumbs-up-fill"></i>
             <span style="margin-left: 7px;">{{post.numberOfLikes}}</span>
           </span>
           <span class="numberOfComment" *ngIf="post.numberOfLikes != 0 &&post.numberOfComments !=0 "
-            style="color: #686868" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
+            style="color: #222831" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
             <span style="margin-right: 7px;">{{post.numberOfComments}}</span>
             <span>Comments</span>
           </span>
 
         </div>
         <div class="numberOfComment2" *ngIf="post.numberOfLikes == 0 && post.numberOfComments !=0"
-          style="color: #686868" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
+          style="color: #222831" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
           <span style="margin-right: 7px;">{{post.numberOfComments}}</span>
           <span>Comments</span>
         </div>
@@ -96,7 +96,7 @@
   <div class="modal-body">
     <div class="row d-flex justify-content-center" style="height: 300px; overflow: auto;" *ngIf="comments">
 
-      <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+      <div class="card shadow-0 border" style="background-color: #EEEEEE;">
         <div class="card-body p-4">
           <div *ngFor="let comment of comments ">
             <div class="card mb-4">
@@ -179,7 +179,7 @@
     <div class="row d-flex justify-content-center" *ngIf="postIdForedite.imageURL"
       style="height: 300px; overflow: auto; padding: 0;">
 
-      <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+      <div class="card shadow-0 border" style="background-color: #EEEEEE;">
         <img [src]="postIdForedite.imageURL | converToRoot:'https://localhost:44447/api/Images/'" style="width: 100%; margin: 0;">
       </div>
     </div>

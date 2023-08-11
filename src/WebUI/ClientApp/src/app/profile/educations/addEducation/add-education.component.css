@@ -2,7 +2,7 @@
 	position: absolute;
 	top: 8px;
 	right: 16px;
-	color: #B3B8CD;
+	color: #222831;
 }
 .modalDialogAE {
 	position: fixed;
@@ -24,7 +24,7 @@
 	pointer-events: auto;
 } */
 .modalDialogAE > div {
-	color:#000;
+	color:#222831;
 	width: 400px;
 	position: relative;
 	margin: 10% auto;

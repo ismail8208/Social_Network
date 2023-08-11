@@ -51,6 +51,8 @@ import { StateJobListComponent } from './profile/cv-service/state-job-list/state
 import { CvListComponent } from './profile/cv-service/cv-list/cv-list.component';
 import { BriefPostsComponent } from './profile/posts/brief-posts/brief-posts.component';
 import { MyPostComponent } from './profile/posts/myPost/myPost.component';
+import { ConvertToSettings } from './sheard/convert-to-settings';
+import { NotificationsComponent } from './profile/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,7 @@ import { MyPostComponent } from './profile/posts/myPost/myPost.component';
     MyPostComponent,
     AddPostCardComponent,
     ConvertToUrl,
+    ConvertToSettings,
     FollowersComponent,
     FollowingsComponent,
     SearchUserComponent,
@@ -93,7 +96,8 @@ import { MyPostComponent } from './profile/posts/myPost/myPost.component';
     SubProfileComponent,
     StateJobListComponent,
     CvListComponent,
-    BriefPostsComponent
+    BriefPostsComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

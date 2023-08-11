@@ -1,6 +1,6 @@
 <div>
     <div class="about">
-        <h6>About</h6>
+        <h6 style="font-weight: bold;">About</h6>
         <p [innerHTML]="displayedContent"></p>
         <span *ngIf="displayedContent.length > 270">
         <span *ngIf="isTruncated" (click)="showFullContent()" class="show-all">Read More</span>

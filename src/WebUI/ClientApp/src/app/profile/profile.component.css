@@ -1,9 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 
 * {
   box-sizing: border-box;
 }
+a{
+text-decoration: none;
+color: #222831;
 
+}
 h3 {
   margin: 10px 0;
 }
@@ -14,15 +18,15 @@ h6 {
 }
 
 p {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 21px;
 }
 
 .card-container {
-  background-color: #231E39;
+  background-color: #fff;
   border-radius: 2%;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
-  color: #B3B8CD;
+  color: #222831;
   padding-top: 30px;
   position: relative;
   width: 800px;
@@ -32,11 +36,10 @@ p {
 }
 
 .card-container .edit {
-  color: #231E39;
-  background-color: #FEBB0B;
+  color: white;
+  background-color: #00ADB5;
   border-radius: 3px;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 16px;
   padding: 3px 7px;
   position: absolute;
   top: 30px;
@@ -45,40 +48,40 @@ p {
 
 
 .card-container .round {
-  border: 1px solid #03BFCB;
+  border: 1px solid #00ADB5;
   border-radius: 50%;
   padding: 7px;
   width: 120px;
   height: 120px;
+  font-size: 16px;
 }
 
 button.primary {
-  background-color: #03BFCB;
-  border: 1px solid #03BFCB;
+  background-color: #00ADB5;
+  border: 1px solid #00ADB5;
   border-radius: 3px;
-  color: #231E39;
+  color: #EEEEEE;
   font-family: Montserrat, sans-serif;
-  font-weight: 500;
   padding: 10px 25px;
   margin: 5px;
 }
 
 button.primary:active {
   background-color: transparent;
-  color: #02899C;
+  color: #00ADB5;
   margin: 5px;
 }
 
 button.primary.ghost {
   background-color: transparent;
-  color: #02899C;
+  color: #00ADB5;
   margin: 5px;
 }
 
 button.primary.ghost:active {
   background-color: transparent;
-  background-color: #03BFCB;
-  color: #231E39;
+  background-color: #00ADB5;
+  color: #222831;
   margin: 5px;
 }
 
@@ -88,7 +91,7 @@ button.primary.ghost:active {
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  color: #03BFCB;
+  color: #00ADB5;
 }
 
 .follow div {
@@ -96,12 +99,12 @@ button.primary.ghost:active {
 }
 
 .follow div :hover {
-  color: #FEBB0B;
+  color: #00ADB5;
 }
 
 
 .group {
-  background-color: #1F1A36;
+  background-color: white;
   text-align: left;
   padding: 15px;
   margin-top: 30px;
@@ -114,42 +117,42 @@ button.primary.ghost:active {
 }
 
 .group ul li {
-  border: 1px solid #2D2747;
+  border: 1px solid #222831;
   border-radius: 2px;
   display: inline-block;
-  font-size: 12px;
+  font-size: 16px;
   margin: 0 7px 7px 0;
   padding: 7px;
 }
 
 .separate {
-  border: 1px solid #FEBB0B;
+  border: 1px solid #00ADB5;
 }
 
 .show-all {
   bottom: 8px;
   font-family: Montserrat, sans-serif;
-  color: #231E39;
-  background-color: #FEBB0B;
+  color:white;
+  background-color: #00ADB5;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   padding: 3px 7px;
 }
 
 .show-all:hover {
-  background-color: #03BFCB;
+  background-color: #00ADB5;
 }
 
 .add-skill {
   position: absolute;
   top: 8px;
   right: 16px;
-  color: #B3B8CD;
+  color: #222831;
 }
 
 .about {
-  background-color: #1F1A36;
+  background-color: white;
   text-align: left;
   padding: 15px;
   margin-top: 30px;
@@ -174,7 +177,7 @@ button.primary.ghost:active {
 .dropdown-btn {
   width: 100%;
   border: none;
-  color: #fff;
+  color: #222831;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -202,7 +205,7 @@ button.primary.ghost:active {
 }
 
 .dropdown-content li {
-  background: #02899C;
+  background: #00ADB5;
   border-radius: 0.5em;
   position: relative;
   left: 100%;
@@ -223,13 +226,13 @@ button.primary.ghost:active {
 }
 
 .dropdown-content li:hover {
-  background: #1d1f24;
+  background: #fff;
 }
 
 .dropdown-content li {
   display: block;
   padding: 0.7em 0.5em;
-  color: #fff;
+  color: #222831;
   margin: 0.1em 0;
   text-decoration: none;
 }
@@ -247,11 +250,11 @@ button.primary.ghost:active {
 }
 
 .separateLike {
-  border: 1px solid #2D2747;
+  border: 1px solid #222831;
 }
 
 .round-like {
-  border: 1px solid #03BFCB;
+  border: 1px solid #00ADB5;
   border-radius: 50%;
   padding: 2px;
   width: 60px;
@@ -260,4 +263,9 @@ button.primary.ghost:active {
 
 .modal-body {
   padding: 0;
+}
+
+.following{
+  width: 150px;
+  justify-content: center;
 }
