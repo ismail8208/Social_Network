@@ -1,4 +1,4 @@
-<ol style="--length: 5" role="list" *ngIf="jobs.length">
+<ol style="--length: {{jobs.length}}" role="list" *ngIf="jobs.length">
     <li style="--i: {{job.id}}" *ngFor="let job of jobs">
         <a [routerLink]='["/CVs-job", job.id]' style="text-decoration: none; color: black;">
             <h3>{{job.title}}</h3>

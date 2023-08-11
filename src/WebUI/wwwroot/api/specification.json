@@ -3090,6 +3090,39 @@
         }
       }
     },
+    "/api/Images/{videoId}/video": {
+      "get": {
+        "tags": [
+          "Images"
+        ],
+        "operationId": "Images_GetVideo",
+        "parameters": [
+          {
+            "name": "videoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Images/{id}": {
       "get": {
         "tags": [
