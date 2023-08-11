@@ -106,7 +106,7 @@
                   <div class="commentDetails">
                     <span>
                       <a href="" [routerLink]="['/profile', comment.userName]" (click)="newCommentCancelled()"> <img
-                          [src]="user.profileImage" class="userImg commentimg"></a>
+                          [src]="comment.profileImage | converToRoot" class="userImg commentimg"></a>
                     </span>
                     <a href="" [routerLink]="['/profile', comment.userName]" (click)="newCommentCancelled()">
                       <h6 class="commentDetails-body">

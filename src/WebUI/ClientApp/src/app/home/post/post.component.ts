@@ -309,7 +309,7 @@ export class PostComponent implements OnInit , OnDestroy{
           this.usersClient.get(comment.userName).subscribe(user => {
             comment.firstName = user.firstName;
             comment.lastName = user.lastName;
-            comment.profileImage = user.profileImage;
+            comment.profileImage = user.profileImage??'';
             comment.specialization = user.specialization;
             comment.isOwner=this.localService.getData('username') === comment.userName;
             comment.postOwner=this.user.userName === comment.userName;

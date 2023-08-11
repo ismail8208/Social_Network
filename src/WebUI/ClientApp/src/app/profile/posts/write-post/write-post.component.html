@@ -13,18 +13,23 @@
                 </div>
             </div>
             <div class="row px-3 form-group">
-                <textarea class="text-muted bg-light mt-4 mb-3" placeholder="Hi {{user.firstName}}, what's on your mind today?"[(ngModel)]="content"></textarea>
+                <textarea class="text-muted bg-light mt-4 mb-3" placeholder="Hi {{user.firstName}}, what's on your mind today?"[(ngModel)]="newPost.content"></textarea>
             </div>
+            
+            <span><div class="reacts"  >
+                <i class="bi bi-image" style="color:green"></i>
+                <span class="reactspan">Photo</span>
+                <input type="file" class="form-control" id="image" (change)="eventl($event)" />
+
+            </div></span>
+             <span><div class="reacts">
+                        <i class="bi bi-play-btn-fill"  style="color:darkred"></i>
+                        <span class="reactspan">Video</span>
+                        <input type="file" class="form-control" id="image" (change)="eventl($event)" />
+                    </div></span>
             <div class="options-container">
                 <span  class="left-options">
-                    
-                    <p class="fa fa-image options mb-0 mr-4">
-
-                    </p>
-                    <p class="fa fa-video options mb-0 mr-4">
-                          <!-- <input type="file" class="form-control" id="image" placeholder="Chose photo..."
-                [(ngModel)]="newPost.image" /> -->
-            </p>
+                    <div class="btn btn-cancele ml-auto" (click)="cancele()">Cancele</div>
                 </span>
                 <!-- <img class="options" src="https://img.icons8.com/material/24/000000/more--v2.png" width="30px" height="28px"> -->
                 <div class="btn btn-success ml-auto" (click)="CreatePost()">{{btnText}}</div>
