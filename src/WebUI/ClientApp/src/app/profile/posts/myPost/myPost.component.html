@@ -1,0 +1,219 @@
+<div class="col2">
+  <hr class="mainhr">
+  <p *ngIf="!posts"><em>Loading...</em></p>
+  <div *ngFor="let post of posts">
+
+    <div class="card postContainer">
+      <div class="card-body" style="padding: 12px 0 4px 0;">
+
+
+        <div class="textbox">
+          <span style="display: flex;">
+            <span>
+              <a href="" [routerLink]="['/profile', post.userName]"> <img [src]="post.profileImage|converToRoot:'https://localhost:44447/api/Images/'"
+                  class="userImg"></a>
+            </span>
+            <a href="" [routerLink]="['/profile', post.userName]">
+              <h6 class="text-body">
+                <span class="big text-muted">{{post.firstName}} {{post.lastName}} || <span *ngIf="post.specialization"
+                    style="font-size: 0.8rem;">{{post.specialization}}</span></span>
+                <br>
+                <span class="big text-muted font-weight-normal" style="font-size: 0.8rem;">{{post.userName}}</span>
+                <br>
+                <span class="small text-muted font-weight-normal" style="font-size: 0.8rem;">
+                  {{getFormattedDate(post.created) }}</span>
+              </h6>
+            </a>
+          </span>
+          <div class="dropdown">
+            <button class="dropbtn"> <i class="bi bi-three-dots-vertical" style="font-size: x-large;"></i></button>
+            <div class="dropdown-content">
+              <a (click)="showEditePostModal(editePostModalTemplate,post)" *ngIf="post.isOwner">Edite</a>
+              <a (click)="showDeletePostModal(deletePostModalTemplate,post.id)" *ngIf="post.isOwner">Delete</a>
+              <a (click)="downloadImage(post.imageURL)" *ngIf="post.imageURL">Download</a>
+
+              <!-- <a id="copy" (click)="copyTextToClipboard(post.imageURL)" *ngIf="post.imageURL">Copy Link</a> -->
+            </div>
+          </div>
+        </div>
+
+
+        <div>
+          <p class="caption-text" style="margin: 0 24px 12px ;"> {{post.content}}</p>
+          <h5 class="card-title">
+
+            <img class="mediaPost" width="698" [src]="post.imageURL|converToRoot:'https://localhost:44447/api/Images/' " *ngIf="post.imageURL">
+            <video width="698" controls controls *ngIf="post.videoURL">
+              <source [src]="post.videoURL|convertToUrl:'https://localhost:44447/api/Images/'">
+              Your browser does not support the video tag.
+            </video>
+          </h5>
+        </div>
+        <div class="number">
+          <span class="numberOfLikes" *ngIf="post.numberOfLikes != 0" style="color:#068fff;">
+            <i class="bi bi-hand-thumbs-up-fill"></i>
+            <span style="margin-left: 7px;">{{post.numberOfLikes}}</span>
+          </span>
+          <span class="numberOfComment" *ngIf="post.numberOfLikes != 0 &&post.numberOfComments !=0 "
+            style="color: #686868" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
+            <span style="margin-right: 7px;">{{post.numberOfComments}}</span>
+            <span>Comments</span>
+          </span>
+
+        </div>
+        <div class="numberOfComment2" *ngIf="post.numberOfLikes == 0 && post.numberOfComments !=0"
+          style="color: #686868" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
+          <span style="margin-right: 7px;">{{post.numberOfComments}}</span>
+          <span>Comments</span>
+        </div>
+
+
+        <hr>
+        <span class=""><button class="reacts likehover" (click)="onLikeClicked(post.id)">
+            <i class="bi bi-hand-thumbs-up-fill" [ngClass]="{ 'liked':post.Liked  }"></i>
+            <span class="reactspan  " [ngClass]="{ 'liked':post.Liked  }">Like</span>
+          </button></span>
+        <span><button class="reacts" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
+            <i class="bi bi-chat-text-fill"></i>
+            <span class="reactspan">Comment</span>
+          </button></span>
+        <span><button class="reacts">
+            <i class="bi bi-arrow-repeat"></i>
+            <span class="reactspan">Repost</span>
+          </button></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #newCommentModalTemplate>
+  <div class="modal-header">
+    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="newCommentCancelled()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row d-flex justify-content-center" style="height: 300px; overflow: auto;" *ngIf="comments">
+
+      <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+        <div class="card-body p-4">
+          <div *ngFor="let comment of comments ">
+            <div class="card mb-4">
+
+              <div class="card-body">
+                <div class="headerCont">
+                  <div class="commentDetails">
+                    <span>
+                      <a href="" [routerLink]="['/profile', comment.userName]" (click)="newCommentCancelled()"> <img
+                          [src]="comment.profileImage | converToRoot:'https://localhost:44447/api/Images/'" class="userImg commentimg"></a>
+                    </span>
+                    <a href="" [routerLink]="['/profile', comment.userName]" (click)="newCommentCancelled()">
+                      <h6 class="commentDetails-body">
+                        <span class="big text-muted">{{comment.firstName}} {{comment.lastName}} || <span
+                            *ngIf="comment.specialization" style="font-size: 0.8rem;">{{comment.specialization}}</span></span>
+                        <br>
+                        <span class="big text-muted font-weight-normal"
+                          style="font-size: 0.8rem;">{{comment.userName}}</span>
+                        <br>
+                        <span class="small text-muted font-weight-normal"> {{getFormattedDate(comment.created) }}</span>
+                      </h6>
+                    </a>
+
+                  </div>
+                  <div class="dropdown">
+                    <button class="dropbtn dropdownbt"> <i class="bi bi-three-dots-vertical"></i></button>
+                    <div class="dropdown-content">
+                      <!-- <a *ngIf="comment.isOwner">Edite</a> -->
+                      <a (click)="showDeleteCommentModal(deleteCommentModalTemplate,comment.id)" *ngIf="comment.isOwner||comment.postOwner " >Delete</a>
+
+                      <a id="copy" (click)="copyTextToClipboard(comment.content)">Copy Link</a> 
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <br>
+                <p>{{comment.content}}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <h4 class="modal-title pull-left"></h4>
+    <div class="form-group">
+      <label for="title">content</label>
+      <input type="text" class="form-control" id="content" placeholder="Write your comment..."
+        [(ngModel)]="newCommentEditor.content" />
+    </div>
+  </div>
+  <div class="modal-footer clearfix">
+    <div class="float-end">
+      <button class="btn btn-default" (click)="newCommentCancelled()">Cancel</button>
+      <button class="btn btn-primary" (click)="addComment()">Create</button>
+    </div>
+  </div>
+</ng-template>
+
+
+
+<ng-template #deletePostModalTemplate>
+  <div>
+    <div class="modal-body">
+      <strong> Are you sure you want to delete this post?</strong>
+      <br> action will permanently remove the content and cannot be undone.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="deletePostCancelled()">no</button>
+      <button type="button" class="btn btn-danger" (click)="deletePost()">yes</button>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #editePostModalTemplate>
+
+  <div class="modal-body">
+    <div class="row d-flex justify-content-center" *ngIf="postIdForedite.imageURL"
+      style="height: 300px; overflow: auto; padding: 0;">
+
+      <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+        <img [src]="postIdForedite.imageURL | converToRoot:'https://localhost:44447/api/Images/'" style="width: 100%; margin: 0;">
+      </div>
+    </div>
+    <!--  -->
+    <h4 class="modal-title pull-left"></h4>
+    <div class="form-group">
+      <label for="title">content</label>
+      <input type="text" class="form-control" id="content" placeholder="Add your edits..."
+        [(ngModel)]="postIdForedite.content" />
+    </div>
+  </div>
+  <div class="modal-footer clearfix">
+    <div class="float-end">
+      <button class="btn btn-default" (click)="editePostCancelled()">Cancel</button>
+      <button class="btn btn-primary" (click)="editePost()">Create</button>
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+
+
+
+
+<ng-template #deleteCommentModalTemplate>
+  <div>
+    <div class="modal-body">
+      <strong> Are you sure you want to delete this comment?</strong>
+      <br> action will permanently remove the content and cannot be undone.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="deleteCommentCancelled()">no</button>
+      <button type="button" class="btn btn-danger" (click)="deleteComment()">yes</button>
+    </div>
+  </div>
+</ng-template>

@@ -49,6 +49,7 @@ import { JobsListComponent } from './profile/jobs/jobs-list/jobs-list.component'
 import { SubProfileComponent } from './home/subProfile/subProfile.component';
 import { StateJobListComponent } from './profile/cv-service/state-job-list/state-job-list.component';
 import { CvListComponent } from './profile/cv-service/cv-list/cv-list.component';
+import { MyPostComponent } from './profile/posts/myPost/myPost.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { CvListComponent } from './profile/cv-service/cv-list/cv-list.component'
     UpdateExperienceComponent,
     converToRoot,
     PostComponent,
+    MyPostComponent,
     AddPostCardComponent,
     ConvertToUrl,
     FollowersComponent,
