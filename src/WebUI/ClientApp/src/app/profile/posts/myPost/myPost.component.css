@@ -1,0 +1,239 @@
+a {
+  text-decoration: none;
+  color: #686868;
+}
+
+
+.postContainer {
+  width: 700px;
+  text-align: center;
+  margin: 1rem;
+  padding: 0;
+
+  box-shadow: 0 2px 8px rgba(156, 156, 156, 0.4);
+  /* ظل للدايلوج */
+}
+
+
+.reacts,
+.reactspan {
+  border: 0;
+  font-size: 1.2rem;
+
+  color: #686868;
+  background-color: transparent;
+  border-radius: 3px;
+  padding: 10px;
+  width: 210px;
+  height: 60px;
+
+}
+
+hr {
+  margin-bottom: 3px;
+  margin-top: 0px;
+  ;
+}
+
+.mainhr {
+  width: 700px;
+  margin: auto;
+  color: #000000;
+  text-align: center;
+
+}
+
+.reacts:hover {
+  animation: 50ms;
+  background-color: rgba(231, 231, 231, 0.658);
+}
+
+.caption-text {
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.textbox {
+  margin: 0px 12px 12px 24px;
+  width: 700px;
+  display: flex;
+  display: flex; justify-content: space-between;
+
+}
+
+.card-title {
+  margin: 0;
+  display: flex;
+}
+
+.mediaPost {
+  margin: 0;
+  width: 700;
+  justify-content: center;
+}
+
+
+.userImg {
+  justify-content: left;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  object-fit: contain;
+  margin: 12px 8px 12px 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+
+.liked {
+  color: #068FFF;
+
+
+}
+
+.likehover:hover {
+  animation: 50ms;
+  color: #068FFF;
+
+
+
+}
+
+
+.text-body {
+  text-align: left;
+  margin-top: 18px;
+
+
+}
+
+.number {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.numberOfLikes {
+  margin: 12px 20px;
+  display: flex;
+  align-items: center;
+
+
+}
+
+.numberOfComment {
+  margin: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+
+}
+
+.numberOfComment2,
+.numberOfComment:hover {
+  animation: 50ms;
+  cursor: pointer;
+
+}
+
+.numberOfComment2 {
+  margin: 12px 20px;
+  text-align: right;
+  align-items: center;
+}
+
+
+
+
+.numberOfComment span:first-child {
+  margin-right: 7px;
+}
+
+.commentimg {
+  margin: 3px 8px 8px 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+
+}
+
+.commentDetails {
+  margin: 3px 8px 8px 8px;
+  display: flex;
+  align-items: center;
+
+}
+
+.commentDetails-body {
+  text-align: left;
+  margin-top: 8px;
+
+
+}
+
+
+
+
+
+.dropbtn {
+
+  background-color: rgba(255, 255, 255, 0);
+  color: #686868;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  /* position: relative;
+  display: inline-block; */
+  margin-right: 20px;  
+  
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position:absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+
+.headerCont{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  display: flex; justify-content: space-between;
+}
+.dropdownbt{
+margin: 0;
+padding: 0;
+
+}
+
+

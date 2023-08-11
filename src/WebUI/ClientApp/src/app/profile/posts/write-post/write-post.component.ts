@@ -23,9 +23,9 @@ export class WritePostComponent implements OnInit {
   };
 
   imageFile: any;
+  videoFile: any;
 
 
-  formData: FormData = new FormData();
 
 
   constructor(private postsClient: PostsClient) { }
@@ -33,20 +33,35 @@ export class WritePostComponent implements OnInit {
 
   async ngOnInit() {
   }
+
+
   eventl(event: any){
     const selectedFile: File = event.target.files[0];
     this.imageFile=selectedFile;
   }
+
+ event2(event: any){
+    const selectedFile: File = event.target.files[0];
+    this.videoFile=selectedFile;
+  }
+
   cancele(){
     this.postSucceeded.emit(true);
   }
+
   CreatePost() {
-  
+  if(this.imageFile){
     var imageForPost = {
       data: this.imageFile,
       fileName:  this.imageFile.name
     } as FileParameter;
-    
+  }
+  else if (this.videoFile){
+    var videoForPost = {
+      data: this.videoFile,
+      fileName:  this.videoFile.name
+    } as FileParameter;
+  }
     // var IImage = {
     //   data: this.newPost.image.target.files[0],
     //   name: this.newPost.image.name
@@ -56,7 +71,7 @@ export class WritePostComponent implements OnInit {
 
 
 
-    this.postsClient.create(this.newPost.content, imageForPost, this.newPost.video, this.user.id).subscribe(
+    this.postsClient.create(this.newPost.content, imageForPost,videoForPost, this.user.id).subscribe(
       {
         next: data => {
           if (data > 0) {

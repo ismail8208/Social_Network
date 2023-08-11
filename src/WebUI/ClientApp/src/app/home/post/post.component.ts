@@ -203,6 +203,8 @@ export class PostComponent implements OnInit , OnDestroy{
             post.lastName = user.lastName;
             post.profileImage = user.profileImage;
             post.specialization = user.specialization;
+            post.isOwner=this.localService.getData('username') === post.userName;
+
           });
           this.fetchCommentForPosts(post);
           this.fetchLikesForPosts(post);
