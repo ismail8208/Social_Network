@@ -69,9 +69,14 @@ select:focus {
 }
 
 .btn-success {
-    border-radius: 50px;
+    border-radius: 20px;
     padding: 4px 40px;
     background-color: #231E39;
+} 
+.btn-cancele {
+    border-radius: 20px;
+    padding: 4px 40px;
+  
 } 
 
 .options-container {
@@ -96,4 +101,19 @@ select:focus {
 }
 .left-options .options {
     margin-right: 50%;
+}
+
+.reacts , .reactspan {
+    border: 0;
+    font-size: 1rem;
+
+    color: #686868;
+    background-color: transparent;
+    border-radius: 3px;
+    padding: 10px;
+    width: auto;
+    height: auto;
+    margin: 0;
+  
+
 }

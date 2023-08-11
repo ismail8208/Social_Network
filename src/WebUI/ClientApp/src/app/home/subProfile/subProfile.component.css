@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+a{
+    text-decoration: none;
+    color: #545454;
 
+}
 
 body {
     background-color: #545454;
@@ -76,7 +80,7 @@ body {
 
 .stats span {
 
-    font-size: 29px;
+    font-size: 25px;
 }
 
 
@@ -95,4 +99,11 @@ body {
     margin: 12px 8px 12px 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
+
+.icon{
+
+    font-size: 50px;
+    margin: 10px;
+}
+
 

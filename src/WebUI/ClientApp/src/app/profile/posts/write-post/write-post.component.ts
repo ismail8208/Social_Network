@@ -1,6 +1,7 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom, map } from 'rxjs';
+
+import { INewPost } from 'src/app/home/addPostCard/addPostCard.component';
 import { FileParameter, IUserDto, PostsClient, UsersClient } from 'src/app/web-api-client';
 
 @Component({
@@ -10,24 +11,59 @@ import { FileParameter, IUserDto, PostsClient, UsersClient } from 'src/app/web-a
 })
 export class WritePostComponent implements OnInit {
   @Input() user: IUserDto;
-  content: string;
+
   btnText: string = 'Post'
   @Output() postSucceeded: EventEmitter<true> = new EventEmitter<true>();
+
+  newPost: CreatePostCommand = {
+    content: '',
+    image: undefined,
+    video: undefined,
+
+  };
+
+  imageFile: any;
+
+
+  formData: FormData = new FormData();
+
+
   constructor(private postsClient: PostsClient) { }
 
 
   async ngOnInit() {
   }
+  eventl(event: any){
+    const selectedFile: File = event.target.files[0];
+    this.imageFile=selectedFile;
+  }
+  cancele(){
+    this.postSucceeded.emit(true);
+  }
+  CreatePost() {
+  
+    var imageForPost = {
+      data: this.imageFile,
+      fileName:  this.imageFile.name
+    } as FileParameter;
+    
+    // var IImage = {
+    //   data: this.newPost.image.target.files[0],
+    //   name: this.newPost.image.name
 
-  CreatePost()
-  {
-    this.postsClient.create(this.content, undefined, undefined, this.user.id).subscribe(
+    // } as FileParameter
+    //IImage = this.imageFile.target.files[0];
+
+
+
+    this.postsClient.create(this.newPost.content, imageForPost, this.newPost.video, this.user.id).subscribe(
       {
         next: data => {
-          if(data>0)
-          {
+          if (data > 0) {
             this.btnText = 'succeeded';
-            this.content = '';
+            this.newPost.content = '';
+            this.newPost.image = undefined;
+            this.newPost.video = undefined;
             this.postSucceeded.emit(true);
           }
         }
@@ -38,10 +74,8 @@ export class WritePostComponent implements OnInit {
 
 }
 
-export interface CreatePostCommand
-{
+export interface CreatePostCommand {
   content: string | null | undefined,
-  image: FileParameter | null | undefined,
-  video: FileParameter | null | undefined,
-  userId: number | undefined
+  image: any,
+  video: any,
 }
