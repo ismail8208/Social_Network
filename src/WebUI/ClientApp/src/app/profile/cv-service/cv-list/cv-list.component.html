@@ -1,8 +1,9 @@
 <ol style="--length: 5" role="list">
-    <li style="--i: 1">
-        <a [routerLink]='["/authentication/profile"]' style="text-decoration: none; color: black;">
-            <h3>aaa</h3>
-            <p>bbb</p>
+    <li style="--i: {{user.id}}" *ngFor="let user of users">
+        <a [routerLink]='["/cv", user.id]' style="text-decoration: none; color: black;">
+            <h3>{{user.firstName+ " " +user.lastName}}</h3>
+            <h2>{{user.specialization}}</h2>
+            <p>{{user.summary}}</p>
         </a>
     </li>
 </ol>

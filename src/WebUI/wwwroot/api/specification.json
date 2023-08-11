@@ -1086,6 +1086,46 @@
         }
       }
     },
+    "/api/ExportCV/{jobId}/jobs": {
+      "get": {
+        "tags": [
+          "ExportCV"
+        ],
+        "operationId": "ExportCV_GetCVs",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "nullable": true,
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/UserDto"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Follows/Follow": {
       "post": {
         "tags": [
@@ -3710,6 +3750,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "firstName": {
             "type": "string",
             "nullable": true
@@ -3736,6 +3780,10 @@
             "nullable": true
           },
           "profileImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "specialization": {
             "type": "string",
             "nullable": true
           }
@@ -3813,6 +3861,56 @@
           "jobId": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "UserDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "profileImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          },
+          "numberOfFollowers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numberOfFollowings": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numberOfPosts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "specialization": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -5566,56 +5664,6 @@
           },
           "hasNextPage": {
             "type": "boolean"
-          }
-        }
-      },
-      "UserDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "firstName": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastName": {
-            "type": "string",
-            "nullable": true
-          },
-          "userName": {
-            "type": "string",
-            "nullable": true
-          },
-          "profileImage": {
-            "type": "string",
-            "nullable": true
-          },
-          "role": {
-            "type": "string",
-            "nullable": true
-          },
-          "summary": {
-            "type": "string",
-            "nullable": true
-          },
-          "numberOfFollowers": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "numberOfFollowings": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "numberOfPosts": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "specialization": {
-            "type": "string",
-            "nullable": true
           }
         }
       },

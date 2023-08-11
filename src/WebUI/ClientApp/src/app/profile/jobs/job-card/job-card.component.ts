@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CV2, ExportCVClient, ICV2, IJobDto } from 'src/app/web-api-client';
+import { CV2, ExportCVClient, ICV2, IJobDto, IReceiveCV, ReceiveCV } from 'src/app/web-api-client';
 
 @Component({
   selector: 'app-job-card',
@@ -17,12 +17,12 @@ export class JobCardComponent implements OnInit {
 
   SendCV()
   {
-    let cv: ICV2 = {
-      company: this.job.userId,
-      position: this.job.id,
+    let cv: IReceiveCV = {
+      companyId: this.job.userId,
+      jobId: this.job.id,
       userId: parseInt(localStorage.getItem('id'))
     }
-    this.CvClient.reveiveCV(cv as CV2).subscribe(
+    this.CvClient.reveiveCV(cv as ReceiveCV).subscribe(
       {
         next: data => {
           if(data>0)

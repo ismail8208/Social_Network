@@ -1465,6 +1465,7 @@ export class ExperiencesClient implements IExperiencesClient {
 export interface IExportCVClient {
     exportCV(userId: number): Observable<CV>;
     reveiveCV(command: ReceiveCV): Observable<number>;
+    getCVs(jobId: number): Observable<(UserDto | undefined)[]>;
 }
 
 @Injectable({
@@ -1574,6 +1575,64 @@ export class ExportCVClient implements IExportCVClient {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
     
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getCVs(jobId: number): Observable<(UserDto | undefined)[]> {
+        let url_ = this.baseUrl + "/api/ExportCV/{jobId}/jobs";
+        if (jobId === undefined || jobId === null)
+            throw new Error("The parameter 'jobId' must be defined.");
+        url_ = url_.replace("{jobId}", encodeURIComponent("" + jobId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCVs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCVs(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<(UserDto | undefined)[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<(UserDto | undefined)[]>;
+        }));
+    }
+
+    protected processGetCVs(response: HttpResponseBase): Observable<(UserDto | undefined)[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(UserDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5819,6 +5878,7 @@ export interface ICV {
 }
 
 export class UserCV implements IUserCV {
+    id?: number;
     firstName?: string | undefined;
     lastName?: string | undefined;
     summary?: string | undefined;
@@ -5826,6 +5886,7 @@ export class UserCV implements IUserCV {
     address?: string | undefined;
     dateOfBirth?: Date | undefined;
     profileImage?: string | undefined;
+    specialization?: string | undefined;
 
     constructor(data?: IUserCV) {
         if (data) {
@@ -5838,6 +5899,7 @@ export class UserCV implements IUserCV {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
             this.summary = _data["summary"];
@@ -5845,6 +5907,7 @@ export class UserCV implements IUserCV {
             this.address = _data["address"];
             this.dateOfBirth = _data["dateOfBirth"] ? new Date(_data["dateOfBirth"].toString()) : <any>undefined;
             this.profileImage = _data["profileImage"];
+            this.specialization = _data["specialization"];
         }
     }
 
@@ -5857,6 +5920,7 @@ export class UserCV implements IUserCV {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
         data["summary"] = this.summary;
@@ -5864,11 +5928,13 @@ export class UserCV implements IUserCV {
         data["address"] = this.address;
         data["dateOfBirth"] = this.dateOfBirth ? this.dateOfBirth.toISOString() : <any>undefined;
         data["profileImage"] = this.profileImage;
+        data["specialization"] = this.specialization;
         return data;
     }
 }
 
 export interface IUserCV {
+    id?: number;
     firstName?: string | undefined;
     lastName?: string | undefined;
     summary?: string | undefined;
@@ -5876,6 +5942,7 @@ export interface IUserCV {
     address?: string | undefined;
     dateOfBirth?: Date | undefined;
     profileImage?: string | undefined;
+    specialization?: string | undefined;
 }
 
 export class SkillCV implements ISkillCV {
@@ -6080,6 +6147,82 @@ export interface IReceiveCV {
     userId?: number;
     companyId?: number;
     jobId?: number;
+}
+
+export class UserDto implements IUserDto {
+    id?: number;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    userName?: string | undefined;
+    profileImage?: string | undefined;
+    role?: string | undefined;
+    summary?: string | undefined;
+    numberOfFollowers?: number;
+    numberOfFollowings?: number;
+    numberOfPosts?: number;
+    specialization?: string | undefined;
+
+    constructor(data?: IUserDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.userName = _data["userName"];
+            this.profileImage = _data["profileImage"];
+            this.role = _data["role"];
+            this.summary = _data["summary"];
+            this.numberOfFollowers = _data["numberOfFollowers"];
+            this.numberOfFollowings = _data["numberOfFollowings"];
+            this.numberOfPosts = _data["numberOfPosts"];
+            this.specialization = _data["specialization"];
+        }
+    }
+
+    static fromJS(data: any): UserDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["userName"] = this.userName;
+        data["profileImage"] = this.profileImage;
+        data["role"] = this.role;
+        data["summary"] = this.summary;
+        data["numberOfFollowers"] = this.numberOfFollowers;
+        data["numberOfFollowings"] = this.numberOfFollowings;
+        data["numberOfPosts"] = this.numberOfPosts;
+        data["specialization"] = this.specialization;
+        return data;
+    }
+}
+
+export interface IUserDto {
+    id?: number;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    userName?: string | undefined;
+    profileImage?: string | undefined;
+    role?: string | undefined;
+    summary?: string | undefined;
+    numberOfFollowers?: number;
+    numberOfFollowings?: number;
+    numberOfPosts?: number;
+    specialization?: string | undefined;
 }
 
 export class FollowCommand implements IFollowCommand {
@@ -9297,82 +9440,6 @@ export interface IPaginatedListOfUserDto {
     totalCount?: number;
     hasPreviousPage?: boolean;
     hasNextPage?: boolean;
-}
-
-export class UserDto implements IUserDto {
-    id?: number;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
-    userName?: string | undefined;
-    profileImage?: string | undefined;
-    role?: string | undefined;
-    summary?: string | undefined;
-    numberOfFollowers?: number;
-    numberOfFollowings?: number;
-    numberOfPosts?: number;
-    specialization?: string | undefined;
-
-    constructor(data?: IUserDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.firstName = _data["firstName"];
-            this.lastName = _data["lastName"];
-            this.userName = _data["userName"];
-            this.profileImage = _data["profileImage"];
-            this.role = _data["role"];
-            this.summary = _data["summary"];
-            this.numberOfFollowers = _data["numberOfFollowers"];
-            this.numberOfFollowings = _data["numberOfFollowings"];
-            this.numberOfPosts = _data["numberOfPosts"];
-            this.specialization = _data["specialization"];
-        }
-    }
-
-    static fromJS(data: any): UserDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new UserDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["firstName"] = this.firstName;
-        data["lastName"] = this.lastName;
-        data["userName"] = this.userName;
-        data["profileImage"] = this.profileImage;
-        data["role"] = this.role;
-        data["summary"] = this.summary;
-        data["numberOfFollowers"] = this.numberOfFollowers;
-        data["numberOfFollowings"] = this.numberOfFollowings;
-        data["numberOfPosts"] = this.numberOfPosts;
-        data["specialization"] = this.specialization;
-        return data;
-    }
-}
-
-export interface IUserDto {
-    id?: number;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
-    userName?: string | undefined;
-    profileImage?: string | undefined;
-    role?: string | undefined;
-    summary?: string | undefined;
-    numberOfFollowers?: number;
-    numberOfFollowings?: number;
-    numberOfPosts?: number;
-    specialization?: string | undefined;
 }
 
 export class WeatherForecast implements IWeatherForecast {

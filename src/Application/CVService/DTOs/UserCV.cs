@@ -6,6 +6,7 @@ using MediaLink.Domain.Entities;
 namespace MediaLink.Application.CVService.DTOs; 
 public class UserCV : IMapFrom<InnerUser>
 {
+    public int Id { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public string? Summary { get; set; }
@@ -13,7 +14,7 @@ public class UserCV : IMapFrom<InnerUser>
     public string? Address { get; set; }
     public DateTime? DateOfBirth { get; set; }
     public string? ProfileImage { get; set; }
-
+    public string? specialization { get; set; }
     public void Mapping(Profile profile)
     {
         profile.CreateMap<InnerUser, UserCV>()
