@@ -32,6 +32,7 @@ import { selectUser } from '../stateManagement/user.selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LocalService } from '../sheard/localService';
+import { NotificationServiceService } from '../sheard/notification-service.service';
 
 
 
@@ -113,12 +114,14 @@ export class ProfileComponent implements OnInit {
     private usersClient: UsersClient,
     private follows: FollowsClient,
     private modalService: BsModalService,
-    private localService: LocalService
+    private localService: LocalService,
+    private notification: NotificationServiceService
   ) { }
 
   async ngOnInit() {
     this.isAuthenticated = await firstValueFrom(this.authorizeService.isAuthenticated());
 
+    //this.notification.setSignalrClientMethods();
     this.username = this.router.snapshot.paramMap.get('username');
 
     this.isOwner = this.localService.getData('username') === this.username;

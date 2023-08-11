@@ -2,6 +2,7 @@ using MediaLink.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebUI.Data;
+using WebUI.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 /*var connectionString = builder.Configuration.GetConnectionString("WebUIContextConnection") ?? throw new InvalidOperationException("Connection string 'WebUIContextConnection' not found.");
@@ -58,14 +59,7 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapRazorPages();
-
+app.MapHub<NotificationHub>("Hubs/Notification");
 app.MapFallbackToFile("index.html");
 
-app.Run(
-/*    async (context) =>
-    {
-        context.Response.ContentType = "image/png";
-        await context.Response.WriteAsync("wwwroot/images");
-        //
-    }*/
-);
+app.Run();

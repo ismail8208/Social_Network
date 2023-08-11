@@ -7,9 +7,12 @@ using MediaLink.Infrastructure.Persistence.Interceptors;
 using MediaLink.Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -56,6 +59,10 @@ public static class ConfigureServices
         //from me
         services.AddAuthorization(options =>
             options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
+
+        services.TryAddEnumerable(
+        ServiceDescriptor.Singleton<IPostConfigureOptions<JwtBearerOptions>,
+        ConfigureJwtBearerOptions>());
 
         return services;
     }

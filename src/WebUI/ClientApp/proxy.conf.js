@@ -21,6 +21,14 @@ const PROXY_CONFIG = [
     headers: {
       Connection: 'Keep-Alive'
     }
+  },
+  {
+    context: [
+      "/Hubs"
+    ],
+    target: target,
+    secure: false,
+    ws: true,
   }
 ]
 

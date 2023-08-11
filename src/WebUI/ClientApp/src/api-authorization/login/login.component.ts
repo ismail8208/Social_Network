@@ -7,6 +7,7 @@ import { IUserDto, UsersClient } from 'src/app/web-api-client';
 import { Store } from '@ngrx/store';
 import { setUser } from 'src/app/stateManagement/user.actions';
 import { LocalService } from 'src/app/sheard/localService';
+import { NotificationServiceService } from 'src/app/sheard/notification-service.service';
 
 // The main responsibility of this component is to handle the user's login process.
 // This is the starting point for the login process. Any component that needs to authenticate
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private store: Store,
     private userClient: UsersClient,
     private router: Router,
-    private localService: LocalService
+    private localService: LocalService,
+    private notification: NotificationServiceService
     ) { }
 
   async ngOnInit() {
@@ -65,7 +67,7 @@ export class LoginComponent implements OnInit {
         break;
       case AuthenticationResultStatus.Success:
         await this.navigateToReturnUrl(returnUrl);
-
+        await this.notification.initiateSignalrConnection();
         let username = await firstValueFrom(this.authorizeService.getUser().pipe(map(u => u.name)))
         this.userClient.get(username).subscribe({
           next: data => {
@@ -103,6 +105,7 @@ export class LoginComponent implements OnInit {
         throw new Error('Should not redirect.');
       case AuthenticationResultStatus.Success:
         await this.navigateToReturnUrl(this.getReturnUrl(result.state));
+        await this.notification.initiateSignalrConnection();
         let username = await firstValueFrom(this.authorizeService.getUser().pipe(map(u => u.name)))
         this.userClient.get(username).subscribe({
           next: data => {

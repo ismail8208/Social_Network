@@ -6,6 +6,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using WebUI.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -45,7 +46,12 @@ public static class ConfigureServices
 
             configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
         });
-
+        services.AddSignalR()
+            .AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+            });
+        services.AddScoped<IClientNotificationService, ClientNotificationService>();
         return services;
     }
 }

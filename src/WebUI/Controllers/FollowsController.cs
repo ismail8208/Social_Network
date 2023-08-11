@@ -8,14 +8,24 @@ using MediaLink.Application.Follows.Queries.GetFollowingsWithPagination;
 using MediaLink.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using WebUI.Hubs;
 
 namespace MediaLink.WebUI.Controllers;
 [Authorize]
 public class FollowsController : ApiControllerBase
 {
+    private readonly IHubContext<NotificationHub> _hubContext;
+
+    public FollowsController(IHubContext<NotificationHub> hubContext)
+    {
+        _hubContext = hubContext;
+    }
     [HttpPost("Follow")]
     public async Task<ActionResult<int>> Follow([FromBody] FollowCommand command)
     {
+/*        string notificationMessage = $"{command.UserId} is now following you.";
+        _hubContext.Clients.User(command.UserId.ToString()).SendAsync("ReceiveFollowNotification", notificationMessage);*/
         return Ok(await Mediator.Send(command));
     }
 
