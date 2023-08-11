@@ -3,13 +3,15 @@
         <div class="card">
             <div class="row px-3">
                 <!-- <img class="profile-pic mr-3" src="https://i.imgur.com/6tPhTUn.jpg"> -->
-                <img  class="profile-pic mr-3" [src]="user.profileImage" alt="user" />
+                
                 <div class="flex-column">
+                    <span>
+                        <img  class="profile-pic mr-3" [src]="user.profileImage" alt="user" />
+                    </span>
+                    
+                    <span>
                     <h3 class="mb-0 font-weight-normal">{{user.firstName+ " "+ user.lastName}}</h3>
-                    <select name="privacy" class="privacy">
-                        <option>Public post</option>
-                        <option>Private post</option>
-                    </select>
+                    </span>
                 </div>
             </div>
             <div class="row px-3 form-group">
@@ -32,7 +34,7 @@
                     <div class="btn btn-cancele ml-auto" (click)="cancele()">Cancele</div>
                 </span>
                 <!-- <img class="options" src="https://img.icons8.com/material/24/000000/more--v2.png" width="30px" height="28px"> -->
-                <div class="btn btn-success ml-auto" (click)="CreatePost()">{{btnText}}</div>
+                <div class="btn btn-success ml-auto" (click)="CreatePost()" >{{btnText}}</div>
             </div>
         </div>
     </div>

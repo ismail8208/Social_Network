@@ -51,6 +51,7 @@ import { StateJobListComponent } from './profile/cv-service/state-job-list/state
 import { CvListComponent } from './profile/cv-service/cv-list/cv-list.component';
 import { BriefPostsComponent } from './profile/posts/brief-posts/brief-posts.component';
 import { MyPostComponent } from './profile/posts/myPost/myPost.component';
+import { ConvertToSettings } from './sheard/convert-to-settings';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { MyPostComponent } from './profile/posts/myPost/myPost.component';
     MyPostComponent,
     AddPostCardComponent,
     ConvertToUrl,
+    ConvertToSettings,
     FollowersComponent,
     FollowingsComponent,
     SearchUserComponent,

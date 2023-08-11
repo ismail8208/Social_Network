@@ -26,7 +26,7 @@
             <span class="text-muted d-block mb-2">{{user.specialization}}</span>
             <hr>
 
-            <div class="d-flex justify-content-between align-items-center mt-4 px-4">
+            <div class="d-flex  align-items-center mt-4 px-4">
 
                 <a [routerLink]="['/followers', user.id ]" class="following">
                     <div class="stats">
@@ -46,13 +46,13 @@
                 </a>
 
 
-
-
+            <a [routerLink]="['/my-posts', user.id ]" class="following">
                 <div class="stats">
                     <h6 class="mb-0">Posts</h6>
                     <span>{{user.numberOfPosts}}</span>
 
                 </div>
+            </a>
 
             </div>
             <hr>
