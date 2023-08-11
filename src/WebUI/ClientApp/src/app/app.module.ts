@@ -47,6 +47,8 @@ import { WriteJobComponent } from './profile/jobs/write-job/write-job.component'
 import { JobCardComponent } from './profile/jobs/job-card/job-card.component';
 import { JobsListComponent } from './profile/jobs/jobs-list/jobs-list.component';
 import { SubProfileComponent } from './home/subProfile/subProfile.component';
+import { StateJobListComponent } from './profile/cv-service/state-job-list/state-job-list.component';
+import { CvListComponent } from './profile/cv-service/cv-list/cv-list.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +87,9 @@ import { SubProfileComponent } from './home/subProfile/subProfile.component';
     JobCardComponent,
     JobsListComponent,
     HasRoleDirective,
-    SubProfileComponent
+    SubProfileComponent,
+    StateJobListComponent,
+    CvListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

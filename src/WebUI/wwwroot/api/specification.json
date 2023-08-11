@@ -1053,6 +1053,39 @@
         }
       }
     },
+    "/api/ExportCV": {
+      "post": {
+        "tags": [
+          "ExportCV"
+        ],
+        "operationId": "ExportCV_ReveiveCV",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReceiveCV"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Follows/Follow": {
       "post": {
         "tags": [
@@ -3762,6 +3795,24 @@
           "level": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "ReceiveCV": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "companyId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "jobId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
