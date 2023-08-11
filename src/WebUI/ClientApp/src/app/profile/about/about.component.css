@@ -1,5 +1,5 @@
 .about {
-	background-color: #1F1A36;
+	background-color: #fff;
     font-family: Montserrat, sans-serif;
 	text-align: left;
 	padding: 15px;
@@ -9,17 +9,16 @@
 .show-all{
 	bottom: 8px;
 	font-family: Montserrat, sans-serif;
-	color: #231E39;
-	background-color: #FEBB0B;
+	color: #222831;
+	background-color: #fff;
 	border-radius: 3px;
-	font-size: 14px;
-	font-weight: bold;
+	font-size: 16px;
 	padding: 3px 7px;
 	
 }
 
 .show-all:hover{
-	background-color: #03BFCB;
+	background-color: #00ADB5;
 }
 h6 {
 	margin: 5px 0;

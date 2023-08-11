@@ -51,6 +51,7 @@ import { StateJobListComponent } from './profile/cv-service/state-job-list/state
 import { CvListComponent } from './profile/cv-service/cv-list/cv-list.component';
 import { BriefPostsComponent } from './profile/posts/brief-posts/brief-posts.component';
 import { MyPostComponent } from './profile/posts/myPost/myPost.component';
+import { ConvertToSettings } from './sheard/convert-to-settings';
 import { NotificationsComponent } from './profile/notifications/notifications.component';
 
 @NgModule({
@@ -77,6 +78,7 @@ import { NotificationsComponent } from './profile/notifications/notifications.co
     MyPostComponent,
     AddPostCardComponent,
     ConvertToUrl,
+    ConvertToSettings,
     FollowersComponent,
     FollowingsComponent,
     SearchUserComponent,

@@ -1,19 +1,25 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
 a{
     text-decoration: none;
     color: #545454;
 
+   
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+  
 }
 
 body {
-    background-color: #545454;
-    font-family: "Poppins", sans-serif;
+    font-family: Montserrat, sans-serif;
     font-weight: 300;
+
 }
 
 .container {
-    margin-top: 15px;
-    height: 100vh;
+    margin-top: 1rem;
+    height: inherit;
+       
 }
 
 .card {
@@ -23,8 +29,8 @@ body {
     padding: 8px;
     background-color: #fff;
     position: relative;
-    height: 500px;
-
+    height: inherit;
+    box-shadow: 0 2px 8px rgba(156, 156, 156, 0.4);
 }
 
 .upper {
@@ -80,13 +86,13 @@ body {
 
 .stats span {
 
-    font-size: 25px;
+    font-size: 16px;
 }
 
 
 
 .cover {
-    background-color: darkgoldenrod;
+    background-color: #00ADB5;
     width: 100%;
     height: inherit;
     border-top-left-radius: 10px;

@@ -31,7 +31,7 @@ justify-content: left;
     border: 0;
     font-size: 1.2rem;
 
-    color: #686868;
+    color: #222831;
     background-color: transparent;
     border-radius: 3px;
     padding: 10px;
@@ -62,8 +62,8 @@ hr {
 .startAPost {
     text-align: left;
     padding-left: 20px;
-    color: #686868;
-    font-size:1.2rem ;
+    color: #222831;
+    font-size:16px ;
     background-color: white;
     width: 575px;
     height: 60px;

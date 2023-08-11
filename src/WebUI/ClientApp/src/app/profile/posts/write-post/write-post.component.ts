@@ -35,55 +35,48 @@ export class WritePostComponent implements OnInit {
   }
 
 
-  eventl(event: any){
+  eventl(event: any) {
     const selectedFile: File = event.target.files[0];
-    this.imageFile=selectedFile;
+    this.imageFile = selectedFile;
   }
 
- event2(event: any){
+  event2(event: any) {
     const selectedFile: File = event.target.files[0];
-    this.videoFile=selectedFile;
+    this.videoFile = selectedFile;
   }
 
-  cancele(){
+  cancele() {
     this.postSucceeded.emit(true);
   }
 
   CreatePost() {
-  if(this.imageFile){
-    var imageForPost = {
-      data: this.imageFile,
-      fileName:  this.imageFile.name
-    } as FileParameter;
-  }
-  else if (this.videoFile){
-    var videoForPost = {
-      data: this.videoFile,
-      fileName:  this.videoFile.name
-    } as FileParameter;
-  }
-    // var IImage = {
-    //   data: this.newPost.image.target.files[0],
-    //   name: this.newPost.image.name
-
-    // } as FileParameter
-    //IImage = this.imageFile.target.files[0];
-
-
-
-    this.postsClient.create(this.newPost.content, imageForPost,videoForPost, this.user.id).subscribe(
-      {
-        next: data => {
-          if (data > 0) {
-            this.btnText = 'succeeded';
-            this.newPost.content = '';
-            this.newPost.image = undefined;
-            this.newPost.video = undefined;
-            this.postSucceeded.emit(true);
+    if (this.imageFile || this.videoFile || this.newPost.content) {
+      if (this.imageFile) {
+        var imageForPost = {
+          data: this.imageFile,
+          fileName: this.imageFile.name
+        } as FileParameter;
+      }
+      else if (this.videoFile) {
+        var videoForPost = {
+          data: this.videoFile,
+          fileName: this.videoFile.name
+        } as FileParameter;
+      }
+      this.postsClient.create(this.newPost.content, imageForPost, videoForPost, this.user.id).subscribe(
+        {
+          next: data => {
+            if (data > 0) {
+              this.btnText = 'succeeded';
+              this.newPost.content = '';
+              this.newPost.image = undefined;
+              this.newPost.video = undefined;
+              this.postSucceeded.emit(true);
+            }
           }
         }
-      }
-    )
+      );
+    }
   }
 
 

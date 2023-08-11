@@ -1,49 +1,43 @@
 <header class="customNav">
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom" [ngClass]="{ 'sticky': isSticky }"
-  >
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom"
+    [ngClass]="{ 'sticky': isSticky }">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">MediaLink</a>
+      <div class="d-flex">
+
+        <a class="navbar-brand me-2 mb-1 d-flex align-items-center" [routerLink]="['/']">
+          <img src="../../assets/icon/logo.png" height="30" alt="MDB Logo" loading="lazy" style="margin-top: 2px;" />
+          MediaLink
+        </a>
+      </div>
+
       <app-search-user></app-search-user>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+        aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
-        [ngClass]="{ show: isExpanded }"
-      >
-        <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <a class="nav-link" [routerLink]="['/home']" >Home</a>
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow" style="  color: #EEEEEE;">
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link" [routerLink]="['/home']">Home <i class="bi bi-house-door-fill"></i></a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/counter']">Counter</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          </li> -->
+          <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/fetch-data']">Fetch data</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          </li> -->
+          <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/todo']">Todo</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isAuthenticated | async">
-            <a class="nav-link" [routerLink]="['/profile', userName | async]">Profile</a>
+          </li> -->
+          <li class="nav-item " [routerLinkActive]="['link-active']" *ngIf="isAuthenticated | async">
+            <a class="nav-link" [routerLink]="['/profile', userName | async]">Profile <i
+                class="bi bi-person-circle"></i></a>
+
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/token']">JWT</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item active" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/job-list']" *userHasRole="'company'">Jobs</a>
           </li>
           <li class="nav-item">
