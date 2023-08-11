@@ -89,6 +89,13 @@ public class IdentityService : IIdentityService
             var roles = await _userManager.GetRolesAsync(user);
             if (roles != null && roles.Any())
             {
+                foreach (var role in roles)
+                {
+                    if (role == "company")
+                    {
+                       return role;
+                    }
+                }
                 var userRole = roles.First();
                 return userRole;
             }

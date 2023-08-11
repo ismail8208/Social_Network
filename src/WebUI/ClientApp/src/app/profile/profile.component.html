@@ -27,7 +27,7 @@
 		<span *userHasRole="'member'">
 			<div class="buttons">
 				<button class="primary">
-					Massegeddee
+					Massege
 				</button>
 
 				<button class="primary ghost" *ngIf="!isOwner && isFolloing" (click)="unFollow()">
@@ -89,10 +89,11 @@
 			<!-- about -->
 
 			<!-- activty start -->
-			<div class="group">
+			<div class="group" *ngIf="user.numberOfPosts">
 				<h6>Posts</h6>
 				<app-brief-posts [userId]="user.id"></app-brief-posts>
 			</div>
+			
 			<!-- activty end -->
 			<!-- educations start-->
 			<div class="group" *ngIf="educations.length || isEducationsEnabled">
@@ -162,14 +163,10 @@
 			<!-- skills end -->
 
 			<!-- jobs start -->
-
 			<app-jobs-list [userId]="user.id"></app-jobs-list>
 			<!-- jobs end -->
 		</span>
 
-		<div>
-			<app-myPost></app-myPost>
-		</div>
 
 		<ng-template #template>
 			<div class="modal-body">

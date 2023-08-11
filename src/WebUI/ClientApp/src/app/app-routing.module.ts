@@ -12,6 +12,7 @@ import { FollowingsComponent } from './profile/follow/followings.component';
 import { ExportCvComponent } from './profile/export-cv/export-cv.component';
 import { StateJobListComponent } from './profile/cv-service/state-job-list/state-job-list.component';
 import { CvListComponent } from './profile/cv-service/cv-list/cv-list.component';
+import { MyPostComponent } from './profile/posts/myPost/myPost.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent/*, pathMatch: 'full'*/, canActivate: [AuthorizeGuard] },
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'CVs-job/:jobId', component: CvListComponent, canActivate: [AuthorizeGuard] },
   { path: 'cv/:id', component: ExportCvComponent},
   { path: 'todo', component: TodoComponent, canActivate: [AuthorizeGuard] },
+  { path: 'my-posts/:id', component: MyPostComponent, canActivate: [AuthorizeGuard] },
   { path: 'token', component: TokenComponent, canActivate: [AuthorizeGuard] }
 ];
 @NgModule({

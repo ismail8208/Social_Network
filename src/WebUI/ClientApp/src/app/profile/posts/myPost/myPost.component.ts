@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, TemplateRef, } from '@angular/core';
 import {
   PostDto,
   PostsClient,
@@ -15,6 +15,7 @@ import { Subscription, firstValueFrom, map, mergeMap, of } from 'rxjs';
 import * as moment from 'moment';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LocalService } from 'src/app/sheard/localService';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-myPost',
@@ -25,7 +26,7 @@ export class MyPostComponent implements OnInit , OnDestroy{
  
   // Add a variable to track if a request is in progress
   private isFetchingPosts = false;
-  
+  @Input() userId: number;
 
   newCommentEditor: any = {};
   newCommentModalRef: BsModalRef;
@@ -78,7 +79,8 @@ export class MyPostComponent implements OnInit , OnDestroy{
     private commentClient: CommentsClient,
     private modalService: BsModalService,
     private usersClient: UsersClient,
-    private localService: LocalService
+    private localService: LocalService,
+    private router: ActivatedRoute,
   ) { }
 
 
@@ -97,7 +99,7 @@ export class MyPostComponent implements OnInit , OnDestroy{
     let currentPage = 1;
 
     //this.user = await firstValueFrom(this.usersClient.get(this.localService.getData('username')))
-
+    this.userId = parseInt(this.router.snapshot.paramMap.get('id'));
     this.user = await firstValueFrom(this.usersClient.get(this.localService.getData('username')).pipe(
       map(data => ({
         // ...data,
@@ -125,7 +127,7 @@ export class MyPostComponent implements OnInit , OnDestroy{
     //   },
     // });
 
-       this.posts$= this.client.getPostsWithPagination(this.user.id, currentPage, pageSize).subscribe(
+       this.posts$= this.client.getPostsWithPagination(this.userId, currentPage, pageSize).subscribe(
       result => {
         this.posts = result.items.map(post =>
 
@@ -193,7 +195,7 @@ export class MyPostComponent implements OnInit , OnDestroy{
       const pageSize = 5;
       let currentPage = Math.ceil(this.posts.length / pageSize) + 1;
 
-      this.posts1$=this.client.getPostsWithPagination(this.user.id, currentPage, pageSize).subscribe(result => {
+      this.posts1$=this.client.getPostsWithPagination(this.userId, currentPage, pageSize).subscribe(result => {
         this.posts = this.posts.concat(result.items.map(post => post as Postsw));
 
         this.posts.forEach(post => {

@@ -58,6 +58,7 @@ export class ProfileComponent implements OnInit {
     role: '',
     summary: '',
     userName: '',
+    numberOfPosts: 0,
   };
   username: string;
   owner: IUserDto;
@@ -134,8 +135,8 @@ export class ProfileComponent implements OnInit {
         numberOfFollowings: data.numberOfFollowings ?? 0,
         role: data.role ?? '',
         userName: data.userName ?? '',
-        specialization: data.specialization ??''
-
+        specialization: data.specialization ??'',
+        numberOfPosts: data.numberOfPosts ?? 0
       })
       )
     ))
