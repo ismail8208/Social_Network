@@ -17,7 +17,7 @@
 				</div>
 			</a>
 
-			<a [routerLink]="['/followings', user.id ]" class="following" >
+			<a [routerLink]="['/followings', user.id ]" class="following">
 				<div>
 					{{user.numberOfFollowings}} following
 				</div>
@@ -50,18 +50,18 @@
 					</button>
 					<ul class="dropdown-content" role="menu">
 
-						<li (click)="enableSkillsSection()"  *ngIf="isOwner" style="--delay: 1;">Add Skills Section</li>
-						<li (click)="enableEducationsSection()"  *ngIf="isOwner"  style="--delay: 2;">
+						<li (click)="enableSkillsSection()" *ngIf="isOwner" style="--delay: 1;">Add Skills Section</li>
+						<li (click)="enableEducationsSection()" *ngIf="isOwner" style="--delay: 2;">
 							Add Education Section
 						</li>
-						<li (click)="enableExperiencesSection()"  *ngIf="isOwner"  style="--delay: 3;">
+						<li (click)="enableExperiencesSection()" *ngIf="isOwner" style="--delay: 3;">
 							Add Experience Section
 						</li>
 						<li (click)="enableProjectsSection()" *ngIf="isOwner" style="--delay: 4;">
 							Add Projects Section
 						</li>
 						<li style="--delay: 5;">
-							<a class="nav-link" [routerLink]="['/cv', user.id]"  >Export CV</a>
+							<a class="nav-link" [routerLink]="['/cv', user.id]">Export CV</a>
 						</li>
 
 						<li (click)="openModal(template)" *ngIf="isOwner" style="--delay: 6;">Add Post</li>
@@ -84,79 +84,86 @@
 
 
 		<span *ngIf="isLoaded">
-		<!-- about -->
-		<app-about [content]="user.summary" *ngIf="user.summary.length > 0 ? true : false"></app-about>
-		<!-- about -->
-		<!-- educations start-->
-		<div class="group" *ngIf="educations.length || isEducationsEnabled">
-			<h6>Educations</h6>
-			<app-add-education (selectdEducation)="addEducation($event)" (_listFilter)="searchEducation($event)"
-				[filteredEducations]="filteredEducations" *ngIf="isOwner"></app-add-education>
-			<ul *ngFor="let education of (showAllEducations ? educations : educations.slice(0, 2))">
-				<app-education [education]="education" (educationForUpdate)="chosenEducation($event)"
-					(educationForDeleted)="deleteEducation($event)" [isOwner]="isOwner"> </app-education>
-				<hr class="separate">
-			</ul>
-			<span class="show-all" (click)="toggleEducations()">{{textEducationbutton}}</span>
-		</div>
-		<app-update-education [education]="edu" (chosenEducation)="updateEducation($event)"></app-update-education>
-		<!-- educations end-->
-		<!-- experience start -->
-		<div class="group" *ngIf="experiences.length || isExperiencesEnabled">
-			<h6>Experiences</h6>
-			<app-add-experience (selectdExperience)="addExperience($event)" (_listFilter)="searchExperience($event)"
-				[filteredExperiences]="filteredExperiences" *ngIf="isOwner"></app-add-experience>
-			<ul *ngFor="let experience of (showAllExperiences ? experiences : experiences.slice(0, 2))">
-				<app-experience [experience]="experience" (experienceForUpdate)="chosenExperience($event)"
-					(experienceForDeleted)="deleteExperience($event)" [isOwner]="isOwner"> </app-experience>
-				<hr class="separate">
-			</ul>
-			<span class="show-all" (click)="toggleExperiences()">{{textExperiencebutton}}</span>
-		</div>
-		<app-update-experience [experience]="exper"
-			(chosenExperience)="updateExperience($event)"></app-update-experience>
-		<!-- experience end -->
+			<!-- about -->
+			<app-about [content]="user.summary" *ngIf="user.summary.length > 0 ? true : false"></app-about>
+			<!-- about -->
 
-		<!-- projects start -->
-		<div class="group" *ngIf="projects.length || isProjectsEnabled">
-			<h6>Projects</h6>
-			<!-- <app-add-experience (selectdExperience)="addExperience($event)" (_listFilter)="searchExperience($event)"
+			<!-- activty start -->
+			<div class="group">
+				<h6>Posts</h6>
+				<app-brief-posts [userId]="user.id"></app-brief-posts>
+			</div>
+			<!-- activty end -->
+			<!-- educations start-->
+			<div class="group" *ngIf="educations.length || isEducationsEnabled">
+				<h6>Educations</h6>
+				<app-add-education (selectdEducation)="addEducation($event)" (_listFilter)="searchEducation($event)"
+					[filteredEducations]="filteredEducations" *ngIf="isOwner"></app-add-education>
+				<ul *ngFor="let education of (showAllEducations ? educations : educations.slice(0, 2))">
+					<app-education [education]="education" (educationForUpdate)="chosenEducation($event)"
+						(educationForDeleted)="deleteEducation($event)" [isOwner]="isOwner"> </app-education>
+					<hr class="separate">
+				</ul>
+				<span class="show-all" (click)="toggleEducations()">{{textEducationbutton}}</span>
+			</div>
+			<app-update-education [education]="edu" (chosenEducation)="updateEducation($event)"></app-update-education>
+			<!-- educations end-->
+			<!-- experience start -->
+			<div class="group" *ngIf="experiences.length || isExperiencesEnabled">
+				<h6>Experiences</h6>
+				<app-add-experience (selectdExperience)="addExperience($event)" (_listFilter)="searchExperience($event)"
+					[filteredExperiences]="filteredExperiences" *ngIf="isOwner"></app-add-experience>
+				<ul *ngFor="let experience of (showAllExperiences ? experiences : experiences.slice(0, 2))">
+					<app-experience [experience]="experience" (experienceForUpdate)="chosenExperience($event)"
+						(experienceForDeleted)="deleteExperience($event)" [isOwner]="isOwner"> </app-experience>
+					<hr class="separate">
+				</ul>
+				<span class="show-all" (click)="toggleExperiences()">{{textExperiencebutton}}</span>
+			</div>
+			<app-update-experience [experience]="exper"
+				(chosenExperience)="updateExperience($event)"></app-update-experience>
+			<!-- experience end -->
+
+			<!-- projects start -->
+			<div class="group" *ngIf="projects.length || isProjectsEnabled">
+				<h6>Projects</h6>
+				<!-- <app-add-experience (selectdExperience)="addExperience($event)" (_listFilter)="searchExperience($event)"
 				[filteredExperiences]="filteredExperiences" *ngIf="isOwner"></app-add-experience> -->
-			<app-add-project (selectdProject)="addProject($event)" [filteredProjects]="filteredProjects"
-				*ngIf="isOwner"></app-add-project>
-			<ul *ngFor="let project of (showAllProjects ? projects : projects.slice(0, 2))">
-				<!-- <app-experience [experience]="experience" (experienceForUpdate)="chosenExperience($event)"
+				<app-add-project (selectdProject)="addProject($event)" [filteredProjects]="filteredProjects"
+					*ngIf="isOwner"></app-add-project>
+				<ul *ngFor="let project of (showAllProjects ? projects : projects.slice(0, 2))">
+					<!-- <app-experience [experience]="experience" (experienceForUpdate)="chosenExperience($event)"
 					(experienceForDeleted)="deleteExperience($event)" [isOwner]="isOwner"> </app-experience> -->
 
-				<app-project [project]="project" (projectForUpdate)="chosenProject($event)"
-					(projectForDeleted)="deleteProject($event)" [isOwner]="isOwner">
+					<app-project [project]="project" (projectForUpdate)="chosenProject($event)"
+						(projectForDeleted)="deleteProject($event)" [isOwner]="isOwner">
 
-				</app-project>
-				<hr class="separate">
-			</ul>
-			<span class="show-all" (click)="toggleProjects()">{{textProjectsbutton}}</span>
-		</div>
-		<!-- <app-update-experience [experience]="exper"
+					</app-project>
+					<hr class="separate">
+				</ul>
+				<span class="show-all" (click)="toggleProjects()">{{textProjectsbutton}}</span>
+			</div>
+			<!-- <app-update-experience [experience]="exper"
 			(chosenExperience)="updateExperience($event)"></app-update-experience> -->
-		<app-update-project [project]="pro" (chosenProject)="updateProject($event)"></app-update-project>
-		<!-- projects end -->
+			<app-update-project [project]="pro" (chosenProject)="updateProject($event)"></app-update-project>
+			<!-- projects end -->
 
-		<!-- skills start-->
-		<div class="group" *ngIf="skills.length || isSkillsEnabled">
-			<h6>Skills</h6>
-			<app-add-skill (selectedSKill)="addSkill($event)" (_listFilter)="searchSkills($event)"
-				[filteredSKills]="filteredSKills" *ngIf="isOwner"></app-add-skill>
-			<ul *ngFor="let skill of (showAllSkills ? skills : skills.slice(0, 2))">
-				<app-skill [skill]="skill" (skillForDeleted)="deleteSkill($event)" [isOwner]="isOwner"></app-skill>
-				<hr class="separate">
-			</ul>
-			<span class="show-all" (click)="toggleSkills()">{{textskillbutton}}</span>
-		</div>
-		<!-- skills end -->
+			<!-- skills start-->
+			<div class="group" *ngIf="skills.length || isSkillsEnabled">
+				<h6>Skills</h6>
+				<app-add-skill (selectedSKill)="addSkill($event)" (_listFilter)="searchSkills($event)"
+					[filteredSKills]="filteredSKills" *ngIf="isOwner"></app-add-skill>
+				<ul *ngFor="let skill of (showAllSkills ? skills : skills.slice(0, 2))">
+					<app-skill [skill]="skill" (skillForDeleted)="deleteSkill($event)" [isOwner]="isOwner"></app-skill>
+					<hr class="separate">
+				</ul>
+				<span class="show-all" (click)="toggleSkills()">{{textskillbutton}}</span>
+			</div>
+			<!-- skills end -->
 
-		<!-- jobs start -->
-		
-			<app-jobs-list [userId]="user.id" ></app-jobs-list>
+			<!-- jobs start -->
+
+			<app-jobs-list [userId]="user.id"></app-jobs-list>
 			<!-- jobs end -->
 		</span>
 

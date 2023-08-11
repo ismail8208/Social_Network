@@ -37,29 +37,5 @@ public class ImagesController : ApiControllerBase
         }
 
         return NotFound();
-
-        /*
-                string mediaPath = Path.Combine(_hostingEnvironment.WebRootPath, "wwwroot", id);
-
-                if (System.IO.File.Exists(mediaPath))
-                {
-                    string extension = Path.GetExtension(mediaPath);
-
-                    if (extension == ".png")
-                    {
-                        return PhysicalFile(mediaPath, "image/png");
-                    }
-                    else if (extension == ".mp4")
-                    {
-                        return PhysicalFile(mediaPath, "video/mp4");
-                    }
-                    else
-                    {
-                        return BadRequest("Unsupported media type");
-                    }
-                }
-
-                return NotFound();
-         */
     }
 }
