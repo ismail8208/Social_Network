@@ -1,8 +1,13 @@
 <div class="chart-container">
-    first
-        <input type="date" placeholder="Date from" [(ngModel)]="DateFrom">
-    second
-        <input type="date" placeholder="Date To" [(ngModel)]="DateTo">
-        <button (click)="createChart()"></button>
-    <canvas  id="MyChart" >{{ chart }}</canvas>
+    <div class="buttons">
+        <button class="primary" (click)="clear()">
+            Update
+        </button>
+    </div>
+
+    start <input type="date" placeholder="Date from" [(ngModel)]="DateFrom">
+    <br>
+    <div style="margin: 10;">.</div>
+    end <input type="date" placeholder="Date To" [(ngModel)]="DateTo">
+    <canvas id="MyChart">{{ chart }}</canvas>
 </div>

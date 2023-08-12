@@ -12,54 +12,54 @@
 			{{user.address}}</div>
 		<p>{{user.specialization}}</p>
 		<div class="mt-5 text-center align-items-center">
-            <hr>
+			<hr>
 
-            <div class="d-flex justify-content-around align-items-center mt-4 px-4">
-                <a [routerLink]="['/followers', user.id ]" class="following">
-                    <div class="stats">
-                        <h6 class="mb-0">Followers</h6>
-                        <span>{{user.numberOfFollowers}}</span>
+			<div class="d-flex justify-content-around align-items-center mt-4 px-4">
+				<a [routerLink]="['/followers', user.id ]" class="following">
+					<div class="stats">
+						<h6 class="mb-0">Followers</h6>
+						<span>{{user.numberOfFollowers}}</span>
 
-                    </div>
-                </a>
+					</div>
+				</a>
 
-                <a [routerLink]="['/followings', user.id ]" class="following"  *userHasRole="'member'"> 
-                    <div class="stats">
-                        <h6 class="mb-0">Followings</h6>
-                        <span>{{user.numberOfFollowings}}</span>
-
-
-                    </div>
-                </a>
+				<a [routerLink]="['/followings', user.id ]" class="following" *userHasRole="'member'">
+					<div class="stats">
+						<h6 class="mb-0">Followings</h6>
+						<span>{{user.numberOfFollowings}}</span>
 
 
-            <a [routerLink]="['/my-posts', user.id ]" class="following" >
-                <div class="stats">
-                    <h6 class="mb-0">Posts</h6>
-                    <span>{{user.numberOfPosts}}</span>
+					</div>
+				</a>
 
-                </div>
-            </a>
 
-            </div>
-         
-          
+				<a [routerLink]="['/my-posts', user.id ]" class="following">
+					<div class="stats">
+						<h6 class="mb-0">Posts</h6>
+						<span>{{user.numberOfPosts}}</span>
 
-        </div>
+					</div>
+				</a>
+
+			</div>
+
+
+
+		</div>
 		<hr>
 		<span *userHasRole="'member'">
-			
+
 			<div class="buttons">
 				<button class="primary" (click)="openModal(template)">
-				Add Post
-			</button>
-				<a class="nav-link" [routerLink]="['/cv', user.id]">
-				<button class="primary">
-						Export CV
-					
+					Add Post
 				</button>
-			</a>
-			
+				<a class="nav-link" [routerLink]="['/cv', user.id]">
+					<button class="primary">
+						Export CV
+
+					</button>
+				</a>
+
 				<button class="primary" *ngIf="!isOwner && isFolloing" (click)="unFollow()">
 					Followed
 				</button>
@@ -120,7 +120,7 @@
 				<h6>Posts</h6>
 				<app-brief-posts [userId]="user.id"></app-brief-posts>
 			</div>
-			
+
 			<!-- activty end -->
 			<!-- educations start-->
 			<div class="group" *ngIf="educations.length || isEducationsEnabled">

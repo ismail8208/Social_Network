@@ -9,7 +9,7 @@ import { DashboardsClient, IUserInfoDto } from 'src/app/web-api-client';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit,OnChanges {
+export class DashboardComponent implements OnInit {
   public chart: any;
   userInfoDto: IUserInfoDto;
   listDateFormated: string[] = [];
@@ -19,14 +19,16 @@ export class DashboardComponent implements OnInit,OnChanges {
   {
 
   }
-	ngOnChanges(changes: SimpleChanges): void {
-		this.createChart();
-	}
   ngOnInit(): void {
-	this.chart.destroy()
     this.createChart();
   }
   
+  clear()
+  {
+	this.listDateFormated = []
+	this.chart.destroy()
+	this.createChart();
+  }
    async createChart(){
 	console.log(this.DateFrom)
 	console.log(this.DateTo)
@@ -35,6 +37,9 @@ export class DashboardComponent implements OnInit,OnChanges {
 	this.userInfoDto.dateTimes.forEach(element => {
 		this.listDateFormated.push(this.getFormattedDate(element))
 	});
+
+	console.log(this.listDateFormated)
+	console.log(this.userInfoDto.numberOfUsers)
     this.chart = new Chart("MyChart", {
       type: 'bar', //this denotes tha type of chart
 
@@ -54,6 +59,7 @@ export class DashboardComponent implements OnInit,OnChanges {
       }
       
     });
+	this.chart.Clear();
 
   }
 

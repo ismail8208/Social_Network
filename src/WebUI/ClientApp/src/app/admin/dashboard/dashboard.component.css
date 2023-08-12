@@ -2,3 +2,26 @@
     width: 1000px;
     height: auto;
 }
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+  }
+  button.primary {
+    background-color: #00ADB5;
+    border: 1px solid #00ADB5;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    padding: 10px 25px;
+    margin: 5px 10px 5px 10px;
+  
+  }
+  button.primary:active {
+    background-color: transparent;
+    color: #00ADB5;
+    margin: 5px;
+  }
