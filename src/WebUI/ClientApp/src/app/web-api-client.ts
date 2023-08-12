@@ -4500,6 +4500,80 @@ export class WeatherForecastClient implements IWeatherForecastClient {
     }
 }
 
+export interface IDashboardsClient {
+    getUserCounts(dateFrom: Date | undefined, dateTo: Date | undefined): Observable<UserInfoDto>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class DashboardsClient implements IDashboardsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    getUserCounts(dateFrom: Date | undefined, dateTo: Date | undefined): Observable<UserInfoDto> {
+        let url_ = this.baseUrl + "/api/Dashboards/user-counts?";
+        if (dateFrom === null)
+            throw new Error("The parameter 'dateFrom' cannot be null.");
+        else if (dateFrom !== undefined)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
+        if (dateTo === null)
+            throw new Error("The parameter 'dateTo' cannot be null.");
+        else if (dateTo !== undefined)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUserCounts(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUserCounts(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<UserInfoDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<UserInfoDto>;
+        }));
+    }
+
+    protected processGetUserCounts(response: HttpResponseBase): Observable<UserInfoDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = UserInfoDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
 export interface IImagesClient {
     getVideo(videoId: string | null): Observable<FileResponse>;
     getImage(id: string | null): Observable<FileResponse>;
@@ -7976,7 +8050,7 @@ export interface IEndorsement extends IBaseAuditableEntity {
     user?: InnerUser | undefined;
 }
 
-export class InnerUser extends BaseEntity implements IInnerUser {
+export class InnerUser extends BaseAuditableEntity implements IInnerUser {
     firstName?: string | undefined;
     lastName?: string | undefined;
     userName?: string | undefined;
@@ -8181,7 +8255,7 @@ export class InnerUser extends BaseEntity implements IInnerUser {
     }
 }
 
-export interface IInnerUser extends IBaseEntity {
+export interface IInnerUser extends IBaseAuditableEntity {
     firstName?: string | undefined;
     lastName?: string | undefined;
     userName?: string | undefined;
@@ -9677,6 +9751,62 @@ export interface IWeatherForecast {
     temperatureC?: number;
     temperatureF?: number;
     summary?: string | undefined;
+}
+
+export class UserInfoDto implements IUserInfoDto {
+    dateTimes?: Date[] | undefined;
+    numberOfUsers?: number[] | undefined;
+
+    constructor(data?: IUserInfoDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["dateTimes"])) {
+                this.dateTimes = [] as any;
+                for (let item of _data["dateTimes"])
+                    this.dateTimes!.push(new Date(item));
+            }
+            if (Array.isArray(_data["numberOfUsers"])) {
+                this.numberOfUsers = [] as any;
+                for (let item of _data["numberOfUsers"])
+                    this.numberOfUsers!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): UserInfoDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserInfoDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.dateTimes)) {
+            data["dateTimes"] = [];
+            for (let item of this.dateTimes)
+                data["dateTimes"].push(item.toISOString());
+        }
+        if (Array.isArray(this.numberOfUsers)) {
+            data["numberOfUsers"] = [];
+            for (let item of this.numberOfUsers)
+                data["numberOfUsers"].push(item);
+        }
+        return data;
+    }
+}
+
+export interface IUserInfoDto {
+    dateTimes?: Date[] | undefined;
+    numberOfUsers?: number[] | undefined;
 }
 
 export interface FileParameter {

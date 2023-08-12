@@ -1,1 +1,8 @@
-<p>dashboard works!</p>
+<div class="chart-container">
+    first
+        <input type="date" placeholder="Date from" [(ngModel)]="DateFrom">
+    second
+        <input type="date" placeholder="Date To" [(ngModel)]="DateTo">
+        <button (click)="createChart()"></button>
+    <canvas  id="MyChart" >{{ chart }}</canvas>
+</div>

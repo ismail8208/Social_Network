@@ -1,6 +1,6 @@
 ﻿namespace MediaLink.Domain.Entities;
 
-public class InnerUser : BaseEntity
+public class InnerUser : BaseAuditableEntity
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
