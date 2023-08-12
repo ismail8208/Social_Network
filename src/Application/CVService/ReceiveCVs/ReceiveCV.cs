@@ -29,12 +29,12 @@ public class ReceiveCVHandler : IRequestHandler<ReceiveCV, int>
 
         //Store notification start
         var user = await _context.InnerUsers.FirstOrDefaultAsync(u => u.Id == request.UserId); // مشان اسم المتقدم
-        var jobName = await _context.Jobs.Include(u => u.UserId).FirstOrDefaultAsync(j => j.Id == request.JobId); // مشان عنوان الوظيفة ومعرف الشركة
+        var jobName = await _context.Jobs.Include(u => u.User).FirstOrDefaultAsync(j => j.Id == request.JobId); // مشان عنوان الوظيفة ومعرف الشركة
 
         var notify = new Domain.Entities.Notification
         {
             Content = $"{user.FirstName} {user.LastName} sent his CV to work as a {jobName.Title}", // قامت شركة ما بالاعلان عن شاغر وظيفي بعنوان كذا
-            DistId = jobName.UserId,
+            DistId = jobName.User.Id,
             Image = user.ProfileImage,
         };
         await _context.Notifications.AddAsync(notify);

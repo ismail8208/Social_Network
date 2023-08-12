@@ -4,7 +4,11 @@ hr{
     color:#000000 ;
    
 }
-
+.homeContainer {
+	position: absolute;
+	top: 10%;
+	left: 16%;
+}
 
 
 @media (max-width: 1299px) {

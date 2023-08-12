@@ -1,19 +1,19 @@
-
-.profileBody{
-    background-color: #EEEEEE;
+.profileBody {
+	background-color: #EEEEEE;
 	font-family: Montserrat, sans-serif;
- 
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	min-height: 100vh;
 	margin: 0;
-    padding: 0;
+	padding: 0;
 	width: 100%;
 	height: 100%;
 }
-  #toast {
+
+#toast {
 	left: 13%;
 	bottom: 10%;
 	min-width: 250px;
@@ -26,32 +26,73 @@
 	padding: 16px;
 	position: fixed;
 	z-index: 1;
-
 	font-size: 16px;
-  }
-  
+}
 
-  
-  @-webkit-keyframes fadein {
-	from {bottom: 0; opacity: 0;} 
-	to {bottom: 30px; opacity: 1;}
-  }
-  
-  @keyframes fadein {
-	from {bottom: 0; opacity: 0;}
-	to {bottom: 30px; opacity: 1;}
-  }
-  
-  @-webkit-keyframes fadeout {
-	from {bottom: 30px; opacity: 1;} 
-	to {bottom: 0; opacity: 0;}
-  }
-  
-  @keyframes fadeout {
-	from {bottom: 30px; opacity: 1;}
-	to {bottom: 0; opacity: 0;}
-  }
-  .checkicon i{
-	  font-size: 40px;
-	  color: #47d764;
-  }
+.dropdown-list-image {
+	position: relative;
+	height: 2.5rem;
+	width: 2.5rem;
+}
+
+.dropdown-list-image img {
+	height: 2.5rem;
+	width: 2.5rem;
+}
+
+.for-flex {
+	display: flex;
+}
+
+@-webkit-keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+.checkicon i {
+	font-size: 40px;
+	color: #47d764;
+}

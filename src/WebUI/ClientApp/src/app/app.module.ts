@@ -53,6 +53,7 @@ import { BriefPostsComponent } from './profile/posts/brief-posts/brief-posts.com
 import { MyPostComponent } from './profile/posts/myPost/myPost.component';
 import { ConvertToSettings } from './sheard/convert-to-settings';
 import { NotificationsComponent } from './profile/notifications/notifications.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { NotificationsComponent } from './profile/notifications/notifications.co
     StateJobListComponent,
     CvListComponent,
     BriefPostsComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

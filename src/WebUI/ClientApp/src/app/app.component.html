@@ -4,9 +4,17 @@
     <router-outlet></router-outlet>
   </main>
 </body>
+
 <div id="toast" *ngIf="showToastFlag">
-  <img class="img-responsive img-rounded" [src]="'api/Image/{{Image}}'"
-    alt="" />
-  <div class="checkicon"> </div>
-  {{content}}
+
+  <a class="nav-link" [routerLink]="['/notifications']">
+
+    <div class="for-flex">
+      <div class="dropdown-list-image mr-3" *ngIf="Image" style="margin-right:5px ;">
+        <img class="rounded-circle" [src]="Image" alt="" />
+      </div>
+      {{content}}
+
+    </div>
+  </a>
 </div>

@@ -22,15 +22,14 @@ export class AppComponent {
     this.notificationServiceService.ClientNotification.subscribe((clientNot: ClientNotificationDto) => {
       this.content = clientNot.Content;
       this.DistId = clientNot.DistId;
-      this.Image = clientNot.Image == null ? '' : `api/Image/${clientNot.Image}`
+      this.Image = clientNot.Image != null ? this.Image = `api/Images/${clientNot.Image}` : this.Image = 'api/Images/logoimg.jpg';
       if(this.content)
       {
         this.showToastFlag = true;
         setTimeout(() => {
           this.showToastFlag = false;
-        }, 1800);
+        }, 2000);
       }
-
       this.fromMe = this.DistId != parseInt(this.localStore.getData('id'));
     }
     )

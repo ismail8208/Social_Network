@@ -13,6 +13,8 @@ import { ExportCvComponent } from './profile/export-cv/export-cv.component';
 import { StateJobListComponent } from './profile/cv-service/state-job-list/state-job-list.component';
 import { CvListComponent } from './profile/cv-service/cv-list/cv-list.component';
 import { MyPostComponent } from './profile/posts/myPost/myPost.component';
+import { NotificationsComponent } from './profile/notifications/notifications.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent/*, pathMatch: 'full'*/, canActivate: [AuthorizeGuard] },
@@ -20,7 +22,10 @@ export const routes: Routes = [
   { path: 'followings/:id', component: FollowingsComponent /*, pathMatch: 'full'*/, canActivate: [AuthorizeGuard] },
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
-
+//notifications
+//Dashboard
+  { path: 'notifications', component: NotificationsComponent, canActivate: [AuthorizeGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthorizeGuard] },
   { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthorizeGuard] },
   { path: 'job-list', component: StateJobListComponent, canActivate: [AuthorizeGuard] },
   { path: 'CVs-job/:jobId', component: CvListComponent, canActivate: [AuthorizeGuard] },
