@@ -4629,6 +4629,82 @@ export class ImagesClient implements IImagesClient {
     }
 }
 
+export interface INotificationsClient {
+    getNotifications(userId: number): Observable<Notification[]>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class NotificationsClient implements INotificationsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    getNotifications(userId: number): Observable<Notification[]> {
+        let url_ = this.baseUrl + "/api/Notifications/{userId}";
+        if (userId === undefined || userId === null)
+            throw new Error("The parameter 'userId' must be defined.");
+        url_ = url_.replace("{userId}", encodeURIComponent("" + userId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetNotifications(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetNotifications(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Notification[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Notification[]>;
+        }));
+    }
+
+    protected processGetNotifications(response: HttpResponseBase): Observable<Notification[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Notification.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
 export class PaginatedListOfAddressDto implements IPaginatedListOfAddressDto {
     items?: AddressDto[];
     pageNumber?: number;
@@ -7924,6 +8000,7 @@ export class InnerUser extends BaseEntity implements IInnerUser {
     likes?: Like[] | undefined;
     comments?: Comment[] | undefined;
     cVs?: CV2[] | undefined;
+    notifications?: Notification[] | undefined;
     isDeleted?: boolean;
 
     constructor(data?: IInnerUser) {
@@ -8003,6 +8080,11 @@ export class InnerUser extends BaseEntity implements IInnerUser {
                 this.cVs = [] as any;
                 for (let item of _data["cVs"])
                     this.cVs!.push(CV2.fromJS(item));
+            }
+            if (Array.isArray(_data["notifications"])) {
+                this.notifications = [] as any;
+                for (let item of _data["notifications"])
+                    this.notifications!.push(Notification.fromJS(item));
             }
             this.isDeleted = _data["isDeleted"];
         }
@@ -8088,6 +8170,11 @@ export class InnerUser extends BaseEntity implements IInnerUser {
             for (let item of this.cVs)
                 data["cVs"].push(item.toJSON());
         }
+        if (Array.isArray(this.notifications)) {
+            data["notifications"] = [];
+            for (let item of this.notifications)
+                data["notifications"].push(item.toJSON());
+        }
         data["isDeleted"] = this.isDeleted;
         super.toJSON(data);
         return data;
@@ -8118,6 +8205,7 @@ export interface IInnerUser extends IBaseEntity {
     likes?: Like[] | undefined;
     comments?: Comment[] | undefined;
     cVs?: CV2[] | undefined;
+    notifications?: Notification[] | undefined;
     isDeleted?: boolean;
 }
 
@@ -8813,6 +8901,51 @@ export interface ICV2 {
     user?: InnerUser | undefined;
     position?: number;
     company?: number;
+}
+
+export class Notification extends BaseAuditableEntity implements INotification {
+    distId?: number;
+    dist?: InnerUser | undefined;
+    content?: string | undefined;
+    image?: string | undefined;
+
+    constructor(data?: INotification) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.distId = _data["distId"];
+            this.dist = _data["dist"] ? InnerUser.fromJS(_data["dist"]) : <any>undefined;
+            this.content = _data["content"];
+            this.image = _data["image"];
+        }
+    }
+
+    static override fromJS(data: any): Notification {
+        data = typeof data === 'object' ? data : {};
+        let result = new Notification();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["distId"] = this.distId;
+        data["dist"] = this.dist ? this.dist.toJSON() : <any>undefined;
+        data["content"] = this.content;
+        data["image"] = this.image;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface INotification extends IBaseAuditableEntity {
+    distId?: number;
+    dist?: InnerUser | undefined;
+    content?: string | undefined;
+    image?: string | undefined;
 }
 
 export class CreateSkillCommand implements ICreateSkillCommand {

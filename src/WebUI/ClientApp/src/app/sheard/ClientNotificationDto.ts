@@ -1,5 +1,5 @@
 export class ClientNotificationDto {
-    UserId: number;
+    DistId: number;
+    Image: string;
     Content: string;
-    anything: string;
 }

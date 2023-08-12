@@ -26,6 +26,7 @@ public class InnerUser : BaseEntity
     public List<Like>? Likes { get; set; }
     public List<Comment>? Comments { get; set; }
     public List<CV>? CVs { get; set; }
+    public List<Notification>? Notifications { get; set; }
     public bool IsDeleted { get; set; } = false;
 
 }

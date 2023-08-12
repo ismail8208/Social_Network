@@ -118,15 +118,13 @@ export class ProfileComponent implements OnInit {
     private follows: FollowsClient,
     private modalService: BsModalService,
     private localService: LocalService,
-    private notification: NotificationServiceService
-
+    private notification: NotificationServiceService,
     private addressesClient: AddressesClient,
   ) { }
 
   async ngOnInit() {
     this.isAuthenticated = await firstValueFrom(this.authorizeService.isAuthenticated());
 
-    //this.notification.setSignalrClientMethods();
     this.username = this.router.snapshot.paramMap.get('username');
 
     this.isOwner = this.localService.getData('username') === this.username;

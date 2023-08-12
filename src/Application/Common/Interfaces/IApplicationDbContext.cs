@@ -22,6 +22,7 @@ public interface IApplicationDbContext
     DbSet<InnerUser> InnerUsers { get; }
     DbSet<Job> Jobs { get; }
     DbSet<CV> CVs { get; }
+    DbSet<Domain.Entities.Notification>? Notifications { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

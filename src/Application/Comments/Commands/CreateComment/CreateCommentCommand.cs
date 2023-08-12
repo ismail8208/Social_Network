@@ -5,6 +5,7 @@ using MediaLink.Application.Notification;
 using MediaLink.Domain.Entities;
 using MediaLink.Domain.Events.CommentEvents;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Comments.Commands.CreateComment;
 [Authorize(Roles = "member")]
@@ -35,17 +36,35 @@ public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand,
         };
 
         entity.AddDomainEvent(new CommentCreatedEvent(entity));
-       
+
         _context.Comments.Add(entity);
-        
+
         await _context.SaveChangesAsync(cancellationToken);
+
+        // signalR start
+        var user = await _context.InnerUsers.FirstOrDefaultAsync(u => u.Id == request.UserId);
+        var postWho = await _context.Posts.Include(u => u.User).FirstOrDefaultAsync(p => p.Id == request.PostId);
+        var users = await _context.Comments.Include(u => u.User).Where(c => c.PostId == request.PostId).Select(u => u.User).ToListAsync();
+        foreach (var u in users)
+        {
+            var notify = new Domain.Entities.Notification
+            {
+                Content = $"{user.FirstName} {user.LastName} added a comment to {postWho.User.FirstName} {postWho.User.FirstName} post",
+                DistId = u.Id,
+                Image = user.ProfileImage,
+            };
+           await _context.Notifications.AddAsync(notify);
+           await _context.SaveChangesAsync(cancellationToken);
+        }
         var not = new ClientNotificationDto
         {
-            anything = "hello",
-            Content = "test",
-            UserId = request.UserId,
+            DistId = postWho.UserId, // مشان اخفاءه 
+            Content = $"{user.FirstName} {user.LastName} added a comment to {postWho.User.FirstName} {postWho.User.FirstName} post", // اسماعيل اضاف تعليق على مشنور  محمد
+            Image = user.ProfileImage, // صورة المعلق
         };
         await _clientNotificationService.SendToAll(not);
+        //signalR end
+
         return entity.Id;
     }
 }

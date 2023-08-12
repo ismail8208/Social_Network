@@ -4,3 +4,9 @@
     <router-outlet></router-outlet>
   </main>
 </body>
+<div id="toast" *ngIf="showToastFlag">
+  <img class="img-responsive img-rounded" [src]="'api/Image/{{Image}}'"
+    alt="" />
+  <div class="checkicon"> </div>
+  {{content}}
+</div>

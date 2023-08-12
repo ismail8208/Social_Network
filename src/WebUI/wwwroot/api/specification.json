@@ -3155,6 +3155,46 @@
           }
         }
       }
+    },
+    "/api/Notifications/{userId}": {
+      "get": {
+        "tags": [
+          "Notifications"
+        ],
+        "operationId": "Notifications_GetNotifications",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notification"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -4824,6 +4864,13 @@
                   "$ref": "#/components/schemas/CV2"
                 }
               },
+              "notifications": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/Notification"
+                }
+              },
               "isDeleted": {
                 "type": "boolean"
               }
@@ -5409,6 +5456,39 @@
             "format": "int32"
           }
         }
+      },
+      "Notification": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "distId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "dist": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/InnerUser"
+                  }
+                ]
+              },
+              "content": {
+                "type": "string",
+                "nullable": true
+              },
+              "image": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
       },
       "CreateSkillCommand": {
         "type": "object",
