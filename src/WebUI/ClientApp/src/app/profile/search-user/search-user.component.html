@@ -1,11 +1,7 @@
 <div class="search-box" (click)="openD()">
     <!-- <button> <i class='fa fa-search' style="font-size:25px"></i>Serach</button> -->
-    <form class="input-group w-auto my-auto d-none d-sm-flex">
         <input autocomplete="off" type="search" class="form-control rounded" placeholder="Search"
             style="min-width: 125px;" [(ngModel)]="mylistFilter" />
-          
-    </form>
-
 </div>
 <div class="search-result">
     <div>
@@ -13,15 +9,21 @@
         <h4>Result</h4>
         <div class="reactions" *ngFor="let user of users">
             <ul (click)="closeD()">
-                <img [src]="user.profileImage" alt="user" style="margin-right: 5px;" class="round-like">
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/profile', user.userName ]">
-                        <span style="font-weight: bold;"> {{user.firstName+ " " + user.lastName}} </span>
-                        <span style="font-weight: bold; display: block;">
-                            <i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
-                            {{user.userName}}</span>
+                <span style="display: flex;">
+                    <span>
+                      <a href="" [routerLink]="['/profile', user.userName]"> <img [src]="user.profileImage"
+                          class="userImg"></a>
+                    </span>
+                    <a href="" [routerLink]="['/profile', user.userName]">
+                      <h6 class="text-body">
+                        <span class="big">{{user.firstName}} {{user.lastName}} || <span *ngIf="user.specialization"
+                            style="font-size: 0.8rem;">{{user.specialization}}</span></span>
+                        <br>
+                        <span class="big text-muted font-weight-normal" style="font-size: 0.8rem;">{{user.userName}}</span>
+                        <br>
+                      </h6>
                     </a>
-                </li>
+                  </span>
                 <hr class="separateLike">
 
             </ul>

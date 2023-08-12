@@ -10,7 +10,7 @@
         <div class="textbox">
           <span style="display: flex;">
             <span>
-              <a href="" [routerLink]="['/profile', post.userName]"> <img [src]="post.profileImage|converToRoot:'https://localhost:44447/api/Images/'"
+              <a href="" [routerLink]="['/profile', post.userName]"> <img [src]="post.profileImage"
                   class="userImg"></a>
             </span>
             <a href="" [routerLink]="['/profile', post.userName]">
@@ -42,9 +42,9 @@
           <p class="caption-text" style="margin: 0 24px 12px ;"> {{post.content}}</p>
           <h5 class="card-title">
 
-            <img class="mediaPost" width="698" [src]="post.imageURL|converToRoot:'https://localhost:44447/api/Images/' " *ngIf="post.imageURL">
+            <img class="mediaPost" width="698" [src]="post.imageURL|converToRoot:'api/Images/'" *ngIf="post.imageURL">
             <video width="698" controls controls *ngIf="post.videoURL">
-              <source [src]="post.videoURL|convertToUrl:'https://localhost:44447/api/Images/'">
+              <source [src]="post.videoURL|convertToUrl:'api/Images/'">
               Your browser does not support the video tag.
             </video>
           </h5>
@@ -105,7 +105,7 @@
                   <div class="commentDetails">
                     <span>
                       <a href="" [routerLink]="['/profile', comment.userName]" (click)="newCommentCancelled()"> <img
-                          [src]="comment.profileImage | converToRoot:'https://localhost:44447/api/Images/'" class="userImg commentimg"></a>
+                          [src]="comment.profileImage" class="userImg commentimg"></a>
                     </span>
                     <a href="" [routerLink]="['/profile', comment.userName]" (click)="newCommentCancelled()">
                       <h6 class="commentDetails-body">
@@ -179,7 +179,7 @@
       style="height: 300px; overflow: auto; padding: 0;">
 
       <div class="card shadow-0 border" style="background-color: #f0f2f5;">
-        <img [src]="postIdForedite.imageURL | converToRoot:'https://localhost:44447/api/Images/'" style="width: 100%; margin: 0;">
+        <img [src]="postIdForedite.imageURL|converToRoot:'api/Images/' " style="width: 100%; margin: 0;">
       </div>
     </div>
     <!--  -->

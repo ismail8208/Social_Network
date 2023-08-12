@@ -21,7 +21,7 @@ export class SearchUserComponent implements OnInit {
     this.usersClient.search(user).pipe(
       map(users => users.items.map(u => ({
         ...u,
-        profileImage: u.profileImage != null ? `https://localhost:44447/api/Images/${u.profileImage}` : 'https://localhost:44447/api/Images/f08c0eb9-cdde-471c-af59-a83005ea784f_Screenshot_٢٠٢٠-٠٩-٢٠-١٦-٤٤-١١.png'
+        profileImage: u.profileImage != null ? `api/Images/${u.profileImage}` : 'api/Images/logoimg.gpf'
 
       })))).subscribe({
       next: data => {

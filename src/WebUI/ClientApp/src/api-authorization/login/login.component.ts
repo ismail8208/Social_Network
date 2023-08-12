@@ -74,9 +74,9 @@ export class LoginComponent implements OnInit {
               this.localService.saveData('username',data.userName)
               this.localService.saveData('id',data.id + '')
               if (data.profileImage) {
-                this.user.profileImage = `https://localhost:44447/api/Images/${data.profileImage}`;
+                this.user.profileImage = `api/Images/${data.profileImage}`;
               } else {
-                this.user.profileImage = 'https://localhost:44447/api/Images/f08c0eb9-cdde-471c-af59-a83005ea784f_Screenshot_٢٠٢٠-٠٩-٢٠-١٦-٤٤-١١.png';
+                this.user.profileImage = 'logoimg.jpg';
               }
               this.store.dispatch(setUser({ user: this.user }));
             }
@@ -111,9 +111,9 @@ export class LoginComponent implements OnInit {
               this.localService.saveData('username',data.userName)
               this.localService.saveData('id',data.id + '')
               if (data.profileImage) {
-                this.user.profileImage = `https://localhost:44447/api/Images/${data.profileImage}`;
+                this.user.profileImage = `api/Images/${data.profileImage}`;
               } else {
-                this.user.profileImage = 'https://localhost:44447/api/Images/f08c0eb9-cdde-471c-af59-a83005ea784f_Screenshot_٢٠٢٠-٠٩-٢٠-١٦-٤٤-١١.png';
+                this.user.profileImage = 'logoimg.jpg';
               }
               this.store.dispatch(setUser({ user: this.user }));
             }

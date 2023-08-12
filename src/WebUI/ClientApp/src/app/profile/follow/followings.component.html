@@ -1,27 +1,4 @@
-<!-- <div class="form-group">
-    <div class="reactions" *ngFor="let user of followings">
-        <ul>
 
-            <img [src]="user.profileImage" alt="user" style="margin-right: 5px;" class="round-like">
-            <li [routerLinkActive]="['link-active']">
-                <a [routerLink]="['/profile', user.userName ]">
-                    <span style="font-weight: bold;"> {{user.firstName+ " " + user.lastName}} </span>
-                    <span style="font-weight: bold; display: block;">
-                        <i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
-                        {{user.userName}}</span>
-                </a>
-            </li>
-            <li>
-                <button [class.active]="isFollowMe" (click)="toggleBtn()" (click)=" CancelFollower()">
-                    <span [class.Cancel]="!isFollowMe" [class.follow]="isFollowMe"> Follow </span>
-                </button>
-            </li>
-            <hr class="separateLike">
-
-        </ul>
-    </div>
-
-</div> -->
 <span *ngIf="!followings.length"> no followings yet</span>
 
 <div class="form-group">

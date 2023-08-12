@@ -9,11 +9,13 @@ color: #222831;
 
 }
 h3 {
+  font-weight: bold;
   margin: 10px 0;
 }
 
 h6 {
   margin: 5px 0;
+  font-weight: bold;
   text-transform: uppercase;
 }
 
@@ -36,14 +38,15 @@ p {
 }
 
 .card-container .edit {
-  color: white;
-  background-color: #00ADB5;
+  color: #00ADB5;
+  
   border-radius: 3px;
-  font-size: 16px;
+  font-size: 30px;
   padding: 3px 7px;
   position: absolute;
   top: 30px;
-  left: 30px;
+  right: 30px;
+
 }
 
 
@@ -60,10 +63,13 @@ button.primary {
   background-color: #00ADB5;
   border: 1px solid #00ADB5;
   border-radius: 3px;
-  color: #EEEEEE;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
   font-family: Montserrat, sans-serif;
   padding: 10px 25px;
-  margin: 5px;
+  margin: 5px 10px 5px 10px;
+
 }
 
 button.primary:active {
@@ -123,6 +129,7 @@ button.primary.ghost:active {
   font-size: 16px;
   margin: 0 7px 7px 0;
   padding: 7px;
+  color: white;
 }
 
 .separate {
@@ -162,7 +169,7 @@ button.primary.ghost:active {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content:center;
 }
 
 .dropdown {
@@ -177,7 +184,7 @@ button.primary.ghost:active {
 .dropdown-btn {
   width: 100%;
   border: none;
-  color: #222831;
+  color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -226,13 +233,13 @@ button.primary.ghost:active {
 }
 
 .dropdown-content li:hover {
-  background: #fff;
+  background: #008086;
 }
 
 .dropdown-content li {
   display: block;
   padding: 0.7em 0.5em;
-  color: #222831;
+  color: #ffffff;
   margin: 0.1em 0;
   text-decoration: none;
 }

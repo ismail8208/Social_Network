@@ -102,7 +102,7 @@ export class PostComponent implements OnInit , OnDestroy{
     this.user = await firstValueFrom(this.usersClient.get(this.localService.getData('username')).pipe(
       map(data => ({
         // ...data,
-        profileImage: data.profileImage != null ? data.profileImage = `https://localhost:44447/api/Images/${data.profileImage}` : data.profileImage = 'https://localhost:44447/api/Images/2b388861-8663-4843-9f65-5481388e927d_Screenshot 2023-05-06 211008.png',
+        profileImage: data.profileImage != null ? data.profileImage = `api/Images/${data.profileImage}` : data.profileImage = 'api/Images/logoimg.jpg',
         summary: data.summary != null ? data.summary : '',
         firstName: data.firstName ?? '',
         lastName: data.lastName ?? '',
@@ -138,7 +138,7 @@ export class PostComponent implements OnInit , OnDestroy{
           this.usersClient.get(post.userName).subscribe(user => {
             post.firstName = user.firstName;
             post.lastName = user.lastName;
-            post.profileImage = user.profileImage;
+            post.profileImage= user.profileImage != null ? post.profileImage = `api/Images/${user.profileImage}` : post.profileImage = 'api/Images/logoimg.jpg',
             post.specialization = user.specialization;
             post.isOwner=this.localService.getData('username') === post.userName;
 
@@ -201,7 +201,7 @@ export class PostComponent implements OnInit , OnDestroy{
           this.usersClient.get(post.userName).subscribe(user => {
             post.firstName = user.firstName;
             post.lastName = user.lastName;
-            post.profileImage = user.profileImage;
+            post.profileImage= user.profileImage != null ? post.profileImage = `api/Images/${user.profileImage}` : post.profileImage = 'api/Images/logoimg.jpg',
             post.specialization = user.specialization;
             post.isOwner=this.localService.getData('username') === post.userName;
 
@@ -311,7 +311,7 @@ export class PostComponent implements OnInit , OnDestroy{
           this.usersClient.get(comment.userName).subscribe(user => {
             comment.firstName = user.firstName;
             comment.lastName = user.lastName;
-            comment.profileImage = user.profileImage??'';
+            comment.profileImage= user.profileImage != null ? comment.profileImage = `api/Images/${user.profileImage}` : comment.profileImage = 'api/Images/logoimg.jpg',
             comment.specialization = user.specialization;
             comment.isOwner=this.localService.getData('username') === comment.userName;
             comment.postOwner=this.user.userName === comment.userName;
@@ -444,37 +444,13 @@ export class PostComponent implements OnInit , OnDestroy{
 
   downloadImage(imageUrl: string): void {
     const link = document.createElement('a');
-    link.href = "https://localhost:44447/api/Images/" + imageUrl;
-    link.download = "https://localhost:44447/api/Images/" + imageUrl; // The default downloaded file name
+    link.href = "api/Images/" + imageUrl;
+    link.download = "api/Images/" + imageUrl; // The default downloaded file name
     link.target = '_blank';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
-  
-async getdata():Promise<void>{
-  const url = 'https://exifreader.p.rapidapi.com/Exif';
-  const data = new FormData();
-  data.append('file', 'https://localhost:44447/api/Images/d55415ea-240f-4821-89b0-0b872c2932ec_Screenshot%202023-03-09%20151612.png');
-  
-  const options = {
-    method: 'POST',
-    headers: {
-      'X-RapidAPI-Key': 'b544877247msha0b55199fd9e4bbp126c78jsn43114c847a28',
-      'X-RapidAPI-Host': 'exifreader.p.rapidapi.com'
-    },
-    body: data
-  };
-  
-  try {
-    const response = await fetch(url, options);
-    const result = await response.text();
-    console.log(result);
-  } catch (error) {
-    console.error(error);
-  }
-
-} 
 
   copyTextToClipboard(textToCopy:string): void {
 

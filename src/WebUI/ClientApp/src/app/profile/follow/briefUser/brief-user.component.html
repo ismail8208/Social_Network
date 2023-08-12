@@ -1,20 +1,27 @@
-<div class="reactions">
-  <ul>
-    <img [src]="user.profileImage" alt="user" style="margin-right: 5px;" class="round-like">
+<div class="reactions card postContainer">
+  <div class="card-body" style="padding: 12px 0 4px 0;">
+  <ul class="textbox"> <span style="display: flex;">
+    <span>
+      <a href="" [routerLink]="['/profile', user.userName]"> <img [src]="user.profileImage"
+          class="round-like"  alt="user" style="margin-right: 5px;"></a>
+    </span>
     <li [routerLinkActive]="['link-active']">
+      <h6 class="text-body">
       <a [routerLink]="['/profile', user.userName ]">
-        <span style="font-weight: bold;"> {{user.firstName+ " " + user.lastName}} </span>
-        <span style="font-weight: bold; display: block;">
-          <i class="fa fa-circle" style="font-size:7px;margin: 5px 5px 5px 20px;"></i>
+        <span  class="big"> {{user.firstName+ " " + user.lastName}} </span><br>
+        <span class="big text-muted font-weight-normal"
+        style="font-size: 1rem;">
           {{user.userName}}
         </span>
       </a>
+    </h6>
     </li>
-    <li>
+    <li style="right: 0px;position: absolute;">
       <button [class.active]="isFollowMe" (click)="toggleBtn()" (click)="toggleState()" *ngIf="itsMe" class="btn">
         <span [class.Cancel]="!isFollowMe" [class.follow]="isFollowMe"> User </span>
       </button>
     </li>
+  </span> 
   </ul>
-  <hr class="separateLike">
+</div>
 </div>
