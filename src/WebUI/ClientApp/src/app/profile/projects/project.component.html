@@ -16,7 +16,7 @@
   
       </li>
       <div class="details" *ngIf="isOwner">
-        <div class="delete"><i class="fa fa-trash fa-lg" aria-hidden="true" (click)="deleteproject()"></i></div>
+        <div class="delete"><i class="fa fa-trash fa-lg" aria-hidden="true"  (click)="showDeleteProjectModal(deleteProjectModalTemplate)"></i></div>
         <span (click)="openD()">
           <div class="edit">
             <i class='fa fa-edit fa-lg' (click)="send()"></i>
@@ -25,4 +25,15 @@
       </div>
     </ul>
   </div>
-  
+  <ng-template #deleteProjectModalTemplate>
+    <div>
+      <div class="modal-body">
+        <strong> Are you sure you want to delete this project?</strong>
+        <br> action will permanently remove the content and cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" style="border-radius: 5px;" data-dismiss="modal" (click)="deleteProjectCancelled()">no</button>
+        <button type="button" class="btn btn-danger"  style="border-radius: 5px;"  (click)="deleteProject()">yes</button>
+      </div>
+    </div>
+  </ng-template>

@@ -4,7 +4,7 @@
 }
 
   .experience ul li {
-    border: 1px solid #2D2747;
+    border: 1px solid #222831;
     border-radius: 2px;
     display: inline-block;
     font-size: 12px;
@@ -13,8 +13,8 @@
   }
 
 .delete {
-  color: #231E39;
-  background-color: #FEBB0B;
+  color: #222831;
+  background-color: #00acb500;
   border-radius: 3px;
   font-size: 20px;
   font-weight: bold;
@@ -23,7 +23,7 @@
 }
 
   .delete:hover {
-    color: #03BFCB;
+    color: #00acb5;
   }
 
 .details {
@@ -33,8 +33,8 @@
 }
 
 .edit {
-  color: #231E39;
-  background-color: #FEBB0B;
+  color: #222831;
+  background-color: #feb90b00;
   border-radius: 3px;
   font-size: 20px;
   font-weight: bold;
@@ -44,5 +44,5 @@
 }
 
   .edit:hover {
-    color: #03BFCB;
+    color: #00ADB5;
   }
