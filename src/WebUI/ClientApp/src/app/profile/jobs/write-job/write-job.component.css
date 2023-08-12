@@ -1,9 +1,9 @@
- /* your CSS goes here*/
+
  body {
-    color: #000;
+    color: #222831;
     overflow-x: hidden;
     height: 100%;
-    background-color: #231E39;
+    background-color: #222831;
     background-repeat: no-repeat;
     margin: 0;
 }
@@ -16,12 +16,103 @@
 }
 
 .profile-pic {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: contain;
-    background-color: #E0E0E0;
+    
+        justify-content: left;
+          width: 80px;
+          height: 80px;
+          border-radius: 80px;
+          object-fit: contain;
+          margin: 12px 8px 12px 2px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        
+        
 }
+
+textarea {
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #222831;
+    border: 1px solid #F5F5F5;
+    font-size: 16px;
+    letter-spacing: 1px;
+    height: 120px !important;
+    width: 100%;
+}
+
+textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #222831 !important;
+    outline-width: 0 !important;
+}
+
+::placeholder {
+    color: #9e9e9e;
+}
+
+:-ms-input-placeholder {
+    color: #9e9e9e;
+}
+
+::-ms-input-placeholder {
+    color: #9e9e9e;
+}
+
+.btn-success {
+    border-radius: 20px;
+    padding: 4px 40px;
+    background-color: #222831;
+} 
+.btn-cancele {
+    border-radius: 20px;
+    padding: 4px 40px;
+  
+} 
+
+.options-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.options {
+    font-size: 23px;
+    color: #757575;
+    cursor: pointer;
+}
+
+.options:hover {
+    color: #00ADB5;
+}
+
+.left-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.left-options .options {
+    margin-right: 50%;
+}
+
+.reacts , .reactspan {
+    border: 0;
+    font-size: 1rem;
+
+    color: #222831;
+    background-color: transparent;
+    border-radius: 3px;
+    padding: 10px;
+    width: auto;
+    height: auto;
+    margin: 0;
+}
+
+
+.btn-success{
+    background-color:#222831 ;
+}
+
 input {
     padding: 15px 20px;
     border-radius: 5px;
@@ -37,78 +128,4 @@ input:focus {
     box-shadow: none !important;
     border: 1px solid #231E39 !important;
     outline-width: 0 !important;  
-}
-textarea {
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-sizing: border-box;
-    color: #616161;
-    border: 1px solid #F5F5F5;
-    font-size: 16px;
-    letter-spacing: 1px;
-    height: 120px !important;
-    width: 100%;
-}
-
-textarea:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    border: 1px solid #231E39 !important;
-    outline-width: 0 !important;
-}
-
-select {
-    border: none;
-    font-size: 15px;
-    background-color: #fff !important;
-}
-
-select:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    outline-width: 0 !important;
-}
-
-::placeholder {
-    color: #BDBDBD;
-}
-
-:-ms-input-placeholder {
-    color: #BDBDBD;
-}
-
-::-ms-input-placeholder {
-    color: #BDBDBD;
-}
-
-.btn-success {
-    border-radius: 50px;
-    padding: 4px 40px;
-    background-color: #231E39;
 } 
-
-.options-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.options {
-    font-size: 23px;
-    color: #757575;
-    cursor: pointer;
-}
-
-.options:hover {
-    color: #000;
-}
-
-.left-options {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.left-options .options {
-    margin-right: 50%;
-}

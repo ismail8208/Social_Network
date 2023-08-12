@@ -12,13 +12,13 @@
   min-width: 500px;
   max-width: 500px;
   border-radius: 10px;
-  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 1px 1rem rgba(0, 0, 0, 0.3);
   position: relative;
 }
 
 
 .container_copy {
-  padding: 6rem 4rem 4rem 4rem;
+  padding: 4rem 3rem 3rem 3rem;
 }
 
 .img_pod {
@@ -47,45 +47,47 @@ img {
 
 h3 {
   margin: 0 0 0.5rem 0;
-  color: #999;
-  font-size: 1.25rem;
+  color: #393E46;
+  font-size: 16px;
 }
 
 h1 {
   margin: 0 0 1rem 0;
-  font-size: 2.5rem;
+  font-size: 25px;
   letter-spacing: 0.5px;
-  color: #333;
+  font-weight: bold;
+  color: #222831;
 }
 
 p {
   margin: 0 0 4.5rem 0;
-  font-size: 1.5rem;
+  font-size: 16px;
   line-height: 1.45;
-  color: #333;
+  color: #222831;
 }
 
 .btn_primary {
   border: none;
   outline: none;
   /* background: linear-gradient(90deg, #ff9966, #ff5e62); */
-  background-color: #03BFCB;
-  padding: 1.5rem 2rem;
-  border-radius: 50px;
-  color: #231E39;
-  font-size: 1.2rem;
-  box-shadow: 1px 10px 2rem #968fb4;
+  background-color: #00ADB5;
+  padding: 1rem 1.5rem;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 20pxm;
+  box-shadow: 4px 4px 1rem  rgba(90, 90, 90, 0.5);
   transition: all 0.2s ease-in;
   text-decoration: none;
 }
 
 .btn_primary:hover {
-  box-shadow: 0px 5px 1rem rgba(255, 94, 98, 0.5);
+  font-size: large;
+  box-shadow: 1px 1px 1rem rgba(90, 90, 90, 0.5);
 }
 
 @media only screen and (max-width: 650px) {
   body {
-    background-color: black;
+    background-color: #222831;
   }
 
 }

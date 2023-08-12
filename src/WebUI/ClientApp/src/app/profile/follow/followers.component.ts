@@ -20,7 +20,7 @@ export class FollowersComponent implements OnInit {
     this.follows.getFollowersWithPagination(this.id, 1, 50).pipe(
       map(followers => followers.items.map(follower => ({
         ...follower,
-        profileImage: follower.profileImage != null ? `https://localhost:44447/api/Images/${follower.profileImage}` : 'https://localhost:44447/api/Images/f08c0eb9-cdde-471c-af59-a83005ea784f_Screenshot_٢٠٢٠-٠٩-٢٠-١٦-٤٤-١١.png'
+        profileImage: follower.profileImage != null ? `api/Images/${follower.profileImage}` : 'api/Images/logoimg.jpg'
 
       })))
     ).subscribe({

@@ -1,13 +1,16 @@
 <div class="container">
     <ul class="list-group" *ngFor="let post of posts">
-        <a [routerLink]='["/my-posts", post.userId]' style="text-decoration: none; color: black;">
+        <a [routerLink]='["/my-posts", post.userId]' style="text-decoration: none; color:#222831; ">
             <li class="list-group-item clearfix">
-                <img class="img-responsive img-rounded"
-                    [src]="post.imageURL|converToRoot:'https://localhost:44447/api/Images/'" alt="" />
-                <h3 class="list-group-item-heading">
-                    {{post.userName}}
-                </h3>
+                <img class="img-responsive img-rounded" *ngIf="post.imageURL"
+                    [src]="post.imageURL|converToRoot:'api/Images/'" alt="" />
+                    <img class="img-responsive img-rounded" *ngIf="post.videoURL"
+                    [src]="post.videoURL|converToRoot:'api/Images/'" alt="" />
+              
+                <p class="list-group-item-text lead" style=" font-size: 14px;">Created at {{getFormattedDate(post.created)}} </p>
+                
                 <p class="list-group-item-text lead">{{post.content}} </p>
+                
             </li>
         </a>
     </ul>

@@ -1,32 +1,34 @@
 .skill ul {
   list-style-type: none;
   padding: 0px;
+  
 }
 
   .skill ul li {
-    border: 1px solid #2D2747;
+    border: 1px solid #222831;
     border-radius: 2px;
     display: inline-block;
-    font-size: 12px;
+    font-size: 16px;
     margin: 0 7px 7px 0;
     padding: 7px;
   }
 
 button {
   display: block;
-  background-color: #03BFCB;
-  border: 1px solid #03BFCB;
+  background-color: #222831;
+  border: 1px solid #222831;
   border-radius: 2px;
-  color: #231E39;
+  color: #ffffff;
   font-family: Montserrat, sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   padding: 6px;
   margin: 0 7px 7px 0;
 }
 
   button.active {
-    background-color: #231E39;
-    color: #03BFCB;
+    border: 1px solid #00acb5;
+    background-color: #00acb5;
+    color: #ffffff;
   }
 
     button.active .unEndorsed {
@@ -38,8 +40,8 @@ button {
     }
 
 .delete {
-  color: #231E39;
-  background-color: #FEBB0B;
+  color: #222831;
+  background-color: #00acb500;
   border-radius: 3px;
   font-size: 20px;
   font-weight: bold;
@@ -50,5 +52,5 @@ button {
 }
 
   .delete:hover {
-    color: #03BFCB;
+    color: #00acb5;
   }

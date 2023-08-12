@@ -4,14 +4,14 @@
     <span (click)="closeD()" title="Close" class="closeAP">X</span>
     <h2>Add <span style="font-weight: bold;">{{chosenProject}}</span> project</h2>
     <!-- <p>This modal box is created using the powers of CSS3.</p> -->
-    <input type="text" placeholder="Search" class="searchbar" [(ngModel)]="listFilter">
+    <input type="text" placeholder="title" class="searchbar" [(ngModel)]="listFilter">
     <input type="text" placeholder="e.g github link" class="searchbar" [(ngModel)]="link">
     <textarea type="text" placeholder="Description" class="searchbar-area" [(ngModel)]="description"></textarea>
     <div *ngFor="let project of filteredProjects" class="existing-project" (click)="chooseProject(project)">
       {{project.title}}
     </div>
     <button class="save" (click)="saveProject()" (click)="closeD()">
-      <span style="text-decoration: none; color: #2D2747;">Save</span>
+      <span style="text-decoration: none; ">Save</span>
     </button>
   </div>
 </div>

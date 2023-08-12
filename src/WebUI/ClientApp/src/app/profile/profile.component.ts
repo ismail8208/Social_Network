@@ -132,7 +132,7 @@ export class ProfileComponent implements OnInit {
     this.user = await firstValueFrom(this.usersClient.get(this.username).pipe(
       map(data => ({
         // ...data,
-        profileImage: data.profileImage != null ? data.profileImage = `https://localhost:44447/api/Images/${data.profileImage}` : data.profileImage = 'https://localhost:44447/api/Images/2b388861-8663-4843-9f65-5481388e927d_Screenshot 2023-05-06 211008.png',
+        profileImage: data.profileImage != null ? data.profileImage = `api/Images/${data.profileImage}` : data.profileImage = 'api/Images/logoimg.jpg',
         summary: data.summary != null ? data.summary : '',
         firstName: data.firstName ?? '',
         lastName: data.lastName ?? '',

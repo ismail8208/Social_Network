@@ -4,7 +4,7 @@
 		<!-- <span class="edit" *ngIf="isOwner">Edit</span> -->
 
 		<a class="edit" [routerLink]='["/authentication/profile"]' title="Manage" style="text-decoration:none"
-			*ngIf="isOwner"> Edit </a>
+			*ngIf="isOwner"> <i class="bi bi-pencil-square"></i> </a>
 
 		<img class="round" [src]="user.profileImage" alt="user" />
 		<h3>{{user!.firstName+ " " + user.lastName}}</h3>
@@ -23,7 +23,7 @@
                     </div>
                 </a>
 
-                <a [routerLink]="['/followings', user.id ]" class="following">
+                <a [routerLink]="['/followings', user.id ]" class="following"  *userHasRole="'member'"> 
                     <div class="stats">
                         <h6 class="mb-0">Followings</h6>
                         <span>{{user.numberOfFollowings}}</span>
@@ -48,12 +48,19 @@
         </div>
 		<hr>
 		<span *userHasRole="'member'">
+			
 			<div class="buttons">
+				<button class="primary" (click)="openModal(template)">
+				Add Post
+			</button>
+				<a class="nav-link" [routerLink]="['/cv', user.id]">
 				<button class="primary">
-					Massege
+						Export CV
+					
 				</button>
-
-				<button class="primary ghost" *ngIf="!isOwner && isFolloing" (click)="unFollow()">
+			</a>
+			
+				<button class="primary" *ngIf="!isOwner && isFolloing" (click)="unFollow()">
 					Followed
 				</button>
 
@@ -82,9 +89,6 @@
 						</li>
 						<li (click)="enableProjectsSection()" *ngIf="isOwner" style="--delay: 4;">
 							Add Projects Section
-						</li>
-						<li style="--delay: 5;">
-							<a class="nav-link" [routerLink]="['/cv', user.id]">Export CV</a>
 						</li>
 
 						<li (click)="openModal(template)" *ngIf="isOwner" style="--delay: 6;">Add Post</li>
@@ -120,7 +124,7 @@
 			<!-- activty end -->
 			<!-- educations start-->
 			<div class="group" *ngIf="educations.length || isEducationsEnabled">
-				<h6>Educations</h6>
+				<h6 style="font-weight: bold;">Educations</h6>
 				<app-add-education (selectdEducation)="addEducation($event)" (_listFilter)="searchEducation($event)"
 					[filteredEducations]="filteredEducations" *ngIf="isOwner"></app-add-education>
 				<ul *ngFor="let education of (showAllEducations ? educations : educations.slice(0, 2))">

@@ -1,6 +1,6 @@
 a {
   text-decoration: none;
-  color: #686868;
+  color: #222831;
 }
 
 
@@ -11,7 +11,7 @@ a {
   padding: 0;
 
   box-shadow: 0 2px 8px rgba(156, 156, 156, 0.4);
-  /* ظل للدايلوج */
+
 }
 
 
@@ -20,7 +20,7 @@ a {
   border: 0;
   font-size: 1.2rem;
 
-  color: #686868;
+  color: #222831;
   background-color: transparent;
   border-radius: 3px;
   padding: 10px;
@@ -38,19 +38,19 @@ hr {
 .mainhr {
   width: 700px;
   margin: auto;
-  color: #000000;
+  color: #222831;
   text-align: center;
 
 }
 
 .reacts:hover {
   animation: 50ms;
-  background-color: rgba(231, 231, 231, 0.658);
+  background-color:#EEEEEE;
 }
 
 .caption-text {
   text-align: left;
-  font-size: 1.1rem;
+  font-size: 16px;
 }
 
 .textbox {
@@ -85,14 +85,14 @@ hr {
 
 
 .liked {
-  color: #068FFF;
+  color: #00ADB5;
 
 
 }
 
 .likehover:hover {
   animation: 50ms;
-  color: #068FFF;
+  color: #00ADB5;
 
 
 
@@ -177,7 +177,7 @@ hr {
 .dropbtn {
 
   background-color: rgba(255, 255, 255, 0);
-  color: #686868;
+  color: #222831;
   padding: 16px;
   font-size: 16px;
   border: none;
@@ -197,7 +197,7 @@ hr {
 .dropdown-content {
   display: none;
   position:absolute;
-  background-color: #f9f9f9;
+  background-color: #EEEEEE;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -205,7 +205,7 @@ hr {
 
 /* Links inside the dropdown */
 .dropdown-content a {
-  color: black;
+  color: #222831;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -213,7 +213,7 @@ hr {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: #f1f1f1
+  background-color: #EEEEEE
 }
 
 /* Show the dropdown menu on hover */
