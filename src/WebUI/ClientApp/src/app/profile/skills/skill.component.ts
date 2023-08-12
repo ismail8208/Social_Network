@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Store, select } from '@ngrx/store';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, map } from 'rxjs';
 import { LocalService } from 'src/app/sheard/localService';
 import { selectUser } from 'src/app/stateManagement/user.selectors';
-import { CreateEndorsementCommand, EndorsementsClient, ICreateEndorsementCommand, IEndorsmentDto, ISkillDto } from 'src/app/web-api-client';
+import { CreateEndorsementCommand, EndorsementsClient, ICreateEndorsementCommand, IEndorsmentDto, ISkillDto, SkillsClient } from 'src/app/web-api-client';
 
 @Component({
   selector: 'app-skill',
@@ -12,6 +13,12 @@ import { CreateEndorsementCommand, EndorsementsClient, ICreateEndorsementCommand
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkillComponent implements OnInit {
+
+
+
+  deleteSkillModalRef: BsModalRef
+  skillIdForDelete: number;
+
 
   listOfEndorsements: IEndorsmentDto[];
   lenOfList : Observable<number>;
@@ -31,7 +38,9 @@ export class SkillComponent implements OnInit {
   @Output() skillForDeleted: EventEmitter<number> = new EventEmitter<number>();
   constructor(
     private endorsementsClient: EndorsementsClient,
+    private skillClient: SkillsClient,
     private store: Store,
+    private modalService: BsModalService,
     private localService: LocalService
 
   ) { }
@@ -80,7 +89,23 @@ export class SkillComponent implements OnInit {
   toggleEndorsement() {
     this.isEndorsed = !this.isEndorsed;
   }
-  deleteSkill() {
-    this.skillForDeleted.emit(this.skill.id);
+ 
+
+
+  
+  showDeleteSkillModal(template: TemplateRef<any>): void {
+    this.deleteSkillModalRef = this.modalService.show(template);
+    this.skillIdForDelete = this.skill.id;
   }
+
+  deleteSkillCancelled(): void {
+    this.deleteSkillModalRef.hide();
+  }
+
+  deleteSkill(): void {
+    this.skillClient.delete(this.skillIdForDelete).subscribe(error => console.error(error));
+
+    this.deleteSkillCancelled();
+  }
+
 }

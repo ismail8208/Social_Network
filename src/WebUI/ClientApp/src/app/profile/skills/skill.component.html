@@ -7,9 +7,23 @@
       <span style="margin-right: 4px;"  >{{lenOfList | async}}</span>
       Endorsements
     </li>
-    <div class="delete" *ngIf="isOwner"><i class="fa fa-trash fa-lg" aria-hidden="true" (click)="deleteSkill()"></i></div>
+    <div class="delete" *ngIf="isOwner"><i class="fa fa-trash fa-lg" aria-hidden="true" (click)="showDeleteSkillModal(deleteSkillModalTemplate)"></i></div>
     <button [class.active]="isEndorsed" (click)="toggleEndorsement()" (click)="Endorsement()" *ngIf="!isOwner">
       <span [class.unEndorsed]="!isEndorsed" [class.endorsed]="isEndorsed">Endorse</span>
     </button>
   </ul>
 </div>
+
+
+<ng-template #deleteSkillModalTemplate>
+  <div>
+    <div class="modal-body">
+      <strong> Are you sure you want to delete this skill?</strong>
+      <br> action will permanently remove the content and cannot be undone.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" style="border-radius: 5px;" data-dismiss="modal" (click)="deleteSkillCancelled()">no</button>
+      <button type="button" class="btn btn-danger"  style="border-radius: 5px;"  (click)="deleteSkill()">yes</button>
+    </div>
+  </div>
+</ng-template>

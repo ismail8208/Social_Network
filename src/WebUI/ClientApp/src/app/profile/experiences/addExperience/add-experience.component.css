@@ -2,13 +2,12 @@
   position: absolute;
   top: 8px;
   right: 16px;
-  color: #B3B8CD;
+  color: #00ADB5;
 }
 
 .modalDialogAEX {
   position: fixed;
   font-family: Montserrat, sans-serif;
-  font-weight: bold;
   top: 0;
   right: 0;
   bottom: 0;
@@ -16,8 +15,7 @@
   background: rgba(0, 0, 0, 0.1);
   z-index: 99999;
   opacity: 0;
-  transition: opacity 400ms ease-in;
-  transition: opacity 400ms ease-in;
+  transition: opacity 100ms ease-in;
   pointer-events: none;
 }
 
@@ -26,17 +24,17 @@
 	pointer-events: auto;
 } */
   .modalDialogAEX > div {
-    color: #000;
+    color: #222831;
     width: 400px;
     position: relative;
     margin: 10% auto;
     padding: 5px 20px 13px 20px;
     border-radius: 10px;
-    background: linear-gradient(#2edbe8, #01a6b2);
+    background: #00ADB5;
   }
 
 .closeAEX {
-  background: #606061;
+  background: #222831;
   color: #FFFFFF;
   line-height: 25px;
   position: absolute;
@@ -48,17 +46,17 @@
   font-weight: bold;
   border-radius: 12px;
   border-radius: 12px;
-  box-shadow: 1px 1px 3px #000;
-  box-shadow: 1px 1px 3px #000;
+  box-shadow: 1px 1px 3px #222831be;
+  box-shadow: 1px 1px 3px #222831be;
 }
 
   .closeAEX:hover {
-    background: #6ed1d8;
+    background: #00ADB5;
   }
 
 /* search start */
 .searchbar {
-  font-size: 12px;
+  font-size: 16px;
   width: 15rem;
   height: 2rem;
   border: none;
@@ -71,12 +69,13 @@
 }
 
   .searchbar:hover {
-    width: 16rem;
-    height: 3rem;
+    width: 15.3rem;
+      height: 2.3rem;
+      box-shadow: 3px 3px 5px #222831be;
   }
 
 .searchbar-area {
-  font-size: 12px;
+  font-size: 16px;
   width: 15rem;
   height: 8rem;
   border: none;
@@ -89,13 +88,13 @@
 }
 
   .searchbar-area:hover {
-    width: 16rem;
-    height: 10rem;
+    width: 15.3rem;
+    height: 8.3rem;
   }
 
 /* search end */
 .existing-experience {
-  border: 1px solid #2D2747;
+  border: 1px solid #222831;
   border-radius: 10rem;
   font-size: 12px;
   margin: 0 7px 7px 0;
@@ -106,16 +105,15 @@
 
 .save {
   display: block;
-  background-color: #03BFCB;
-  border: 1px solid #231E39;
+  background-color: #222831;
   border-radius: 10px;
-  color: #231E39;
+  color: #ffffff;
   font-family: Montserrat, sans-serif;
-  font-weight: bold;
+  font-size: 16px;
   padding: 5px 25px;
   margin: 2px;
 }
 
   .save:hover {
-    box-shadow: 0px 10px 5px #231E39;
+    box-shadow: 3px 3px 5px #222831af;
   }

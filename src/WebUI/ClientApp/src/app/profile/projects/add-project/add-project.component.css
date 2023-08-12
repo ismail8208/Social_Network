@@ -1,120 +1,119 @@
 .add-project {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    color: #00ADB5;
-  }
-  
-  .modalDialogAP {
-    position: fixed;
-    font-family: Montserrat, sans-serif;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: 99999;
-    opacity: 0;
-    transition: opacity 100ms ease-in;
-    pointer-events: none;
-  }
-  
-    /* .modalDialog:target {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  color: #00ADB5;
+}
+
+.modalDialogAP {
+  position: fixed;
+  font-family: Montserrat, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 100ms ease-in;
+  pointer-events: none;
+}
+
+/* .modalDialog:target {
       opacity: 1;
       pointer-events: auto;
   } */
-    .modalDialogAP > div {
-      color: #222831;
-      width: 400px;
-      position: relative;
-      margin: 10% auto;
-      padding: 5px 20px 13px 20px;
-      border-radius: 10px;
-      background: #00ADB5;
-    }
-  
-  .closeAP {
-    background: #222831;
-    color: #FFFFFF;
-    line-height: 25px;
-    position: absolute;
-    right: -12px;
-    text-align: center;
-    top: -10px;
-    width: 24px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 12px;
-    border-radius: 12px;
-    box-shadow: 1px 1px 3px #222831be;
-    box-shadow: 1px 1px 3px #222831be;
-  }
-  
-    .closeAP:hover {
-      background: #6ed1d8;
-    }
-  
-  /* search start */
-  .searchbar {
-    font-size: 12px;
-    width: 15rem;
-    height: 2rem;
-    border: none;
-    outline: none;
-    border-radius: 10rem;
-    padding: 10px;
-    transition: all .1s;
-    transition-delay: .1s;
-    margin-bottom: 10px;
-  }
-  
-    .searchbar:hover {
-      width: 15.3rem;
-      height: 8.3rem;
-      box-shadow: 3px 3px 5px #222831be;
-    }
-  
-  .searchbar-area {
-    font-size: 12px;
-    width: 15rem;
-    height: 8rem;
-    border: none;
-    outline: none;
-    border-radius: 1rem;
-    padding: 10px;
-    transition: all .1s;
-    transition-delay: .1s;
-    margin-bottom: 10px;
-  }
-  
-    .searchbar-area:hover {
-      width: 15.3rem;
-      height: 8.3rem;
-      box-shadow: 3px 3px 5px #222831be;
-    }
-  
-  /* search end */
-  .existing-project {
-    border: 1px solid #222831;
-    border-radius: 10rem;
-    font-size: 16px;
-    margin: 0 7px 7px 0;
-    padding: 10px;
-    width: 15rem;
-    height: 2rem;
-  }
-  
-  .save {
-    display: block;
-    background-color: #222831;
-    border-radius: 10px;
-    color: #ffffff;
-    font-family: Montserrat, sans-serif;
-    padding: 5px 25px;
-    margin: 2px;
-  }
-  
-    .save:hover {
-      box-shadow: 3px 3px 5px #222831be;
-    }
-  
+.modalDialogAP>div {
+  color: #222831;
+  width: 400px;
+  position: relative;
+  margin: 10% auto;
+  padding: 5px 20px 13px 20px;
+  border-radius: 10px;
+  background: #00ADB5;
+}
+
+.closeAP {
+  background: #222831;
+  color: #FFFFFF;
+  line-height: 25px;
+  position: absolute;
+  right: -12px;
+  text-align: center;
+  top: -10px;
+  width: 24px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 12px;
+  border-radius: 12px;
+  box-shadow: 1px 1px 3px #222831be;
+  box-shadow: 1px 1px 3px #222831be;
+}
+
+.closeAP:hover {
+  background: #00ADB5;
+}
+
+/* search start */
+.searchbar {
+  font-size: 16px;
+  width: 15rem;
+  height: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 10rem;
+  padding: 10px;
+  transition: all .1s;
+  transition-delay: .1s;
+  margin-bottom: 10px;
+}
+
+.searchbar:hover {
+  width: 15.3rem;
+  height: 2.3rem;
+  box-shadow: 3px 3px 5px #222831be;
+}
+
+.searchbar-area {
+  font-size: 16px;
+  width: 15rem;
+  height: 8rem;
+  border: none;
+  outline: none;
+  border-radius: 1rem;
+  padding: 10px;
+  transition: all .1s;
+  transition-delay: .1s;
+  margin-bottom: 10px;
+}
+
+.searchbar-area:hover {
+  width: 15.3rem;
+  height: 8.3rem;
+  box-shadow: 3px 3px 5px #222831be;
+}
+
+/* search end */
+.existing-project {
+  border: 1px solid #222831;
+  border-radius: 10rem;
+  font-size: 16px;
+  margin: 0 7px 7px 0;
+  padding: 10px;
+  width: 15rem;
+  height: 2rem;
+}
+
+.save {
+  display: block;
+  background-color: #222831;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: Montserrat, sans-serif;
+  padding: 5px 25px;
+  margin: 2px;
+}
+
+.save:hover {
+  box-shadow: 3px 3px 5px #222831be;
+}

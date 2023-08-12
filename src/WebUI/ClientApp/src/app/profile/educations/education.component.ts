@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IEducation, IEducationDto } from 'src/app/web-api-client';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { EducationsClient, IEducation, IEducationDto } from 'src/app/web-api-client';
 
 @Component({
   selector: 'app-education',
@@ -15,10 +16,28 @@ export class EducationComponent {
 
   @Output() educationForDeleted: EventEmitter<number> = new EventEmitter<number>();
   
-  deleteEducation()
-  {
-   this.educationForDeleted.emit(this.education!.id);
-   console.log(this.education!.id)
+
+  deleteEducationModalRef: BsModalRef
+  educationIdForDelete: number;
+
+  constructor(
+    private educationsClient: EducationsClient,
+    private modalService: BsModalService,
+
+  ) { }
+  showDeleteEducationModal(template: TemplateRef<any>): void {
+    this.deleteEducationModalRef = this.modalService.show(template);
+    this.educationIdForDelete = this.education.id;
+  }
+
+  deleteEducationCancelled(): void {
+    this.deleteEducationModalRef.hide();
+  }
+
+  deleteEducation(): void {
+    this.educationsClient.delete(this.educationIdForDelete).subscribe(error => console.error(error));
+
+    this.deleteEducationCancelled();
   }
 
   openD() {

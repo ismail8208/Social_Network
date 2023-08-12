@@ -3,12 +3,12 @@
     <span (click)="closeD()" title="Close" class="closeUEX">X</span>
     <h2>Edit experience</h2>
     <input type="text" placeholder="title" class="searchbar" [(ngModel)]="experience!.title">
-    <input type="number" placeholder="Date of experience" class="searchbar" [(ngModel)]="experience.experienceDate">
-    <input type="text" placeholder="Comapny name" class="searchbar" [(ngModel)]="experience.companyName">
+    <input type="number" placeholder="Years of Experience" class="searchbar" [(ngModel)]="experience.experienceDate">
+    <input type="text" placeholder="Comapny or organization name" class="searchbar" [(ngModel)]="experience.companyName">
     <input type="date" placeholder="Date of start" class="searchbar" [(ngModel)]="experience.startedTime">
     <textarea type="text" placeholder="Description" class="searchbar-area" [(ngModel)]="experience!.description"></textarea>
     <button class="save" (click)="updateExperience()" (click)="closeD()">
-      <span style="text-decoration: none; color: #2D2747;">Save</span>
+      <span style="text-decoration: none;  color: #ffffff;">Save</span>
     </button>
   </div>
 </div>

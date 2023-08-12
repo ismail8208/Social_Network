@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IExperienceDto } from 'src/app/web-api-client';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ExperiencesClient, IExperienceDto } from 'src/app/web-api-client';
 
 @Component({
   selector: 'app-experience',
@@ -8,6 +9,10 @@ import { IExperienceDto } from 'src/app/web-api-client';
 })
 export class ExperienceComponent {
 
+
+  deleteExperienceModalRef: BsModalRef
+  experienceIdForDelete: number;
+
   @Input() experience?: IExperienceDto;
   @Input() isOwner: boolean;
 
@@ -15,9 +20,24 @@ export class ExperienceComponent {
 
   @Output() experienceForDeleted: EventEmitter<number> = new EventEmitter<number>();
 
-  deleteExperience() {
-    this.experienceForDeleted.emit(this.experience!.id);
-    console.log(this.experience!.id)
+  constructor(
+    private experiencesClient: ExperiencesClient,
+    private modalService: BsModalService,
+
+  ) { }
+  showDeleteExperienceModal(template: TemplateRef<any>): void {
+    this.deleteExperienceModalRef = this.modalService.show(template);
+    this.experienceIdForDelete = this.experience.id;
+  }
+
+  deleteExperienceCancelled(): void {
+    this.deleteExperienceModalRef.hide();
+  }
+
+  deleteExperience(): void {
+    this.experiencesClient.delete(this.experienceIdForDelete).subscribe(error => console.error(error));
+
+    this.deleteExperienceCancelled();
   }
 
   openD() {
