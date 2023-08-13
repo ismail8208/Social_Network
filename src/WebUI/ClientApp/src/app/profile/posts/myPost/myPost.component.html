@@ -77,10 +77,11 @@
             <i class="bi bi-chat-text-fill"></i>
             <span class="reactspan">Comment</span>
           </button></span>
-        <span><button class="reacts">
-            <i class="bi bi-arrow-repeat"></i>
-            <span class="reactspan">Repost</span>
-          </button></span>
+          <span>
+            <button class="reacts" (click)="Report(post.userId)" *ngIf="!post.isOwner">
+              <i class="bi bi-arrow-repeat"></i>
+              <span class="reactspan">{{reportBtn}}</span>
+            </button></span>
       </div>
     </div>
   </div>

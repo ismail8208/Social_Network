@@ -11,8 +11,7 @@
         <div class="textbox">
           <span style="display: flex;">
             <span>
-              <a href="" [routerLink]="['/profile', post.userName]"> <img [src]="post.profileImage"
-                  class="userImg"></a>
+              <a href="" [routerLink]="['/profile', post.userName]"> <img [src]="post.profileImage" class="userImg"></a>
             </span>
             <a href="" [routerLink]="['/profile', post.userName]">
               <h6 class="text-body">
@@ -74,13 +73,15 @@
             <i class="bi bi-hand-thumbs-up-fill" [ngClass]="{ 'liked':post.Liked  }"></i>
             <span class="reactspan  " [ngClass]="{ 'liked':post.Liked  }">Like</span>
           </button></span>
-        <span><button class="reacts" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
+        <span>
+          <button class="reacts" (click)="showNewCommentModal(newCommentModalTemplate,post.id)">
             <i class="bi bi-chat-text-fill"></i>
             <span class="reactspan">Comment</span>
           </button></span>
-        <span><button class="reacts">
+        <span>
+          <button class="reacts" (click)="Report(post.userId)" *ngIf="!post.isOwner">
             <i class="bi bi-arrow-repeat"></i>
-            <span class="reactspan">Repost</span>
+            <span class="reactspan">{{reportBtn}}</span>
           </button></span>
       </div>
     </div>
@@ -111,7 +112,8 @@
                     <a href="" [routerLink]="['/profile', comment.userName]" (click)="newCommentCancelled()">
                       <h6 class="commentDetails-body">
                         <span class="big text-muted">{{comment.firstName}} {{comment.lastName}} || <span
-                            *ngIf="comment.specialization" style="font-size: 0.8rem;">{{comment.specialization}}</span></span>
+                            *ngIf="comment.specialization"
+                            style="font-size: 0.8rem;">{{comment.specialization}}</span></span>
                         <br>
                         <span class="big text-muted font-weight-normal"
                           style="font-size: 0.8rem;">{{comment.userName}}</span>
@@ -125,9 +127,10 @@
                     <button class="dropbtn dropdownbt"> <i class="bi bi-three-dots-vertical"></i></button>
                     <div class="dropdown-content">
                       <!-- <a *ngIf="comment.isOwner">Edite</a> -->
-                      <a (click)="showDeleteCommentModal(deleteCommentModalTemplate,comment.id)" *ngIf="comment.isOwner||comment.postOwner " >Delete</a>
+                      <a (click)="showDeleteCommentModal(deleteCommentModalTemplate,comment.id)"
+                        *ngIf="comment.isOwner||comment.postOwner ">Delete</a>
 
-                      <a id="copy" (click)="copyTextToClipboard(comment.content)">Copy Link</a> 
+                      <a id="copy" (click)="copyTextToClipboard(comment.content)">Copy Link</a>
                     </div>
                   </div>
                 </div>
@@ -212,7 +215,8 @@
       <br> action will permanently remove the content and cannot be undone.
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="deleteCommentCancelled()">no</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal"
+        (click)="deleteCommentCancelled()">no</button>
       <button type="button" class="btn btn-danger" (click)="deleteComment()">yes</button>
     </div>
   </div>

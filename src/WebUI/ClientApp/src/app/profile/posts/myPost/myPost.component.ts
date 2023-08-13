@@ -9,6 +9,7 @@ import {
   CreateCommentCommand,
   UsersClient,
   CommentDto,
+  NotificationsClient,
 
 } from 'src/app/web-api-client';
 import { Subscription, firstValueFrom, map, mergeMap, of } from 'rxjs';
@@ -81,6 +82,7 @@ export class MyPostComponent implements OnInit , OnDestroy{
     private usersClient: UsersClient,
     private localService: LocalService,
     private router: ActivatedRoute,
+    private notificationsClient: NotificationsClient
   ) { }
 
 
@@ -218,7 +220,20 @@ export class MyPostComponent implements OnInit , OnDestroy{
       });
     }
   }
+  reportBtn: string = 'Report'
+  Report(id: number)
+  {
+    console.log(`${this.user.id} id of absou`)
 
+    this.notificationsClient.report(this.user.id, id).subscribe({
+      next: data => {
+        if(data)
+        {
+          this.reportBtn = 'Reported'
+        }
+      }
+    })
+  }
   onLikeClicked(postId: number): void {
     this.checkIfUserLiked(this.user.id, postId).subscribe(
       like => {

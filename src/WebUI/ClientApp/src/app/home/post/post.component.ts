@@ -9,6 +9,7 @@ import {
   CreateCommentCommand,
   UsersClient,
   CommentDto,
+  NotificationsClient,
 
 } from '../../web-api-client';
 import { Subscription, firstValueFrom, map, mergeMap, of } from 'rxjs';
@@ -24,6 +25,7 @@ import { LocalService } from 'src/app/sheard/localService';
 })
 export class PostComponent implements OnInit , OnDestroy{
  
+  isOwner: boolean = false;
   // Add a variable to track if a request is in progress
   private isFetchingPosts = false;
   
@@ -79,7 +81,8 @@ export class PostComponent implements OnInit , OnDestroy{
     private commentClient: CommentsClient,
     private modalService: BsModalService,
     private usersClient: UsersClient,
-    private localService: LocalService
+    private localService: LocalService,
+    private notificationsClient: NotificationsClient
   ) { }
 
 
@@ -216,6 +219,22 @@ export class PostComponent implements OnInit , OnDestroy{
         console.error(error);
       });
     }
+  }
+
+  
+  reportBtn: string = 'Report'
+  Report(id: number)
+  {
+    console.log(`${this.user.id} id of absou`)
+
+    this.notificationsClient.report(this.user.id, id).subscribe({
+      next: data => {
+        if(data)
+        {
+          this.reportBtn = 'Reported'
+        }
+      }
+    })
   }
 
   onLikeClicked(postId: number): void {
