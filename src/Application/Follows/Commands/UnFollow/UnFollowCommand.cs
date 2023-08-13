@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Follows.Commands.UnFollow;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record UnFollowCommand : IRequest
 {
     public int UserId { get; set; }

@@ -7,6 +7,8 @@ using MediatR;
 
 namespace MediaLink.Application.Shares.Commands.CreateShare;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record CreateShareCommand : IRequest<int>
 {
     public int UserId { get; set; }

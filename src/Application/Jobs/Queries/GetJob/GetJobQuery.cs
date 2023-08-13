@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Jobs.Queries.GetJob;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record GetJobQuery(int Id) : IRequest<JobDto>;
 public class GetJobQueryHandler : IRequestHandler<GetJobQuery, JobDto>
 {

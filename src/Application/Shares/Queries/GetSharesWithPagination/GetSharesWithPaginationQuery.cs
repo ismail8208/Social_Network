@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Shares.Queries.GetSharesWithPagination;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record GetSharesWithPaginationQuery : IRequest<PaginatedList<ShareDto>>
 {
     public int PostId { get; set; }

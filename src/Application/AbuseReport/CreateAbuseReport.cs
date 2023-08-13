@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediaLink.Application.Common.Interfaces;
+using MediaLink.Application.Common.Security;
 using MediaLink.Application.Follows.Queries.GetFollowers;
 using MediaLink.Application.Notification;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.AbuseReport;
+[Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record CreateAbuseReport : IRequest
 {
     public int ReporterId { get; set; }

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Likes.Commands.DeleteLike;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record DeleteLikeCommand(int Id) : IRequest;
 
 public class DeleteLikeCommandHandler : IRequestHandler<DeleteLikeCommand>

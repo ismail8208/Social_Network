@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Endorsements.Queries.GetEndorsmentsWithPagination;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record GetEndorsmentsWithPaginationQuery : IRequest<PaginatedList<EndorsmentDto>>
 {
     public int SkillId { get; set; }

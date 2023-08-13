@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace MediaLink.Application.Posts.Commands.CreatePost;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record CreatePostCommand : IRequest<int>
 {
     public string? Content { get; set; }

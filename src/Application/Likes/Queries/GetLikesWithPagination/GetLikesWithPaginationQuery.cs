@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Likes.Queries.GetLikesWithPagination;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record GetLikesWithPaginationQuery :IRequest<PaginatedList<LikeDto>>
 {
     public int PostId { get; set; }

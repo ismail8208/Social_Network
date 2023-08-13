@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediaLink.Application.Common.Interfaces;
+using MediaLink.Application.Common.Security;
 using MediatR;
 
 namespace MediaLink.Application.Users.Commands.DeleteUserCommand;
+[Authorize(Roles = "Administrator")]
 public record DeleteUserCommand(string username) : IRequest<bool>;
 
 public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, bool>

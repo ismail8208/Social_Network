@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Follows.Commands.CancelFollower;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record CancelFollowerCommand : IRequest
 {
     public int UserId { get; set; }

@@ -8,6 +8,8 @@ using MediatR;
 
 namespace MediaLink.Application.Shares.Commands.DeleteShare;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record DeleteShareCommand(int Id) : IRequest;
 
 public class DeleteShareCommandHandler : IRequestHandler<DeleteShareCommand>

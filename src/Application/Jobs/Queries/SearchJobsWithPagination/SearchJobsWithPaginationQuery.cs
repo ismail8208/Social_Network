@@ -9,6 +9,8 @@ using MediatR;
 
 namespace MediaLink.Application.Jobs.Queries.GetJobsWithPagination;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record SearchJobsWithPaginationQuery : IRequest<PaginatedList<JobDto>>
 {
     public string? Query { get; set; }

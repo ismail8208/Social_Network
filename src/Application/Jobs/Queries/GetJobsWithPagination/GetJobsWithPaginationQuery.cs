@@ -1,13 +1,18 @@
-﻿using AutoMapper;
+﻿using System.Data;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediaLink.Application.Common.Interfaces;
 using MediaLink.Application.Common.Mappings;
 using MediaLink.Application.Common.Models;
+using MediaLink.Application.Common.Security;
 using MediaLink.Application.Posts.Queries;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Jobs.Queries.GetJobsWithPagination;
+[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "member")]
+
 public record GetJobsWithPaginationQuery : IRequest<PaginatedList<JobDto>>
 {
     public int UserId { get; init; }

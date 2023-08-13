@@ -9,8 +9,7 @@ using MediaLink.Application.Common.Security;
 using MediatR;
 
 namespace MediaLink.Application.Users.Queries.FindUser;
-/*[Authorize(Roles = "member")]
-*/public record SearchUserQuery : IRequest<PaginatedList<UserDto>>
+public record SearchUserQuery : IRequest<PaginatedList<UserDto>>
 {
     public string? Query { get; set; }
     public int PageNumber { get; init; } = 1;

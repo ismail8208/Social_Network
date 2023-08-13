@@ -10,6 +10,8 @@ using MediaLink.Application.Common.Security;
 
 namespace MediaLink.Application.Likes.Queries.GetLikesForJobWithPagination;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record GetLikesForJobWithPaginationQuery : IRequest<PaginatedList<LikeForJobDto>>
 {
     public int JobId { get; set; }

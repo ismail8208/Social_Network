@@ -7,6 +7,8 @@ using MediatR;
 
 namespace MediaLink.Application.Posts.Commands.DeletePost;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record DeletePostCommand(int Id) : IRequest;
 
 public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>

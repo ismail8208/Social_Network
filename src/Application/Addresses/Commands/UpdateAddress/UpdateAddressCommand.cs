@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MediaLink.Application.Addresses.Commands.UpdateAddress;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record UpdateAddressCommand : IRequest
 {
     public int Id { get; set; }

@@ -1,9 +1,13 @@
-﻿using MediaLink.Application.Common.Interfaces;
+﻿using System.Data;
+using MediaLink.Application.Common.Interfaces;
+using MediaLink.Application.Common.Security;
 using MediaLink.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.CVService.ReceiveCVs;
+[Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record ReceiveCV : IRequest<int>
 {
     public int UserId { get; set; }

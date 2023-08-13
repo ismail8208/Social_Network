@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Jobs.Commands.CreateJob;
 [Authorize(Roles = "company")]
+[Authorize(Roles = "Administrator")]
+
 public record CreateJobCommand : IRequest<int>
 {
     public string? Title { get; set; }

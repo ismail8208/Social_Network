@@ -7,6 +7,8 @@ using MediatR;
 
 namespace MediaLink.Application.Jobs.Commands.DeleteJob;
 [Authorize(Roles = "company")]
+[Authorize(Roles = "Administrator")]
+
 public record DeleteJobCommand(int Id) : IRequest;
 
 public class DeleteJobCommandHandler : IRequestHandler<DeleteJobCommand>

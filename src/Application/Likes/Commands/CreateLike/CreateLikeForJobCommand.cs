@@ -6,6 +6,8 @@ using MediatR;
 
 namespace MediaLink.Application.Likes.Commands.CreateLike;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record CreateLikeForJobCommand : IRequest<int>
 {
     public int UserId { get; set; }

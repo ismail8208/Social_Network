@@ -1,8 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Data;
+using AutoMapper;
 using MediaLink.Application.Common.Mappings;
+using MediaLink.Application.Common.Security;
 using MediaLink.Domain.Entities;
 
 namespace MediaLink.Application.Comments.Queries.GetCommentsWithPagination;
+[Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public class CommentForJobDto : IMapFrom<Comment>
 {
     public int Id { get; set; }

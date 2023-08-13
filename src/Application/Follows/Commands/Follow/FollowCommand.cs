@@ -5,6 +5,8 @@ using MediatR;
 
 namespace MediaLink.Application.Follows.Commands.Follow;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record FollowCommand : IRequest
 {
     public int UserId { get; set; }

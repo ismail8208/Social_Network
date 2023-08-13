@@ -7,6 +7,7 @@ using MediatR;
 
 namespace MediaLink.Application.Comments.Commands.UpdateComment;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record UpdateCommentCommand : IRequest
 {
     public int Id { get; init; }

@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Comments.Queries.GetCommentsWithPagination;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record GetCommentsWithPaginationQuery :IRequest<PaginatedList<CommentDto>>
 {
     public int PostId { get; set; }

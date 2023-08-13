@@ -7,6 +7,7 @@ using MediatR;
 
 namespace MediaLink.Application.Comments.Commands.DeleteComment;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")] 
 public record DeleteCommentCommand(int Id) : IRequest;
 public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand>
 {

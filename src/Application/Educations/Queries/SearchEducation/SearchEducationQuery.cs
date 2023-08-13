@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Educations.Queries.SearchEducation;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record SearchEducationQuery : IRequest<PaginatedList<EducationDto>>
 {
     public string? Query { get; set; }

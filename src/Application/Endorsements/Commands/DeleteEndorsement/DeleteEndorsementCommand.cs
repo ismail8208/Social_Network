@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Endorsements.Commands.DeleteEndorsement;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record DeleteEndorsementCommand (int Id) : IRequest;
 
 public class DeleteEndorsementCommandHandler : IRequestHandler<DeleteEndorsementCommand>

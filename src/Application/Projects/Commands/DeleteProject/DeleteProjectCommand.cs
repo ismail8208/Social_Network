@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Projects.Commands.DeleteProject;
+[Authorize(Roles = "Administrator")]
 [Authorize(Roles = "member")]
 public record DeleteProjectCommand(int Id) : IRequest;
 

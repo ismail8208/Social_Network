@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Educations.Queries.GetEducationsWithPagination;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record GetEducationsWithPaginationQuery : IRequest<PaginatedList<EducationDto>>
 {
     public int UserId { get; set; }

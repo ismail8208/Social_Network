@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace MediaLink.Application.Posts.Commands.UpdatePost;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record UpdatePostCommand : IRequest
 {
     public int Id { get; set; }

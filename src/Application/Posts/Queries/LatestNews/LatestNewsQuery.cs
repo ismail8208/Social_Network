@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Posts.Queries.LatestNews;
+[Authorize(Roles = "Administrator")]
 [Authorize(Roles = "member")]
 public record LatestNewsQuery : IRequest<PaginatedList<PostDto>>
 {

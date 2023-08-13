@@ -9,6 +9,7 @@ using MediatR;
 
 namespace MediaLink.Application.Skills.Queries.SearchSkill;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record SearchSkillQuery : IRequest<PaginatedList<SkillDto>>
 {
     public string? Query { get; set; }

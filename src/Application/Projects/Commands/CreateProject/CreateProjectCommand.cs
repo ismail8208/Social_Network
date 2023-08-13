@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace MediaLink.Application.Projects.Commands.CreateProject;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record CreateProjectCommand : IRequest<int>
 {
     public string? Title { get; set; }

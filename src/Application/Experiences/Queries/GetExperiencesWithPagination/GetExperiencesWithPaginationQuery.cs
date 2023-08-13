@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Experiences.Queries.GetExperiencesWithPagination;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record GetExperiencesWithPaginationQuery : IRequest<PaginatedList<ExperienceDto>>
 {
     public int UserId { get; set; }

@@ -12,6 +12,7 @@ using MediatR;
 
 namespace MediaLink.Application.Comments.Commands.CreateComment;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record CreateCommentForJobCommand : IRequest<int>
 {
     public string? Content { get; set; }

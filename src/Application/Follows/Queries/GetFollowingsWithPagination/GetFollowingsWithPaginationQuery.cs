@@ -10,6 +10,8 @@ using MediatR;
 
 namespace MediaLink.Application.Follows.Queries.GetFollowingsWithPagination;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record GetFollowingsWithPaginationQuery : IRequest<PaginatedList<BriefUserDto>>
 {
     public int UserId { get; init; }

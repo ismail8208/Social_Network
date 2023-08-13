@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediaLink.Application.Common.Interfaces;
+using MediaLink.Application.Common.Security;
 using MediaLink.Application.Dashboard.PostsInfo;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Dashboard.JobsInfo;
+[Authorize(Roles = "Administrator")]
 public record GetJobsInfo : IRequest<JobsInfoDto>
 {
     public DateTime DateFrom { get; set; }

@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Projects.Queries.GetProjectsWithPagination;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record GetProjectsWithPaginationQuery : IRequest<PaginatedList<ProjectDto>>
 {
     public int UserId { get; set; }

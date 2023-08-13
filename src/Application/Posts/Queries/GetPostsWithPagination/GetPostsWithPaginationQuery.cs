@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Posts.Queries.GetPostsWithPagination;
+[Authorize(Roles = "Administrator")]
 [Authorize(Roles = "member")]
 public record GetPostsWithPaginationQuery : IRequest<PaginatedList<PostDto>>
 {

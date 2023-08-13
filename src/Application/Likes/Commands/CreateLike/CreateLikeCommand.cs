@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Likes.Commands.CreateLike;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record CreateLikeCommand : IRequest<int>
 {
     public int UserId { get; set; }

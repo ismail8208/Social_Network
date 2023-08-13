@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Addresses.Queries.GetAddressByUserId;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")] 
 public record GetAddressQuery(int id) : IRequest<AddressDto>;
 
 

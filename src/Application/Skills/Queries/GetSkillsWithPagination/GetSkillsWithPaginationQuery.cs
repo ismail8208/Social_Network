@@ -10,6 +10,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Skills.Queries.GetSkillsWithPagination;
+[Authorize(Roles = "Administrator")]
 [Authorize(Roles = "member")]
 public record GetSkillsWithPaginationQuery : IRequest<PaginatedList<Skill>>
 {

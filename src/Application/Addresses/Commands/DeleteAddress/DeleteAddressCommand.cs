@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MediaLink.Application.Addresses.Commands.DeleteAddress;
 
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record DeleteAddressCommand (int Id) : IRequest;
 
 

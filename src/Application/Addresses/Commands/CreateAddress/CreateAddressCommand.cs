@@ -6,6 +6,7 @@ using MediatR;
 
 namespace MediaLink.Application.Addresses.Commands.CreateAddress;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record CreateAddressCommand : IRequest<int>
 {
     public string? Country { get; set; }

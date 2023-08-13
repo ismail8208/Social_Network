@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Comments.Commands.CreateComment;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record CreateCommentCommand : IRequest<int>
 {
     public string? Content { get; set; }

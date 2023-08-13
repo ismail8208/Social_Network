@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Posts.Queries.GetPost;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record GetPostQurey(int Id) : IRequest<PostDto>;
 public class GetPostQureyHandler : IRequestHandler<GetPostQurey, PostDto>
 {

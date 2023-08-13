@@ -6,6 +6,8 @@ using MediatR;
 
 namespace MediaLink.Application.Jobs.Commands.UpdateJob;
 [Authorize(Roles = "company")]
+[Authorize(Roles = "Administrator")]
+
 public record UpdateJobCommand : IRequest
 {
     public int Id { get; set; }

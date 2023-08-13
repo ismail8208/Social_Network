@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace MediaLink.Application.Projects.Commands.UpdateProject;
+[Authorize(Roles = "Administrator")]
 [Authorize(Roles = "member")]
 public record UpdateProjectCommand : IRequest
 {

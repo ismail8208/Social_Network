@@ -7,6 +7,8 @@ using MediatR;
 
 namespace MediaLink.Application.Endorsements.Commands.CreateEndorsement;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
+
 public record CreateEndorsementCommand : IRequest<int>
 {
     public int SkillId { get; set; }

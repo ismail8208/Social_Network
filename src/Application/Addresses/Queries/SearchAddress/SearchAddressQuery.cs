@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Addresses.Queries.SearchAddress;
 [Authorize(Roles = "member")]
+[Authorize(Roles = "Administrator")]
 public record SearchAddressQuery : IRequest<PaginatedList<AddressDto>>
 {
     public string? Query { get; set; }

@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 using MediaLink.Application.Common.Interfaces;
+using MediaLink.Application.Common.Security;
 using MediaLink.Application.Dashboard.UsersInfo;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Dashboard.PostsInfo;
+[Authorize(Roles = "Administrator")]
+
 public record GetPostInfo : IRequest<PostInfoDto>
 {
     public DateTime DateFrom { get; set; }
