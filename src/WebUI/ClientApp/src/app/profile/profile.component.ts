@@ -47,7 +47,6 @@ import { NotificationServiceService } from '../sheard/notification-service.servi
 export class ProfileComponent implements OnInit {
 
 
-
   isAuthenticated?: boolean;
   isFolloing: boolean = false;
   isLoaded: boolean = false;
@@ -156,7 +155,7 @@ export class ProfileComponent implements OnInit {
     this.ifMember=this.user.role == 'member';
 
     this.addressesClient.get(this.user.id).subscribe(Address =>
-
+        
       this.user.address = Address.fullAddress
 
 

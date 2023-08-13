@@ -3,7 +3,7 @@
     <div class="card-body">
         <div class="textbox" (click)="showNewPostModal(newPostModalTemplate)">
             <span>
-                <a href="" [routerLink]="['/profile/{{Comment.userName}}']">  <img [src]="user.profileImage" class="userImg"></a>
+                <a href="" [routerLink]="['/profile/',user.userName]">  <img [src]="user.profileImage" class="userImg"></a>
             </span>
             <span><button class="startAPost  text-muted">
                 Hi {{user.firstName}}, what's on your mind today?

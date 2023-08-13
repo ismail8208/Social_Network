@@ -4871,7 +4871,7 @@ export class ImagesClient implements IImagesClient {
 }
 
 export interface INotificationsClient {
-    getNotifications(userId: number): Observable<Notification[]>;
+    getNotifications(userId: number): Observable<NotificationDto[]>;
     report(reporterId: number | undefined, abuserId: number | undefined): Observable<FileResponse>;
 }
 
@@ -4888,7 +4888,7 @@ export class NotificationsClient implements INotificationsClient {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    getNotifications(userId: number): Observable<Notification[]> {
+    getNotifications(userId: number): Observable<NotificationDto[]> {
         let url_ = this.baseUrl + "/api/Notifications/{userId}";
         if (userId === undefined || userId === null)
             throw new Error("The parameter 'userId' must be defined.");
@@ -4910,14 +4910,14 @@ export class NotificationsClient implements INotificationsClient {
                 try {
                     return this.processGetNotifications(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<Notification[]>;
+                    return _observableThrow(e) as any as Observable<NotificationDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<Notification[]>;
+                return _observableThrow(response_) as any as Observable<NotificationDto[]>;
         }));
     }
 
-    protected processGetNotifications(response: HttpResponseBase): Observable<Notification[]> {
+    protected processGetNotifications(response: HttpResponseBase): Observable<NotificationDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -4931,7 +4931,7 @@ export class NotificationsClient implements INotificationsClient {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(Notification.fromJS(item));
+                    result200!.push(NotificationDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -4966,7 +4966,7 @@ export class NotificationsClient implements INotificationsClient {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processReport(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -10159,6 +10159,62 @@ export interface IJobsInfoDto {
     dateTimes?: Date[] | undefined;
     numberOfJobs?: number[] | undefined;
     numberOfAllJobs?: number;
+}
+
+export class NotificationDto implements INotificationDto {
+    distId?: number;
+    dist?: InnerUser | undefined;
+    content?: string | undefined;
+    image?: string | undefined;
+    created?: Date;
+    userId?: number;
+
+    constructor(data?: INotificationDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.distId = _data["distId"];
+            this.dist = _data["dist"] ? InnerUser.fromJS(_data["dist"]) : <any>undefined;
+            this.content = _data["content"];
+            this.image = _data["image"];
+            this.created = _data["created"] ? new Date(_data["created"].toString()) : <any>undefined;
+            this.userId = _data["userId"];
+        }
+    }
+
+    static fromJS(data: any): NotificationDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new NotificationDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["distId"] = this.distId;
+        data["dist"] = this.dist ? this.dist.toJSON() : <any>undefined;
+        data["content"] = this.content;
+        data["image"] = this.image;
+        data["created"] = this.created ? this.created.toISOString() : <any>undefined;
+        data["userId"] = this.userId;
+        return data;
+    }
+}
+
+export interface INotificationDto {
+    distId?: number;
+    dist?: InnerUser | undefined;
+    content?: string | undefined;
+    image?: string | undefined;
+    created?: Date;
+    userId?: number;
 }
 
 export interface FileParameter {

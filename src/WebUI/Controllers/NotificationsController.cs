@@ -10,12 +10,11 @@ namespace WebUI.Controllers;
 public class NotificationsController : ApiControllerBase
 {
     [HttpGet("{userId}")]
-    public async Task<ActionResult<List<Notification>>> GetNotifications(int userId)
+    public async Task<ActionResult<List<NotificationDto>>> GetNotifications(int userId)
     {
-        var a = await Mediator.Send(new GetNotificationsQuery(userId));
-        return a;
+        return await Mediator.Send(new GetNotificationsQuery(userId)); ;
     }
-
+    [HttpPost]
     public async Task<ActionResult> Report([FromQuery] CreateAbuseReport commad)
     {
         return Ok(await Mediator.Send(commad));
