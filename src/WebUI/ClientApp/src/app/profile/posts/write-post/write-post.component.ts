@@ -51,7 +51,9 @@ export class WritePostComponent implements OnInit {
 
   CreatePost() {
     if (this.imageFile || this.videoFile || this.newPost.content) {
+      
       if (this.imageFile) {
+        console.log(this.imageFile);
         var imageForPost = {
           data: this.imageFile,
           fileName: this.imageFile.name

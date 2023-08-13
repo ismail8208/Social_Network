@@ -61,7 +61,7 @@ export class PostComponent implements OnInit , OnDestroy{
     userName: '',
     specialization:'',
   };
-  users: IUserDto[];
+  users: IUserDto[];2
 
   like = {
     userId: 2,
