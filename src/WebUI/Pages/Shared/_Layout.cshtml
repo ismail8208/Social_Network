@@ -22,15 +22,15 @@
     </environment>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" href="~/">WebUI</a>
+	<header>
+		<nav class="navbar navbar-expand-sm " style="background-color:#393E46">
+			<div class="container">
+				<a class="navbar-brand" href="~/" style="color:#EEE">MediaLink</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" >
                     @{
                         var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
                     }
@@ -47,15 +47,15 @@
                 </div>
             </div>
         </nav>
-    </header>
+    </heade>
 
-    <div class="container">
+		<div class="container" style="color:black">
         <partial name="_CookieConsentPartial" optional />
-        <main role="main" class="pb-1">
+        <main role="main" class="pb-1" >
             @RenderBody()
         </main>
     </div>
-    <footer class="footer border-top pl-3 text-muted">
+    <footer class="footer border-top pl-3">
         <div class="container">
         &copy; 2023 - WebUI
             @{

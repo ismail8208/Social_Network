@@ -11,6 +11,7 @@ export class JobsListComponent implements OnInit {
 
   @Input() userId: number;
   jobs: IJobDto[] = [];
+  @Input() isOwner: boolean;
   constructor(private jobsClient: JobsClient) { }
 
   async ngOnInit() {

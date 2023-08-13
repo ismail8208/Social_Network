@@ -5,8 +5,7 @@ using System.Data;
 using MediaLink.Application.Common.Security;
 
 namespace MediaLink.Application.Notification;
-[Authorize(Roles = "Administrator")]
-[Authorize(Roles = "member")]
+
 
 public record GetNotificationsQuery(int userId): IRequest<List<Domain.Entities.Notification>>;
 

@@ -12,8 +12,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.AbuseReport;
-[Authorize(Roles = "member")]
-[Authorize(Roles = "Administrator")]
+
 public record CreateAbuseReport : IRequest
 {
     public int ReporterId { get; set; }

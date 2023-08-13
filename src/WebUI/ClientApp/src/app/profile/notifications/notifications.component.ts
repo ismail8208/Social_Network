@@ -14,7 +14,6 @@ export class NotificationsComponent implements OnInit {
   isAdmin: boolean = false;
   user: IUserDto = {
     firstName: '',
-    lastName: '',
     id: 0,
     numberOfFollowers: 0,
     profileImage: '',
@@ -93,7 +92,6 @@ export class NotificationsComponent implements OnInit {
       const endIndex = content.indexOf(endMarker, startIndex + startMarker.length);
       
       if (endIndex !== -1) {
-        this.isAdmin = true;
         return content.substring(startIndex + startMarker.length, endIndex);
       }
     }
