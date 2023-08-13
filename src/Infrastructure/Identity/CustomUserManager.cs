@@ -5,6 +5,8 @@ using IdentityModel;
 using IdentityModel.Client;
 using MediaLink.Application.Common.Exceptions;
 using MediaLink.Application.Common.Interfaces;
+using MediaLink.Application.Common.Models;
+using MediaLink.Application.CVService.DTOs;
 using MediaLink.Application.Users.Commands.CreateUserCommand;
 using MediaLink.Application.Users.Commands.UpdateUserCommand;
 using MediaLink.Application.Users.Queries.FindUser;

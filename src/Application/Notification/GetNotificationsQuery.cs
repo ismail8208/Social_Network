@@ -15,7 +15,7 @@ public class GetNotificationsQueryHandler : IRequestHandler<GetNotificationsQuer
     }
     public async Task<List<Domain.Entities.Notification>> Handle(GetNotificationsQuery request, CancellationToken cancellationToken)
     {
-        var notifications = await _context.Notifications.Where(n => n.DistId == request.userId).ToListAsync();
+        var notifications = await _context.Notifications.Include(u => u.Dist).Where(n => n.DistId == request.userId && n.Dist.IsDeleted == false).ToListAsync();
         if (notifications == null)
         {
             return new List<Domain.Entities.Notification>();

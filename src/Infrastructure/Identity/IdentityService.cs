@@ -1,5 +1,6 @@
 ﻿using MediaLink.Application.Common.Interfaces;
 using MediaLink.Application.Common.Models;
+using MediaLink.Application.CVService.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,14 +12,18 @@ public class IdentityService : IIdentityService
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly IAuthorizationService _authorizationService;
+    private readonly IApplicationDbContext _context;
+
     public IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService)
+        IAuthorizationService authorizationService,
+         IApplicationDbContext context)
     {
         _userManager = userManager;
         _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         _authorizationService = authorizationService;
+        _context = context;
     }
 
     public async Task<string?> GetUserNameAsync(string userId)
@@ -26,6 +31,23 @@ public class IdentityService : IIdentityService
         var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
 
         return user.UserName;
+    }
+
+    public async Task<bool> DeleteUserFromAPI(string username)
+    {
+        var innerUser = await _context.InnerUsers.FirstOrDefaultAsync(x => x.UserName == username && x.IsDeleted == false);
+        var user = await _userManager.Users.FirstAsync(u => u.UserName == username);
+
+        innerUser.IsDeleted = true;
+        user.IsDeleted = true;
+        var res = await _userManager.UpdateAsync(user);
+        if (res.Succeeded)
+        {
+            _context.InnerUsers.Update(innerUser);
+            return true;
+        }
+        else return false;
+
     }
 
     public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
@@ -38,7 +60,7 @@ public class IdentityService : IIdentityService
 
         var result = await _userManager.CreateAsync(user, password);
 
-        
+
 
         return (result.ToApplicationResult(), user.Id);
     }
@@ -93,7 +115,7 @@ public class IdentityService : IIdentityService
                 {
                     if (role == "company")
                     {
-                       return role;
+                        return role;
                     }
                 }
                 var userRole = roles.First();

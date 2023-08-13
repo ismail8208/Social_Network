@@ -1,5 +1,7 @@
 ﻿using MediaLink.Application.Comments.Queries.GetCommentsWithPagination;
+using MediaLink.Application.Common.Interfaces;
 using MediaLink.Application.Common.Models;
+using MediaLink.Application.Users.Commands.DeleteUserCommand;
 using MediaLink.Application.Users.Queries.FindUser;
 using MediaLink.Application.Users.Queries.GetUser;
 using Microsoft.AspNetCore.Authorization;
@@ -22,5 +24,12 @@ namespace MediaLink.WebUI.Controllers;
     {
         return await Mediator.Send(new GetUserQuery(username));
     }
+
+    [HttpDelete("{username}/Delete")]
+    public async Task<ActionResult<bool>> Delete(string username)
+    {
+        return await Mediator.Send(new DeleteUserCommand(username));
+    }
+
 
 }

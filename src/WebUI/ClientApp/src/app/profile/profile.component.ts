@@ -25,7 +25,7 @@ import {
   IUpdateProjectCommand,
   UpdateProjectCommand,
   AddressesClient,
-  NotificationsClient
+  NotificationsClient,
 } from '../web-api-client';
 import { AuthorizeService } from 'src/api-authorization/authorize.service';
 import { Store, select } from '@ngrx/store';
@@ -217,11 +217,25 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
-  // ngOnDestroy(): void {
-  //     // this.subSKill.unsubscribe();
-  //     // this.subUser.unsubscribe();
-  //     console.log("sun observable is finshed");
-  // }
+  deleteBtn: string = 'Delete'
+  DeleteUser()
+  {
+    this.usersClient.delete(this.username).subscribe(
+      {
+        next: data => {
+          if(data)
+          {
+            this.deleteBtn = 'Is Deleted';
+          }
+        }
+      }
+    )
+  }
+  ngOnDestroy(): void {
+      // this.subSKill.unsubscribe();
+      // this.subUser.unsubscribe();
+      console.log("sun observable is finshed");
+  }
 
 
   //Skills Methods Start

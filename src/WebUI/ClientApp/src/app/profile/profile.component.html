@@ -89,7 +89,7 @@
 						<li (click)="enableProjectsSection()" *ngIf="isOwner" style="--delay: 4;">
 							Add Projects Section
 						</li>
-						<li (click)="Report()" *ngIf="!isOwner" style="--delay: 6;">{{reportBtn}}</li>
+						<li (click)="Report()" *ngIf="!isOwner" style="--delay: 5;">{{reportBtn}}</li>
 					</ul>
 				</div>
 			</div>
@@ -105,6 +105,10 @@
 				</button>
 			</div>
 		</span>
+		<span *ngIf="!isOwner">
+			<button class="primary" (click)="DeleteUser()" *userHasRole="'Administrator'">{{deleteBtn}}</button>
+		</span>
+
 
 
 		<span *ngIf="isLoaded">
