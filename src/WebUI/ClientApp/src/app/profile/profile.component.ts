@@ -24,7 +24,8 @@ import {
   CreateProjectCommand,
   IUpdateProjectCommand,
   UpdateProjectCommand,
-  AddressesClient
+  AddressesClient,
+  NotificationsClient
 } from '../web-api-client';
 import { AuthorizeService } from 'src/api-authorization/authorize.service';
 import { Store, select } from '@ngrx/store';
@@ -120,6 +121,7 @@ export class ProfileComponent implements OnInit {
     private localService: LocalService,
     private notification: NotificationServiceService,
     private addressesClient: AddressesClient,
+    private notificationsClient: NotificationsClient
   ) { }
 
   async ngOnInit() {
@@ -201,6 +203,19 @@ export class ProfileComponent implements OnInit {
   }
   closeModal() {
     this.modalRef.hide();
+  }
+
+  reportBtn: string = 'Report'
+  Report()
+  {
+    this.notificationsClient.report(parseInt(localStorage.getItem('id')), this.user.id).subscribe({
+      next: data => {
+        if(data)
+        {
+          this.reportBtn = 'Reported'
+        }
+      }
+    })
   }
   // ngOnDestroy(): void {
   //     // this.subSKill.unsubscribe();

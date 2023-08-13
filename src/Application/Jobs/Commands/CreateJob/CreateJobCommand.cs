@@ -56,7 +56,7 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, int>
         {
             var notify = new Domain.Entities.Notification
             {
-                Content = $"{user.FirstName} {user.LastName} has announced a job vacancy titled {request.Title}", // قامت شركة ما بالاعلان عن شاغر وظيفي بعنوان كذا
+                Content = $".. {user.UserName}({user.FirstName} {user.LastName}) has announced a job vacancy titled {request.Title}", // قامت شركة ما بالاعلان عن شاغر وظيفي بعنوان كذا
                 DistId = u.Id,
                 Image = user.ProfileImage,
             };

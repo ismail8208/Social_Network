@@ -10,7 +10,8 @@ import { ExportCVClient, INotification, IUserDto, NotificationsClient, UsersClie
 })
 export class NotificationsComponent implements OnInit {
 
-  notifications: INotification[] = [];
+  notifications: CustomINotification[] = [];
+  isAdmin: boolean = false;
   user: IUserDto = {
     firstName: '',
     lastName: '',
@@ -32,8 +33,9 @@ export class NotificationsComponent implements OnInit {
         notifications.map(
           notify => ({
             ...notify,
-            image: notify.image != null ? `api/Images/${notify.image}` : null
-          } as INotification)
+            image: notify.image != null ? `api/Images/${notify.image}` : null,
+            toWho: this.ifAdmin(notify.content)
+          } as CustomINotification)
         ))
     ).subscribe(
       {
@@ -42,7 +44,6 @@ export class NotificationsComponent implements OnInit {
         }
       }
     )
-
 
     this.user = await firstValueFrom(this.ClientsUsers.get(localStorage.getItem('username')).pipe(
       map(data => ({
@@ -81,4 +82,25 @@ export class NotificationsComponent implements OnInit {
       return moment(created).format('MMM DD, YYYY');
     }
   }
+
+  ifAdmin(content: string): string
+  {
+    const startMarker = '.. ';
+    const endMarker = '(';
+    const startIndex = content.indexOf(startMarker);
+    
+    if (startIndex !== -1) {
+      const endIndex = content.indexOf(endMarker, startIndex + startMarker.length);
+      
+      if (endIndex !== -1) {
+        this.isAdmin = true;
+        return content.substring(startIndex + startMarker.length, endIndex);
+      }
+    }
+    
+    return '';
+  }
+}
+export interface CustomINotification extends INotification {
+toWho: string;
 }

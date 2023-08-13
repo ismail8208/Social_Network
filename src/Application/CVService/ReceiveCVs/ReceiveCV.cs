@@ -33,7 +33,7 @@ public class ReceiveCVHandler : IRequestHandler<ReceiveCV, int>
 
         var notify = new Domain.Entities.Notification
         {
-            Content = $"{user.FirstName} {user.LastName} sent his CV to work as a {jobName.Title}", // قامت شركة ما بالاعلان عن شاغر وظيفي بعنوان كذا
+            Content = $".. {user.UserName}({user.FirstName} {user.LastName}) sent his CV to work as a {jobName.Title}", // قامت شركة ما بالاعلان عن شاغر وظيفي بعنوان كذا
             DistId = jobName.User.Id,
             Image = user.ProfileImage,
         };

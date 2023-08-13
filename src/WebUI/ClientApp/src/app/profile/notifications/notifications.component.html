@@ -9,16 +9,16 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-3 left" >
+        <div class="col-lg-3 left">
             <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center">
-                <img [src]="user.profileImage" class="img-fluid"
-                    alt="Responsive image" />
+                <img [src]="user.profileImage" class="img-fluid" alt="Responsive image" />
                 <div class="p-3 border-bottom">
                     <h6 class="font-weight-bold text-dark">Notifications</h6>
                     <p class="mb-0 text-muted">You're all caught up! Check back later for new notifications</p>
                 </div>
                 <div class="p-3">
-                    <button type="button" class="btn btn-outline-success btn-sm pl-4 pr-4" [routerLink]="['/profile', user.userName]">View Profile</button>
+                    <button type="button" class="btn btn-outline-success btn-sm pl-4 pr-4"
+                        [routerLink]="['/profile', user.userName]">View Profile</button>
                 </div>
             </div>
         </div>
@@ -28,12 +28,15 @@
                     <h6 class="m-0">Recent</h6>
                 </div>
                 <div class="box-body p-0" *ngFor="let notify of notifications.slice(0,  2)">
+
+                        <button class="Check primary" [routerLink]="['/profile', notify.toWho]">View</button>
+
                     <div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
                         <div class="dropdown-list-image mr-3" *ngIf="notify.image">
-                            <img class="rounded-circle" [src]="notify.image"
-                                alt="" />
+                            <img class="rounded-circle" [src]="notify.image" alt="" />
                         </div>
-                        <div class="dropdown-list-image mr-3 d-flex align-items-center bg-dark justify-content-center rounded-circle text-white" *ngIf="!notify.image">
+                        <div class="dropdown-list-image mr-3 d-flex align-items-center bg-dark justify-content-center rounded-circle text-white"
+                            *ngIf="!notify.image">
                             ML
                         </div>
                         <div class="font-weight-bold mr-3">
@@ -48,12 +51,15 @@
                     <h6 class="m-0">Earlier</h6>
                 </div>
                 <div class="box-body p-0" *ngFor="let notify of notifications.slice(2, notifications.length)">
+
+                        <button class="Check primary" [routerLink]="['/profile', notify.toWho]">View</button>
+
                     <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                         <div class="dropdown-list-image mr-3" *ngIf="notify.image">
-                            <img class="rounded-circle" [src]="notify.image"
-                                alt="" />
+                            <img class="rounded-circle" [src]="notify.image" alt="" />
                         </div>
-                        <div class="dropdown-list-image mr-3 d-flex align-items-center bg-dark justify-content-center rounded-circle text-white" *ngIf="!notify.image">
+                        <div class="dropdown-list-image mr-3 d-flex align-items-center bg-dark justify-content-center rounded-circle text-white"
+                            *ngIf="!notify.image">
                             ML
                         </div>
                         <div class="font-weight-bold mr-3">

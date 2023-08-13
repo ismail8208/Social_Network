@@ -56,7 +56,6 @@
 				<a class="nav-link" [routerLink]="['/cv', user.id]">
 					<button class="primary">
 						Export CV
-
 					</button>
 				</a>
 
@@ -90,9 +89,7 @@
 						<li (click)="enableProjectsSection()" *ngIf="isOwner" style="--delay: 4;">
 							Add Projects Section
 						</li>
-
-						<li (click)="openModal(template)" *ngIf="isOwner" style="--delay: 6;">Add Post</li>
-
+						<li (click)="Report()" *ngIf="!isOwner" style="--delay: 6;">{{reportBtn}}</li>
 					</ul>
 				</div>
 			</div>

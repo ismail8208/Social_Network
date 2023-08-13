@@ -44,12 +44,12 @@ public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand,
         // signalR start
         var user = await _context.InnerUsers.FirstOrDefaultAsync(u => u.Id == request.UserId);
         var postWho = await _context.Posts.Include(u => u.User).FirstOrDefaultAsync(p => p.Id == request.PostId);
-        var users = await _context.Comments.Include(u => u.User).Where(c => c.PostId == request.PostId && c.UserId != request.UserId).OrderByDescending(c => c.Created).Select(u => u.User).Distinct().ToListAsync();
+        var users = await _context.Comments.Include(u => u.User).Include(p => p.Post).Where(c => (c.PostId == request.PostId &&  c.UserId != request.UserId) || c.Post.UserId == postWho.Id ).OrderByDescending(c => c.Created).Select(u => u.User).Distinct().ToListAsync();
         foreach (var u in users)
         {
             var notify = new Domain.Entities.Notification
             {
-                Content = $"{user.FirstName} {user.LastName} added a comment to {postWho.User.FirstName} {postWho.User.FirstName} post",
+                Content = $".. {user.UserName}({user.FirstName} {user.LastName}) added a comment to {postWho.User.FirstName} {postWho.User.FirstName} post",
                 DistId = u.Id,
                 Image = user.ProfileImage,
             };
