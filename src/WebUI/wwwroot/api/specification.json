@@ -3334,7 +3334,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Notification"
+                    "$ref": "#/components/schemas/NotificationDto"
                   }
                 }
               }
@@ -3349,7 +3349,7 @@
       }
     },
     "/api/Notifications": {
-      "get": {
+      "post": {
         "tags": [
           "Notifications"
         ],
@@ -6073,6 +6073,40 @@
             }
           },
           "numberOfAllJobs": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "NotificationDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "distId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dist": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/InnerUser"
+              }
+            ]
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "userId": {
             "type": "integer",
             "format": "int32"
           }

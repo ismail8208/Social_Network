@@ -47,7 +47,6 @@ import { NotificationServiceService } from '../sheard/notification-service.servi
 export class ProfileComponent implements OnInit {
 
 
-
   isAuthenticated?: boolean;
   isFolloing: boolean = false;
   isLoaded: boolean = false;
@@ -149,6 +148,8 @@ export class ProfileComponent implements OnInit {
       })
       )
     ));
+
+
     this.addressesClient.get(parseInt(this.localService.getData('id'))).subscribe(Address =>
         
       this.user.address = Address.fullAddress

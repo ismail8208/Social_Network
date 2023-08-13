@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { firstValueFrom, map } from 'rxjs';
-import { ExportCVClient, INotification, IUserDto, NotificationsClient, UsersClient } from 'src/app/web-api-client';
+import { ExportCVClient, INotification, INotificationDto, IUserDto, NotificationsClient, UsersClient } from 'src/app/web-api-client';
 
 @Component({
   selector: 'app-notifications',
@@ -99,6 +99,6 @@ export class NotificationsComponent implements OnInit {
     return '';
   }
 }
-export interface CustomINotification extends INotification {
+export interface CustomINotification extends INotificationDto {
 toWho: string;
 }
