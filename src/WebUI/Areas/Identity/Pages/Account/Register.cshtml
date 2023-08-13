@@ -1,17 +1,15 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "";
 }
-
 <h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
+<div style="margin: 10px 0px 50px 100px;>
+    <div class="col-md-4" style="margin: auto; width: 50%">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
+
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+			<img src="~/api/Images/logoimg.jpg" alt="Logo" class="logo-image" style="width:300px;height:300px;margin-left: 280px;margin-bottom:50px" />
 
 			<div class="form-floating mb-3">
 				<input asp-for="Input.FirstName" class="form-control" autocomplete="FirstName" aria-required="true" placeholder="Ismail" />
@@ -54,22 +52,14 @@
 					<label asp-for="Input.IsCompanyUser" class="form-check-label">Register as a company</label>
 				</div>
 			</div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register </button>
+			<button id="registerSubmit" type="submit" class="w-100 btn btn-lg" style="background-color: #00ADB5; color:white">Register </button>
         </form>
     </div>
     <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
+		<section style="text-align:center">
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
                 }
                 else
                 {

@@ -12,7 +12,8 @@ public class NotificationsController : ApiControllerBase
     [HttpGet("{userId}")]
     public async Task<ActionResult<List<Notification>>> GetNotifications(int userId)
     {
-        return await Mediator.Send(new GetNotificationsQuery(userId));
+        var a = await Mediator.Send(new GetNotificationsQuery(userId));
+        return a;
     }
 
     public async Task<ActionResult> Report([FromQuery] CreateAbuseReport commad)

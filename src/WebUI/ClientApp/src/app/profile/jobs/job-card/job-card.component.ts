@@ -9,14 +9,14 @@ import { CV2, ExportCVClient, ICV2, IJobDto, IReceiveCV, ReceiveCV } from 'src/a
 export class JobCardComponent implements OnInit {
 
   @Input() job: IJobDto;
-  btnText: string ='Send CV';
+  btnText: string = 'Send CV';
+  @Input() isOwner: boolean;
   constructor(private CvClient: ExportCVClient) { }
 
   ngOnInit(): void {
   }
 
-  SendCV()
-  {
+  SendCV() {
     let cv: IReceiveCV = {
       companyId: this.job.userId,
       jobId: this.job.id,
@@ -25,8 +25,7 @@ export class JobCardComponent implements OnInit {
     this.CvClient.reveiveCV(cv as ReceiveCV).subscribe(
       {
         next: data => {
-          if(data>0)
-          {
+          if (data > 0) {
             this.btnText = 'Succeeded'
           }
         }

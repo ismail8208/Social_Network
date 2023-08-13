@@ -2,7 +2,7 @@
     <h4>Jobs</h4>
     <ul>
         <li *ngFor="let job of jobs">
-            <app-job-card [job]="job"></app-job-card>
+            <app-job-card [job]="job" [isOwner]="isOwner"></app-job-card>
         </li>
     </ul>
 </div>

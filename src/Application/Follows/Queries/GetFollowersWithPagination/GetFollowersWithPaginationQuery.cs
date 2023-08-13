@@ -5,8 +5,6 @@ using MediaLink.Application.Common.Interfaces;
 using MediaLink.Application.Common.Mappings;
 using MediaLink.Application.Common.Models;
 using MediaLink.Application.Common.Security;
-using MediaLink.Application.Users.Queries.FindUser;
-using MediaLink.Domain.Entities;
 using MediatR;
 
 namespace MediaLink.Application.Follows.Queries.GetFollowers;
