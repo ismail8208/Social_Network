@@ -50,6 +50,9 @@ export class ProfileComponent implements OnInit {
   isAuthenticated?: boolean;
   isFolloing: boolean = false;
   isLoaded: boolean = false;
+
+  ifMember: boolean = false;
+
   user: IUserForSummary = {
     firstName: '',
     lastName: '',
@@ -143,20 +146,21 @@ export class ProfileComponent implements OnInit {
         role: data.role ?? '',
         userName: data.userName ?? '',
         address: '',
-        specialization: data.specialization ??'',
+        specialization: data.specialization ?? '',
         numberOfPosts: data.numberOfPosts ?? 0
       })
       )
     ));
 
+    this.ifMember=this.user.role == 'member';
 
-    this.addressesClient.get(parseInt(this.localService.getData('id'))).subscribe(Address =>
+    this.addressesClient.get(this.user.id).subscribe(Address =>
         
       this.user.address = Address.fullAddress
-    
 
 
-  )
+
+    )
     this.isLoaded = true;
     this.checkIfUserFolloing();
     this.skillsClinet.getSkillsWithPagination(this.user.id, 1, 40).subscribe({
@@ -207,25 +211,21 @@ export class ProfileComponent implements OnInit {
   }
 
   reportBtn: string = 'Report'
-  Report()
-  {
+  Report() {
     this.notificationsClient.report(parseInt(localStorage.getItem('id')), this.user.id).subscribe({
       next: data => {
-        if(data)
-        {
+        if (data) {
           this.reportBtn = 'Reported'
         }
       }
     })
   }
   deleteBtn: string = 'Delete'
-  DeleteUser()
-  {
+  DeleteUser() {
     this.usersClient.delete(this.username).subscribe(
       {
         next: data => {
-          if(data)
-          {
+          if (data) {
             this.deleteBtn = 'Is Deleted';
           }
         }
@@ -233,9 +233,9 @@ export class ProfileComponent implements OnInit {
     )
   }
   ngOnDestroy(): void {
-      // this.subSKill.unsubscribe();
-      // this.subUser.unsubscribe();
-      console.log("sun observable is finshed");
+    // this.subSKill.unsubscribe();
+    // this.subUser.unsubscribe();
+    console.log("sun observable is finshed");
   }
 
 
@@ -503,7 +503,7 @@ export class ProfileComponent implements OnInit {
   }
 
 }
-interface IUserForSummary extends IUserDto{
-  address:string,
+interface IUserForSummary extends IUserDto {
+  address: string,
 
 }

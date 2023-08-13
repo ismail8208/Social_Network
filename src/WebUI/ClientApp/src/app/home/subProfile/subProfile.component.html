@@ -29,8 +29,8 @@
             <div class="d-flex  align-items-center mt-4 px-4">
 
                 <a [routerLink]="['/followers', user.id ]" class="following">
-                    <div class="stats">
-                        <h6 class="mb-0">Followers</h6>
+                    <div class="stats" style="margin: 0; padding: 0;">
+                        <h6 class="mb-0" style="  margin: 5px 5px 5px 0;">Followers </h6 >
                         <span>{{user.numberOfFollowers}}</span>
 
                     </div>
@@ -38,7 +38,7 @@
 
                 <a [routerLink]="['/followings', user.id ]" class="following">
                     <div class="stats">
-                        <h6 class="mb-0">Followings</h6>
+                        <h6 class="mb-0" style="  margin: 5px 5px 5px 0;">Followings</h6>
                         <span>{{user.numberOfFollowings}}</span>
 
 
@@ -47,8 +47,8 @@
 
 
             <a [routerLink]="['/my-posts', user.id ]" class="following">
-                <div class="stats">
-                    <h6 class="mb-0">Posts</h6>
+                <div class="stats" >
+                    <h6 class="mb-0" style="  margin: 5px 5px 5px 0;">Posts</h6>
                     <span>{{user.numberOfPosts}}</span>
 
                 </div>

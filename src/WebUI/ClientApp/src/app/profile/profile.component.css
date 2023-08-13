@@ -48,15 +48,22 @@ p {
   right: 30px;
 
 }
-
+/* تطبيق الانتباخ */
+.profile-picture img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
 
 .card-container .round {
   border: 1px solid #00ADB5;
   border-radius: 50%;
   padding: 7px;
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
   font-size: 16px;
+  overflow: hidden;
+  
 }
 
 button.primary {

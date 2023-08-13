@@ -57,6 +57,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { UsersChartsComponent } from './Admin/dashboard/users-charts/users-charts.component';
 import { PostsChartsComponent } from './Admin/dashboard/posts-charts/posts-charts.component';
 import { JobsChartsComponent } from './Admin/dashboard/jobs-charts/jobs-charts.component';
+import { AdvertisementsComponent } from './home/advertisements/advertisements.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { JobsChartsComponent } from './Admin/dashboard/jobs-charts/jobs-charts.c
     JobsListComponent,
     HasRoleDirective,
     SubProfileComponent,
+    AdvertisementsComponent,
     StateJobListComponent,
     CvListComponent,
     BriefPostsComponent,

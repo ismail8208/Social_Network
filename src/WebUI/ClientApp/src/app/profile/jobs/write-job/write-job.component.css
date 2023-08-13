@@ -20,8 +20,8 @@
         justify-content: left;
           width: 80px;
           height: 80px;
-          border-radius: 80px;
-          object-fit: contain;
+          border-radius: 50%;
+          object-fit: cover;
           margin: 12px 8px 12px 2px;
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         

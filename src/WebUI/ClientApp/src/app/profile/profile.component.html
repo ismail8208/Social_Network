@@ -5,8 +5,8 @@
 
 		<a class="edit" [routerLink]='["/authentication/profile"]' title="Manage" style="text-decoration:none"
 			*ngIf="isOwner"> <i class="bi bi-pencil-square"></i> </a>
+		<div class="profile-picture"> <img class="round" [src]="user.profileImage" alt="user" /></div>
 
-		<img class="round" [src]="user.profileImage" alt="user" />
 		<h3>{{user!.firstName+ " " + user.lastName}}</h3>
 		<div class="text-muted d-block mb-2" *ngIf="user.address"><i class="bi bi-geo-alt-fill"></i>
 			{{user.address}}</div>
@@ -50,10 +50,10 @@
 		<span *userHasRole="'member'">
 
 			<div class="buttons">
-				<button class="primary" (click)="openModal(template)">
+				<button class="primary" (click)="openModal(template)" *ngIf="isOwner" >
 					Add Post
 				</button>
-				<a class="nav-link" [routerLink]="['/cv', user.id]">
+				<a class="nav-link" [routerLink]="['/cv', user.id]" *ngIf="ifMember">
 					<button class="primary">
 						Export CV
 					</button>
