@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MediaLink.Application.Dashboard.UsersInfo;
-public class UserInfoDto
+namespace MediaLink.Application.Dashboard.PostsInfo;
+public class PostInfoDto
 {
     public List<DateTime>? DateTimes { get; set; }
-    public List<int>? NumberOfUsers { get; set; }
-    public int NumberOfAllUsers { get; set; }
+    public List<int>? NumberOfPosts { get; set; }
+    public int NumberOfAllPosts { get; set; }
 
 }

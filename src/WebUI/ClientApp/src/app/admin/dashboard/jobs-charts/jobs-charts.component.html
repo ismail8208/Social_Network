@@ -1,0 +1,32 @@
+<app-dashboard></app-dashboard>
+<div class="opt">
+    <div class="buttons">
+        <button class="primary" (click)="update()">
+            Update
+        </button>
+    </div>
+    
+    start <input type="date" placeholder="Date from" [(ngModel)]="DateFrom">
+    <br>
+    <div style="margin: 10;">.</div>
+    end  <input type="date" placeholder="Date To" [(ngModel)]="DateTo">    
+
+    <div class="container">
+        <ul class="list-group">
+            <a style="text-decoration: none; color:#222831; ">
+                <li class="list-group-item clearfix">                
+                    <p class="list-group-item-text lead" style="font-weight: bold;;">The number of Posts in the system to date is {{numOfJobs}} </p>
+                </li>
+            </a>
+        </ul>
+    </div>
+</div>
+
+<div class="chart-container">
+        <canvas id="MyChart">{{ chart }}</canvas>
+</div>
+
+<div class="chart-bar-container">
+        <canvas id="MyBarChart">{{ chartBar }}</canvas>
+</div>
+

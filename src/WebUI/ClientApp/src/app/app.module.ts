@@ -54,6 +54,9 @@ import { MyPostComponent } from './profile/posts/myPost/myPost.component';
 import { ConvertToSettings } from './sheard/convert-to-settings';
 import { NotificationsComponent } from './profile/notifications/notifications.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { UsersChartsComponent } from './Admin/dashboard/users-charts/users-charts.component';
+import { PostsChartsComponent } from './Admin/dashboard/posts-charts/posts-charts.component';
+import { JobsChartsComponent } from './Admin/dashboard/jobs-charts/jobs-charts.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +102,10 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
     CvListComponent,
     BriefPostsComponent,
     NotificationsComponent,
-    DashboardComponent
+    DashboardComponent,
+    UsersChartsComponent,
+    PostsChartsComponent,
+    JobsChartsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

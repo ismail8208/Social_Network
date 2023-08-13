@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 using MediaLink.Application.Common.Interfaces;
@@ -41,7 +42,7 @@ public class GetUsersInfoHandler : IRequestHandler<GetUsersInfo, UserInfoDto>
                 )
                 .ToList()
         };
-
+        userInfo.NumberOfAllUsers = await _context.InnerUsers.CountAsync();
         return userInfo;
     }
 }

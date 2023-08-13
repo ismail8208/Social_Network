@@ -3130,6 +3130,86 @@
         }
       }
     },
+    "/api/Dashboards/post-counts": {
+      "get": {
+        "tags": [
+          "Dashboards"
+        ],
+        "operationId": "Dashboards_GetPostCounts",
+        "parameters": [
+          {
+            "name": "DateFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "DateTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostInfoDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Dashboards/job-counts": {
+      "get": {
+        "tags": [
+          "Dashboards"
+        ],
+        "operationId": "Dashboards_GetJobCounts",
+        "parameters": [
+          {
+            "name": "DateFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "DateTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobsInfoDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Images/{videoId}/video": {
       "get": {
         "tags": [
@@ -5861,6 +5941,62 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          "numberOfAllUsers": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PostInfoDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "dateTimes": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "numberOfPosts": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "numberOfAllPosts": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "JobsInfoDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "dateTimes": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "numberOfJobs": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "numberOfAllJobs": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       }

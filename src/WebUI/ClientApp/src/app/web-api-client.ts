@@ -4502,6 +4502,8 @@ export class WeatherForecastClient implements IWeatherForecastClient {
 
 export interface IDashboardsClient {
     getUserCounts(dateFrom: Date | undefined, dateTo: Date | undefined): Observable<UserInfoDto>;
+    getPostCounts(dateFrom: Date | undefined, dateTo: Date | undefined): Observable<PostInfoDto>;
+    getJobCounts(dateFrom: Date | undefined, dateTo: Date | undefined): Observable<JobsInfoDto>;
 }
 
 @Injectable({
@@ -4563,6 +4565,118 @@ export class DashboardsClient implements IDashboardsClient {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = UserInfoDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getPostCounts(dateFrom: Date | undefined, dateTo: Date | undefined): Observable<PostInfoDto> {
+        let url_ = this.baseUrl + "/api/Dashboards/post-counts?";
+        if (dateFrom === null)
+            throw new Error("The parameter 'dateFrom' cannot be null.");
+        else if (dateFrom !== undefined)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
+        if (dateTo === null)
+            throw new Error("The parameter 'dateTo' cannot be null.");
+        else if (dateTo !== undefined)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPostCounts(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPostCounts(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PostInfoDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PostInfoDto>;
+        }));
+    }
+
+    protected processGetPostCounts(response: HttpResponseBase): Observable<PostInfoDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PostInfoDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getJobCounts(dateFrom: Date | undefined, dateTo: Date | undefined): Observable<JobsInfoDto> {
+        let url_ = this.baseUrl + "/api/Dashboards/job-counts?";
+        if (dateFrom === null)
+            throw new Error("The parameter 'dateFrom' cannot be null.");
+        else if (dateFrom !== undefined)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
+        if (dateTo === null)
+            throw new Error("The parameter 'dateTo' cannot be null.");
+        else if (dateTo !== undefined)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetJobCounts(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetJobCounts(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<JobsInfoDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<JobsInfoDto>;
+        }));
+    }
+
+    protected processGetJobCounts(response: HttpResponseBase): Observable<JobsInfoDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = JobsInfoDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -9756,6 +9870,7 @@ export interface IWeatherForecast {
 export class UserInfoDto implements IUserInfoDto {
     dateTimes?: Date[] | undefined;
     numberOfUsers?: number[] | undefined;
+    numberOfAllUsers?: number;
 
     constructor(data?: IUserInfoDto) {
         if (data) {
@@ -9778,6 +9893,7 @@ export class UserInfoDto implements IUserInfoDto {
                 for (let item of _data["numberOfUsers"])
                     this.numberOfUsers!.push(item);
             }
+            this.numberOfAllUsers = _data["numberOfAllUsers"];
         }
     }
 
@@ -9800,6 +9916,7 @@ export class UserInfoDto implements IUserInfoDto {
             for (let item of this.numberOfUsers)
                 data["numberOfUsers"].push(item);
         }
+        data["numberOfAllUsers"] = this.numberOfAllUsers;
         return data;
     }
 }
@@ -9807,6 +9924,127 @@ export class UserInfoDto implements IUserInfoDto {
 export interface IUserInfoDto {
     dateTimes?: Date[] | undefined;
     numberOfUsers?: number[] | undefined;
+    numberOfAllUsers?: number;
+}
+
+export class PostInfoDto implements IPostInfoDto {
+    dateTimes?: Date[] | undefined;
+    numberOfPosts?: number[] | undefined;
+    numberOfAllPosts?: number;
+
+    constructor(data?: IPostInfoDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["dateTimes"])) {
+                this.dateTimes = [] as any;
+                for (let item of _data["dateTimes"])
+                    this.dateTimes!.push(new Date(item));
+            }
+            if (Array.isArray(_data["numberOfPosts"])) {
+                this.numberOfPosts = [] as any;
+                for (let item of _data["numberOfPosts"])
+                    this.numberOfPosts!.push(item);
+            }
+            this.numberOfAllPosts = _data["numberOfAllPosts"];
+        }
+    }
+
+    static fromJS(data: any): PostInfoDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PostInfoDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.dateTimes)) {
+            data["dateTimes"] = [];
+            for (let item of this.dateTimes)
+                data["dateTimes"].push(item.toISOString());
+        }
+        if (Array.isArray(this.numberOfPosts)) {
+            data["numberOfPosts"] = [];
+            for (let item of this.numberOfPosts)
+                data["numberOfPosts"].push(item);
+        }
+        data["numberOfAllPosts"] = this.numberOfAllPosts;
+        return data;
+    }
+}
+
+export interface IPostInfoDto {
+    dateTimes?: Date[] | undefined;
+    numberOfPosts?: number[] | undefined;
+    numberOfAllPosts?: number;
+}
+
+export class JobsInfoDto implements IJobsInfoDto {
+    dateTimes?: Date[] | undefined;
+    numberOfJobs?: number[] | undefined;
+    numberOfAllJobs?: number;
+
+    constructor(data?: IJobsInfoDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["dateTimes"])) {
+                this.dateTimes = [] as any;
+                for (let item of _data["dateTimes"])
+                    this.dateTimes!.push(new Date(item));
+            }
+            if (Array.isArray(_data["numberOfJobs"])) {
+                this.numberOfJobs = [] as any;
+                for (let item of _data["numberOfJobs"])
+                    this.numberOfJobs!.push(item);
+            }
+            this.numberOfAllJobs = _data["numberOfAllJobs"];
+        }
+    }
+
+    static fromJS(data: any): JobsInfoDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new JobsInfoDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.dateTimes)) {
+            data["dateTimes"] = [];
+            for (let item of this.dateTimes)
+                data["dateTimes"].push(item.toISOString());
+        }
+        if (Array.isArray(this.numberOfJobs)) {
+            data["numberOfJobs"] = [];
+            for (let item of this.numberOfJobs)
+                data["numberOfJobs"].push(item);
+        }
+        data["numberOfAllJobs"] = this.numberOfAllJobs;
+        return data;
+    }
+}
+
+export interface IJobsInfoDto {
+    dateTimes?: Date[] | undefined;
+    numberOfJobs?: number[] | undefined;
+    numberOfAllJobs?: number;
 }
 
 export interface FileParameter {

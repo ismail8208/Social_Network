@@ -1,13 +1,14 @@
-<div class="chart-container">
-    <div class="buttons">
-        <button class="primary" (click)="clear()">
-            Update
-        </button>
-    </div>
-
-    start <input type="date" placeholder="Date from" [(ngModel)]="DateFrom">
-    <br>
-    <div style="margin: 10;">.</div>
-    end <input type="date" placeholder="Date To" [(ngModel)]="DateTo">
-    <canvas id="MyChart">{{ chart }}</canvas>
-</div>
+<nav>
+    <ul>
+        <li>
+           
+            <a [routerLink]='["/users-chart"]'>Users</a>
+        </li>
+        <li>
+            <a [routerLink]='["/posts-chart"]' >Posts</a>
+        </li>
+        <li>
+            <a [routerLink]='["/jobs-chart"]'>Jobs</a>
+        </li>
+    </ul>
+</nav>

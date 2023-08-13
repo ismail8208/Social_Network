@@ -15,6 +15,9 @@ import { CvListComponent } from './profile/cv-service/cv-list/cv-list.component'
 import { MyPostComponent } from './profile/posts/myPost/myPost.component';
 import { NotificationsComponent } from './profile/notifications/notifications.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { UsersChartsComponent } from './Admin/dashboard/users-charts/users-charts.component';
+import { PostsChartsComponent } from './Admin/dashboard/posts-charts/posts-charts.component';
+import { JobsChartsComponent } from './Admin/dashboard/jobs-charts/jobs-charts.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent/*, pathMatch: 'full'*/, canActivate: [AuthorizeGuard] },
@@ -24,7 +27,11 @@ export const routes: Routes = [
   { path: 'fetch-data', component: FetchDataComponent },
 //notifications
 //Dashboard
+
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthorizeGuard] },
+  { path: 'users-chart', component: UsersChartsComponent, canActivate: [AuthorizeGuard] },
+  { path: 'posts-chart', component: PostsChartsComponent, canActivate: [AuthorizeGuard] },
+  { path: 'jobs-chart', component: JobsChartsComponent, canActivate: [AuthorizeGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthorizeGuard] },
   { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthorizeGuard] },
   { path: 'job-list', component: StateJobListComponent, canActivate: [AuthorizeGuard] },

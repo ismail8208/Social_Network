@@ -10,67 +10,9 @@ import { DashboardsClient, IUserInfoDto } from 'src/app/web-api-client';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  public chart: any;
-  userInfoDto: IUserInfoDto;
-  listDateFormated: string[] = [];
-  @Input() DateFrom: Date = new Date('2023-8-5');
-  @Input() DateTo: Date =  new Date('2023-8-14');;
-  constructor(private dashboardsClient: DashboardsClient)
-  {
-
-  }
-  ngOnInit(): void {
-    this.createChart();
-  }
-  
-  clear()
-  {
-	this.listDateFormated = []
-	this.chart.destroy()
-	this.createChart();
-  }
-   async createChart(){
-	console.log(this.DateFrom)
-	console.log(this.DateTo)
-	this.userInfoDto = await firstValueFrom(this.dashboardsClient.getUserCounts(new Date(this.getFormattedDate(this.DateFrom)),new Date(this.getFormattedDate(this.DateTo))));
-
-	this.userInfoDto.dateTimes.forEach(element => {
-		this.listDateFormated.push(this.getFormattedDate(element))
-	});
-
-	console.log(this.listDateFormated)
-	console.log(this.userInfoDto.numberOfUsers)
-    this.chart = new Chart("MyChart", {
-      type: 'bar', //this denotes tha type of chart
-
-      data: {// values on X-Axis
-        labels: this.listDateFormated, 
-	       datasets: [
-          {
-            label: "Sales",
-            data: this.userInfoDto.numberOfUsers,
-            backgroundColor: '#00ADB5'
-          },
+	ngOnInit(): void {
+	}
  
-        ]
-      },
-      options: {
-        aspectRatio:2.5
-      }
-      
-    });
-	this.chart.Clear();
-
-  }
-
-  getFormattedDate(created: Date): string {
-    const currentDate = moment();
-    const postDate = moment(created);
-
-      return moment(created).format('MMM DD, YYYY');
-    }
-
-
 }
 
 
