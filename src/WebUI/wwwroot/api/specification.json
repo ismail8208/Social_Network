@@ -4118,6 +4118,14 @@
             "type": "string",
             "nullable": true
           },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "startedTime": {
+            "type": "string",
+            "format": "date-time"
+          },
           "experienceDate": {
             "type": "integer",
             "format": "int32",
@@ -4130,6 +4138,10 @@
         "additionalProperties": false,
         "properties": {
           "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "link": {
             "type": "string",
             "nullable": true
           },

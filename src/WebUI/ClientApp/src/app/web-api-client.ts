@@ -6473,6 +6473,8 @@ export interface ISkillCV {
 export class ExperienceCV implements IExperienceCV {
     title?: string | undefined;
     description?: string | undefined;
+    companyName?: string | undefined;
+    startedTime?: Date;
     experienceDate?: number | undefined;
 
     constructor(data?: IExperienceCV) {
@@ -6488,6 +6490,8 @@ export class ExperienceCV implements IExperienceCV {
         if (_data) {
             this.title = _data["title"];
             this.description = _data["description"];
+            this.companyName = _data["companyName"];
+            this.startedTime = _data["startedTime"] ? new Date(_data["startedTime"].toString()) : <any>undefined;
             this.experienceDate = _data["experienceDate"];
         }
     }
@@ -6503,6 +6507,8 @@ export class ExperienceCV implements IExperienceCV {
         data = typeof data === 'object' ? data : {};
         data["title"] = this.title;
         data["description"] = this.description;
+        data["companyName"] = this.companyName;
+        data["startedTime"] = this.startedTime ? this.startedTime.toISOString() : <any>undefined;
         data["experienceDate"] = this.experienceDate;
         return data;
     }
@@ -6511,11 +6517,14 @@ export class ExperienceCV implements IExperienceCV {
 export interface IExperienceCV {
     title?: string | undefined;
     description?: string | undefined;
+    companyName?: string | undefined;
+    startedTime?: Date;
     experienceDate?: number | undefined;
 }
 
 export class ProjectCV implements IProjectCV {
     title?: string | undefined;
+    link?: string | undefined;
     description?: string | undefined;
 
     constructor(data?: IProjectCV) {
@@ -6530,6 +6539,7 @@ export class ProjectCV implements IProjectCV {
     init(_data?: any) {
         if (_data) {
             this.title = _data["title"];
+            this.link = _data["link"];
             this.description = _data["description"];
         }
     }
@@ -6544,6 +6554,7 @@ export class ProjectCV implements IProjectCV {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["title"] = this.title;
+        data["link"] = this.link;
         data["description"] = this.description;
         return data;
     }
@@ -6551,6 +6562,7 @@ export class ProjectCV implements IProjectCV {
 
 export interface IProjectCV {
     title?: string | undefined;
+    link?: string | undefined;
     description?: string | undefined;
 }
 

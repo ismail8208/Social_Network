@@ -1,4 +1,178 @@
+
 <div id="htmlData">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Resume - Start Bootstrap Theme</title>
+    <!-- Font Awesome icons (free version)-->
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet"
+      type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+  </head>
+
+  <body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg fixed-top" id="sideNav" >
+      <div class="col-md-4 text-right">
+        <button class="btn btn-success btn-block" (click)="getPDF()" style="margin-top: 600px; background-color: black;">Download PDF</button>
+      </div>
+    </nav>
+    <!-- Page Content-->
+    <div class="container-fluid p-0">
+      <!-- About-->
+      <section class="resume-section" id="about">
+        <div class="resume-section-content">
+          <h1 class="mb-0">
+            {{user.firstName}}
+            <span class="text-primary"> {{user.lastName}}</span>
+          </h1>
+          <div class="subheading mb-5">
+            <!-- full address -->
+            Syria, Aleppo, Kafar Halab
+            {{user.address}}
+            <!-- email -->
+            <a href="mailto:{{user.email}}">{{user.email}}</a> 
+          </div>
+          <!-- summary -->
+          <p class="lead mb-5">{{user.summary}}.</p>
+          <div class="social-icons">
+            <a class="social-icon" href="#!"><i class="fa fa-linkedin"></i></a>
+            <a class="social-icon" href="#!"><i class="fa fa-github"></i></a>
+            <a class="social-icon" href="#!"><i class="fa fa-instagram"></i></a>
+            <a class="social-icon" href="#!"><i class="fa fa-facebook"></i></a>
+          </div>
+        </div>
+      </section>
+      <hr class="m-0" />
+      <!-- Experience-->
+      <section class="resume-section" id="experience">
+        <div class="resume-section-content">
+          <h2 class="mb-5">Experience</h2>
+          <div class="d-flex flex-column flex-md-row justify-content-between mb-5"  *ngFor="let exp of experiences">
+            <div class="flex-grow-1">
+              <!-- Experience Name -->
+              <h3 class="mb-0">{{exp.title}}</h3>
+               <!-- Compnay Name -->
+              <div class="subheading mb-3">{{exp.companyName}}</div>
+               <!-- Description -->
+              <p>{{exp.description}}.</p>
+            </div>
+            <!-- Date from to -->
+            <div class="flex-shrink-0"><span class="text-primary">{{getFormattedDate(exp.startedTime)}} - Present</span></div>
+          </div>
+        </div>
+      </section>
+      <hr class="m-0" />
+      <!-- Education-->
+      <section class="resume-section" id="education">
+        <div class="resume-section-content">
+          <h2 class="mb-5">Education</h2>
+          <div class="d-flex flex-column flex-md-row justify-content-between mb-5" *ngFor="let educ of educations">
+            <div class="flex-grow-1">
+              <h3 class="mb-0">{{educ.title}}</h3>
+              <div class="subheading mb-3">{{educ.level}}</div>
+              <div>Computer Science - Web Development Track</div>
+            </div>
+            <div class="flex-shrink-0"><span class="text-primary">August 2006 - May 2010</span></div>
+          </div>
+        </div>
+      </section>
+      <hr class="m-0" />
+      <!-- Skills-->
+      <section class="resume-section" id="skills">
+        <div class="resume-section-content">
+          <h2 class="mb-5">Skills</h2>
+          <!-- <ul class="list-inline dev-icons">
+            <li class="list-inline-item"><i class="fa fa-html5"></i></li>
+            <li class="list-inline-item"><i class="fa fa-css3-alt"></i></li>
+            <li class="list-inline-item"><i class="fa fa-js-square"></i></li>
+            <li class="list-inline-item"><i class="fa fa-angular"></i></li>
+            <li class="list-inline-item"><i class="fa fa-react"></i></li>
+            <li class="list-inline-item"><i class="fa fa-node-js"></i></li>
+            <li class="list-inline-item"><i class="fa fa-sass"></i></li>
+            <li class="list-inline-item"><i class="fa fa-less"></i></li>
+            <li class="list-inline-item"><i class="fa fa-wordpress"></i></li>
+            <li class="list-inline-item"><i class="fa fa-gulp"></i></li>
+            <li class="list-inline-item"><i class="fa fa-grunt"></i></li>
+            <li class="list-inline-item"><i class="fa fa-npm"></i></li>
+          </ul> -->
+          <div class="subheading mb-3">Workflow</div>
+          <ul class="fa-ul mb-0">
+            <li *ngFor="let skill of skills">
+              <span class="fa-li"><i class="fa fa-check"></i></span>
+              {{skill.title}}
+            </li>
+          </ul>
+        </div>
+      </section>
+      <hr class="m-0" />
+      <!-- projects -->
+      <section class="resume-section" id="education">
+        <div class="resume-section-content">
+          <h2 class="mb-5">Projects</h2>
+          <div class="d-flex flex-column flex-md-row justify-content-between mb-5" *ngFor="let pro of projects">
+            <div class="flex-grow-1">
+              <h3 class="mb-0">{{pro.title}}</h3>
+              <div class="subheading mb-3">{{pro.description}}</div>
+              <div><i class='fa fa-link'></i><a [href]="pro.link"></a> {{pro.link}}</div>
+            </div>
+            <div class="flex-shrink-0"><span class="text-primary">August 2006 - May 2010</span></div>
+          </div>
+        </div>
+      </section>
+      <hr class="m-0" />
+    </div>
+  </body>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div id="htmlData">
   <div class="container">
     <div class="header">
       <div class="full-name">
@@ -102,4 +276,4 @@
 <div class="col-md-4 text-right">
   <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
 </div>
-
+ -->
