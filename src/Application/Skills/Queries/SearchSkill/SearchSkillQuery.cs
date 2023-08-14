@@ -30,7 +30,7 @@ public class SearchSkillQueryHandler : IRequestHandler<SearchSkillQuery, Paginat
     public async Task<PaginatedList<SkillDto>> Handle(SearchSkillQuery request, CancellationToken cancellationToken)
     {
         return await _context.Skills
-           .Where(u => u.Title.StartsWith(request.Query) && u.IsDeleted == false)
+           .Where(u => u.Title.StartsWith(request.Query) && u.IsDeleted == false).Distinct()
            .ProjectTo<SkillDto>(_mapper.ConfigurationProvider)
            .PaginatedListAsync(request.PageNumber, request.PageSize);
     }

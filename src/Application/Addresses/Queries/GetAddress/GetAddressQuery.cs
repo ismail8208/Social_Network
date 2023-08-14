@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaLink.Application.Addresses.Queries.GetAddressByUserId;
 [Authorize(Roles = "member")]
-[Authorize(Roles = "Administrator")] 
+[Authorize(Roles = "Administrator")]
 public record GetAddressQuery(int id) : IRequest<AddressDto>;
 
 
@@ -26,13 +26,17 @@ public class GetAddressQueryHandler : IRequestHandler<GetAddressQuery, AddressDt
     }
     public async Task<AddressDto> Handle(GetAddressQuery request, CancellationToken cancellationToken)
     {
-        var address =  await _context.Addresses
+        var address = await _context.Addresses
             .Include(u => u.User)
             .ProjectTo<AddressDto>(_mapper.ConfigurationProvider)
-            .FirstOrDefaultAsync(a=>a.UserId == request.id);
+            .FirstOrDefaultAsync(a => a.UserId == request.id);
         if (address == null)
         {
-            throw new NotFoundException();
+            return new AddressDto()
+            {
+                UserId = request.id,
+                FullAddress = "Syria, Aleppo"
+            };
         }
         return address;
     }

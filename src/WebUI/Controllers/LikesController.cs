@@ -1,10 +1,13 @@
 ﻿using MediaLink.Application.Comments.Commands.DeleteComment;
 using MediaLink.Application.Comments.Queries.GetCommentsWithPagination;
 using MediaLink.Application.Common.Models;
+using MediaLink.Application.Follows.Queries;
 using MediaLink.Application.Likes.Commands.CreateLike;
 using MediaLink.Application.Likes.Commands.DeleteLike;
 using MediaLink.Application.Likes.Queries.GetLikesForJobWithPagination;
 using MediaLink.Application.Likes.Queries.GetLikesWithPagination;
+using MediaLink.Application.Likes.Queries.GetLiksOfPost;
+using MediaLink.Application.Users.Queries.FindUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +19,12 @@ public class LikesController : ApiControllerBase
     public async Task<ActionResult<PaginatedList<LikeDto>>> GetLikesWithPagination([FromQuery] GetLikesWithPaginationQuery query)
     {
         return await Mediator.Send(query);
+    }
+
+    [HttpGet("{postId}/likes")]
+    public async Task<ActionResult<List<BriefUserDto>>> GetLikesOfPost(int postId)
+    {
+        return await Mediator.Send(new GetLikeOfPostsQuery(postId));
     }
 
     [HttpGet("Job")]

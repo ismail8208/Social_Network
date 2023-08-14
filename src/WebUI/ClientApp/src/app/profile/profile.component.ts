@@ -153,14 +153,12 @@ export class ProfileComponent implements OnInit {
     ));
 
     this.ifMember=this.user.role == 'member';
-
-    this.addressesClient.get(this.user.id).subscribe(Address =>
-        
-      this.user.address = Address.fullAddress
-
-
-
+     this.addressesClient.get(this.user.id).subscribe(
+      {
+        next: data => this.user.address = data.fullAddress
+      }
     )
+
     this.isLoaded = true;
     this.checkIfUserFolloing();
     this.skillsClinet.getSkillsWithPagination(this.user.id, 1, 40).subscribe({
@@ -241,6 +239,7 @@ export class ProfileComponent implements OnInit {
 
   //Skills Methods Start
   enableSkillsSection() {
+    console.log('any way today');
     this.isSkillsEnabled = true;
   }
 
@@ -263,10 +262,12 @@ export class ProfileComponent implements OnInit {
     this.skillsClinet.delete(id).subscribe();
   }
   searchSkills(skill: string) {
+    if(skill.length > 0) {
     this.skillsClinet.search(skill).subscribe({
       next: data =>
         this.filteredSKills = data.items
     });
+  }
   }
   //Skills Methods End
 
@@ -311,6 +312,7 @@ export class ProfileComponent implements OnInit {
   }
 
   searchEducation(education: string) {
+    if(education.length > 0)
     this.educationsClient.search(education).subscribe({
       next: data =>
         this.filteredEducations = data.items

@@ -38,15 +38,23 @@ else
     app.UseHsts();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+    await initialiser.InitialiseAsync();
+    await initialiser.SeedAsync();
+}
+
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseSwaggerUi3(settings =>
+/*app.UseSwaggerUi3(settings =>
 {
     settings.Path = "/api";
     settings.DocumentPath = "/api/specification.json";
-});
+});*/
+//    "DefaultConnection": "Data Source=SQL6031.site4now.net;Initial Catalog=db_a9d6ff_medialink;User Id=db_a9d6ff_medialink_admin;Password=medialink01"
 
 app.UseRouting();
 

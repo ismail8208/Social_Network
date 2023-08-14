@@ -32,7 +32,7 @@ export class PostComponent implements OnInit , OnDestroy{
 
   newCommentEditor: any = {};
   newCommentModalRef: BsModalRef;
-
+  LikesModalRef: BsModalRef;
 
   deletePostModalRef: BsModalRef;
   postIdForDelete: number;
@@ -237,6 +237,11 @@ export class PostComponent implements OnInit , OnDestroy{
     })
   }
 
+  getLikes(template: TemplateRef<any>, postId: number): void {
+    this.thispost = postId;
+    this.LikesModalRef = this.modalService.show(template);
+  }
+  
   onLikeClicked(postId: number): void {
     this.checkIfUserLiked(this.user.id, postId).subscribe(
       like => {

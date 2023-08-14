@@ -59,13 +59,12 @@ export class SubProfileComponent implements OnInit {
       })
       )
     ));
-    this.addressesClient.get(parseInt(this.localService.getData('id'))).subscribe(Address =>
-        
-        this.user.address = Address.fullAddress
-      
-
-
+    this.addressesClient.get(parseInt(this.localService.getData('id'))).subscribe(
+      {
+        next: data => this.user.address = data.fullAddress
+      }
     )
+
   }
 
   

@@ -50,7 +50,7 @@
           </h5>
         </div>
         <div class="number">
-          <span class="numberOfLikes" *ngIf="post.numberOfLikes != 0" style="color:#00ADB5;">
+          <span class="numberOfLikes" *ngIf="post.numberOfLikes != 0" style="color:#00ADB5;"  (click)="getLikes(likesModal,post.id)">
             <i class="bi bi-hand-thumbs-up-fill"></i>
             <span style="margin-left: 7px;">{{post.numberOfLikes}}</span>
           </span>
@@ -175,6 +175,11 @@
   </div>
 </ng-template>
 
+<ng-template #likesModal>
+  <div class="likes-list-Modal">
+  <app-likes-list [postId]="thispost"></app-likes-list>
+</div>
+</ng-template>
 
 <ng-template #editePostModalTemplate>
 

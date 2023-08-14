@@ -1,0 +1,23 @@
+.reactions ul {
+    list-style-type: none;
+    padding: 0px;
+  }
+  
+    .reactions ul li {
+      display: inline-block;
+      font-size: 12px;
+      margin: 0 7px 1px 7px;
+      padding: 2px;
+    }
+  
+  .separateLike {
+    border: 1px solid #2D2747;
+  }
+  
+  .round-like {
+    border: 1px solid #03BFCB;
+    border-radius: 50%;
+    padding: 2px;
+    width: 60px;
+    height: 60px;
+  }

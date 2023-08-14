@@ -2300,6 +2300,7 @@ export class JobsClient implements IJobsClient {
 export interface ILikesClient {
     getLikesWithPagination(postId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfLikeDto>;
     create(command: CreateLikeCommand): Observable<number>;
+    getLikesOfPost(postId: number): Observable<BriefUserDto[]>;
     getLikesFoJobWithPagination(jobId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfLikeForJobDto>;
     create2(command: CreateLikeForJobCommand): Observable<number>;
     delete(id: number): Observable<FileResponse>;
@@ -2421,6 +2422,64 @@ export class LikesClient implements ILikesClient {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
     
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getLikesOfPost(postId: number): Observable<BriefUserDto[]> {
+        let url_ = this.baseUrl + "/api/Likes/{postId}/likes";
+        if (postId === undefined || postId === null)
+            throw new Error("The parameter 'postId' must be defined.");
+        url_ = url_.replace("{postId}", encodeURIComponent("" + postId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLikesOfPost(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLikesOfPost(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<BriefUserDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<BriefUserDto[]>;
+        }));
+    }
+
+    protected processGetLikesOfPost(response: HttpResponseBase): Observable<BriefUserDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(BriefUserDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5074,7 +5133,6 @@ export interface IPaginatedListOfAddressDto {
 export class AddressDto implements IAddressDto {
     fullAddress?: string | undefined;
     userId?: number;
-    userName?: string | undefined;
 
     constructor(data?: IAddressDto) {
         if (data) {
@@ -5089,7 +5147,6 @@ export class AddressDto implements IAddressDto {
         if (_data) {
             this.fullAddress = _data["fullAddress"];
             this.userId = _data["userId"];
-            this.userName = _data["userName"];
         }
     }
 
@@ -5104,7 +5161,6 @@ export class AddressDto implements IAddressDto {
         data = typeof data === 'object' ? data : {};
         data["fullAddress"] = this.fullAddress;
         data["userId"] = this.userId;
-        data["userName"] = this.userName;
         return data;
     }
 }
@@ -5112,7 +5168,6 @@ export class AddressDto implements IAddressDto {
 export interface IAddressDto {
     fullAddress?: string | undefined;
     userId?: number;
-    userName?: string | undefined;
 }
 
 export class CreateAddressCommand implements ICreateAddressCommand {

@@ -4,7 +4,7 @@
     <span (click)="closeD()" title="Close" class="closeAS">X</span>
     <h2>Add <span style="font-weight: bold;">{{chosenSkill}}</span> Skill</h2>
     <!-- <p>This modal box is created using the powers of CSS3.</p> -->
-    <input type="text" maxlength="12" placeholder="Search" class="searchbar" [(ngModel)]="listFilter">
+    <input type="text" maxlength="25" placeholder="Search" class="searchbar" [(ngModel)]="listFilter">
     <div *ngFor="let skill of filteredSKills" class="existing-skill" (click)="chooseSkill(skill)">
       {{skill.title}}
     </div>

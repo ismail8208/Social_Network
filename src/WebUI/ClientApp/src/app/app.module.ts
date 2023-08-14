@@ -58,6 +58,7 @@ import { UsersChartsComponent } from './Admin/dashboard/users-charts/users-chart
 import { PostsChartsComponent } from './Admin/dashboard/posts-charts/posts-charts.component';
 import { JobsChartsComponent } from './Admin/dashboard/jobs-charts/jobs-charts.component';
 import { AdvertisementsComponent } from './home/advertisements/advertisements.component';
+import { LikesListComponent } from './home/likes-list/likes-list.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { AdvertisementsComponent } from './home/advertisements/advertisements.co
     DashboardComponent,
     UsersChartsComponent,
     PostsChartsComponent,
-    JobsChartsComponent
+    JobsChartsComponent,
+    LikesListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

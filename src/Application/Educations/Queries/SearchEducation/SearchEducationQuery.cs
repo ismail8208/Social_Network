@@ -32,7 +32,7 @@ public class SearchEducationQueryHandler : IRequestHandler<SearchEducationQuery,
     {
         return await _context.Educations
             .Where(u => u.Title.StartsWith(request.Query))
-            .Include(u => u.User)
+            .Include(u => u.User).Distinct()
             .ProjectTo<EducationDto>(_mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageNumber, request.PageSize);
     }

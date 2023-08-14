@@ -1686,6 +1686,46 @@
         ]
       }
     },
+    "/api/Likes/{postId}/likes": {
+      "get": {
+        "tags": [
+          "Likes"
+        ],
+        "operationId": "Likes_GetLikesOfPost",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BriefUserDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Likes/Job": {
       "get": {
         "tags": [
@@ -3438,10 +3478,6 @@
           "userId": {
             "type": "integer",
             "format": "int32"
-          },
-          "userName": {
-            "type": "string",
-            "nullable": true
           }
         }
       },

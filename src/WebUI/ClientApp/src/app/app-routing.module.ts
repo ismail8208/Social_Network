@@ -39,7 +39,10 @@ export const routes: Routes = [
   { path: 'cv/:id', component: ExportCvComponent},
   { path: 'todo', component: TodoComponent, canActivate: [AuthorizeGuard] },
   { path: 'my-posts/:id', component: MyPostComponent, canActivate: [AuthorizeGuard] },
-  { path: 'token', component: TokenComponent, canActivate: [AuthorizeGuard] }
+  { path: 'token', component: TokenComponent, canActivate: [AuthorizeGuard] },
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '**', redirectTo: 'home', pathMatch: 'full'},
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

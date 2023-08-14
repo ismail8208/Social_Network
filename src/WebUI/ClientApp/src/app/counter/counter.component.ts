@@ -7,21 +7,11 @@ import { ClientNotificationDto } from '../sheard/ClientNotificationDto';
   templateUrl: './counter.component.html',
   styleUrls: ['counter.component.css']
 })
-export class CounterComponent implements OnInit, OnChanges{
+export class CounterComponent implements OnInit {
 
-   DateFrom: Date;
-   DateTo: Date;
+  constructor() {
 
-constructor(){
-
-}
-  ngOnChanges(changes: SimpleChanges): void {
-    this.DateFrom;
-    this.DateTo;
   }
   ngOnInit(): void {
-
-
-
   }
 }
