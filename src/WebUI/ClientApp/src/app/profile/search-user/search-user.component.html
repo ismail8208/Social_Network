@@ -16,8 +16,8 @@
                     </span>
                     <a href="" [routerLink]="['/profile', user.userName]">
                       <h6 class="text-body">
-                        <span class="big">{{user.firstName}} {{user.lastName}} || <span *ngIf="user.specialization"
-                            style="font-size: 0.8rem;">{{user.specialization}}</span></span>
+                        <span class="big">{{user.firstName}} {{user.lastName}}<span *ngIf="user.specialization"
+                            style="font-size: 0.8rem; margin-left=4px;"> || {{user.specialization}}</span></span>
                         <br>
                         <span class="big text-muted font-weight-normal" style="font-size: 0.8rem;">{{user.userName}}</span>
                         <br>

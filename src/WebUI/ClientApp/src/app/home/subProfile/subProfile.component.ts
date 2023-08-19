@@ -43,7 +43,7 @@ export class SubProfileComponent implements OnInit {
     this.user = await firstValueFrom(this.usersClient.get(this.localService.getData('username')).pipe(
       map(data => ({
         // ...data,
-        profileImage: data.profileImage != null ? data.profileImage = `https://localhost:44447/api/Images/${data.profileImage}` : data.profileImage = 'https://localhost:44447/api/Images/logoimg.jpg',
+        profileImage: data.profileImage != null ? data.profileImage = `api/Images/${data.profileImage}` : data.profileImage = 'api/Images/logoimg.jpg',
         summary: data.summary != null ? data.summary : '',
         firstName: data.firstName ?? '',
         lastName: data.lastName ?? '',

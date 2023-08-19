@@ -15,8 +15,8 @@
             </span>
             <a href="" [routerLink]="['/profile', post.userName]">
               <h6 class="text-body">
-                <span class="big">{{post.firstName}} {{post.lastName}} || <span *ngIf="post.specialization"
-                    style="font-size: 0.8rem;">{{post.specialization}}</span></span>
+                <span class="big">{{post.firstName}} {{post.lastName}}<span  *ngIf="post.specialization"
+      style="font-size: 0.8rem; margin-left=4px;"> || {{post.specialization}}</span></span>
                 <br>
                 <span class="big text-muted font-weight-normal" style="font-size: 0.8rem;">{{post.userName}}</span>
                 <br>
@@ -111,9 +111,8 @@
                     </span>
                     <a href="" [routerLink]="['/profile', comment.userName]" (click)="newCommentCancelled()">
                       <h6 class="commentDetails-body">
-                        <span class="big text-muted">{{comment.firstName}} {{comment.lastName}} || <span
-                            *ngIf="comment.specialization"
-                            style="font-size: 0.8rem;">{{comment.specialization}}</span></span>
+                        <span class="big text-muted">{{comment.firstName}} {{comment.lastName}}<span *ngIf="comment.specialization"
+                              style="font-size: 0.8rem; margin-left=4px;"> || {{comment.specialization}}</span></span>
                         <br>
                         <span class="big text-muted font-weight-normal"
                           style="font-size: 0.8rem;">{{comment.userName}}</span>
@@ -201,7 +200,7 @@
   <div class="modal-footer clearfix">
     <div class="float-end">
       <button class="btn btn-default" (click)="editePostCancelled()">Cancel</button>
-      <button class="btn btn-primary" (click)="editePost()">Create</button>
+      <button class="btn btn-primary" (click)="editePost()">Save</button>
     </div>
   </div>
 </ng-template>
